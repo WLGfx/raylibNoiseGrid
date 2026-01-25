@@ -1,0 +1,3 @@
+# definitely the build directory
+build/
+.cache/
