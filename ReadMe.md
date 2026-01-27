@@ -1,4 +1,4 @@
-# Raylib Noise Grid
+# Raylib Noise Grid v0.2
 
 A raylib application that generates a grid of noise using the FastNoise library.
 
@@ -44,3 +44,8 @@ Good Luck...
 - still thinking...
 - actual flight controls to make the feel of flight
 - marching squares/cubes
+
+__Done__
+
+- Revamped UI handling (Tue 27 Jan 2026 19:51 GMT - Carl)
+

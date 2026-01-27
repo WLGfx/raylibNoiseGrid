@@ -4,6 +4,9 @@
 #include "raylib.h"
 #include "raygui.h"
 
+#include <cstdio>
+#include <functional>
+
 #define write_float_to_char_buffer(buffer, value) snprintf(buffer, sizeof(buffer), "%.3f", value)
 
 struct rBounds {
@@ -51,6 +54,8 @@ struct rTabBar {
     const char **tabs;
     int count;
     int active;
+
+    int draw() { return GuiTabBar(bounds, tabs, count, &active); }
 };
 
 struct rScrollPanel : public rBounds {
@@ -72,9 +77,11 @@ struct rLabel : public rBounds {
 
 struct rButton : public rBounds {
     rButton() = default;
-    rButton(Rectangle bounds, const char *text) : rBounds(bounds, text) {}
+    rButton(Rectangle bounds, const char *text, std::function<void()> on_click = nullptr) : rBounds(bounds, text), on_click(on_click) {}
 
-    int draw() { return GuiButton(bounds, text); }
+    std::function<void()> on_click;
+
+    int draw() { int result = GuiButton(bounds, text); if (result && on_click) on_click(); return result; }
 };
 
 struct RLabelButton : public rBounds {
@@ -95,26 +102,26 @@ struct rToggle : public rBounds {
 
 struct rToggleGroup : public rBounds {
     rToggleGroup() = default;
-    rToggleGroup(Rectangle bounds, const char *text, int *active) : rBounds(bounds, text), active(active) {}
+    rToggleGroup(Rectangle bounds, const char *text, int active) : rBounds(bounds, text), active(active) {}
     
-    int *active;
+    int active;
 
-    int draw() { return GuiToggleGroup(bounds, text, active); }
+    int draw() { return GuiToggleGroup(bounds, text, &active); }
 };
 
 struct rToggleSlider : public rBounds {
     rToggleSlider() = default;
-    rToggleSlider(Rectangle bounds, const char *text, int *active) : rBounds(bounds, text), active(active) {}
+    rToggleSlider(Rectangle bounds, const char *text, int active) : rBounds(bounds, text), active(active) {}
     
-    int *active;
+    int active;
 };
 
 struct rCheckBox : public rBounds {
     rCheckBox() = default;
-    rCheckBox(Rectangle bounds, const char *text, bool *active, bool checked)
+    rCheckBox(Rectangle bounds, const char *text, bool active, bool checked)
     : rBounds(bounds, text), active(active), checked(checked) {}
     
-    bool *active;
+    bool active;
     bool checked;
 
     int draw() { return GuiCheckBox(bounds, text, &checked); }
@@ -137,16 +144,20 @@ struct rComboBox : public rBounds {
 
 struct rDropdownBox : public rBounds {
     rDropdownBox() = default;
-    rDropdownBox(Rectangle bounds, const char *text, int active, bool editMode)
-    : rBounds(bounds, text), active(active), editMode(editMode) {}
+    rDropdownBox(Rectangle bounds, const char *text, int active, bool editMode, std::function<void()> on_click = nullptr)
+    : rBounds(bounds, text), active(active), editMode(editMode), on_click(on_click) {}
     
     int active;
     bool editMode;
+    std::function<void()> on_click;
     
     int draw() { 
         int result = GuiDropdownBox(bounds, text, &active, editMode);
         if (result) {
             editMode = !editMode;
+            if (on_click) {
+                on_click();
+            }
         }
         return result;
     }
@@ -154,16 +165,20 @@ struct rDropdownBox : public rBounds {
 
 struct rSpinner : public rBounds {
     rSpinner() = default;
-    rSpinner(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode)
-    : rBounds(bounds, text), value(value), minValue(minValue), maxValue(maxValue), editMode(editMode) {}
+    rSpinner(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode, std::function<void()> on_click = nullptr)
+    : rBounds(bounds, text), value(value), minValue(minValue), maxValue(maxValue), editMode(editMode), on_click(on_click) {}
     
     int value;
     int minValue;
     int maxValue;
     bool editMode;
+    std::function<void()> on_click;
     
     int draw() { 
         int result = GuiSpinner(bounds, text, &value, minValue, maxValue, editMode);
+        if (on_click) {
+            on_click();
+        }
         if (result) {
             editMode = !editMode;
         }
@@ -173,18 +188,22 @@ struct rSpinner : public rBounds {
 
 struct rValueBox : public rBounds {
     rValueBox() = default;
-    rValueBox(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode)
-    : rBounds(bounds, text), value(value), minValue(minValue), maxValue(maxValue), editMode(editMode) {}
+    rValueBox(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode, std::function<void()> on_click = nullptr)
+    : rBounds(bounds, text), value(value), minValue(minValue), maxValue(maxValue), editMode(editMode), on_click(on_click) {}
     
     int value;
     int minValue;
     int maxValue;
     bool editMode;
+    std::function<void()> on_click;
     
     int draw() { 
         int result = GuiValueBox(bounds, text, &value, minValue, maxValue, editMode);
         if (result) {
             editMode = !editMode;
+            if (on_click) {
+                on_click();
+            }
         }
         return result;
     }
@@ -192,35 +211,50 @@ struct rValueBox : public rBounds {
 
 struct rValueBoxFloat : public rBounds {
     rValueBoxFloat() = default;
-    rValueBoxFloat(Rectangle bounds, const char *text, float value, bool editMode)
-    : rBounds(bounds, text), value(value), editMode(editMode) {}
+    rValueBoxFloat(Rectangle bounds, const char *text, float value, bool editMode, std::function<void()> on_click = nullptr)
+    : rBounds(bounds, text), value(value), editMode(editMode), on_click(on_click) { write(); }
 
     float value;
     char textValue[16];
     bool editMode;
+    std::function<void()> on_click;
     
     int draw() { 
         int result = GuiValueBoxFloat(bounds, text, textValue, &value, editMode);
         if (result) {
             editMode = !editMode;
+            if (on_click) {
+                on_click();
+            }
         }
         return result;
+    }
+    void write() {
+        snprintf(textValue, sizeof(textValue), "%.5f", value);
+    }
+    void write(float newValue) {
+        value = newValue;
+        write();
     }
 };
 
 struct rTextBox : public rBounds {
     rTextBox() = default;
-    rTextBox(Rectangle bounds, char *text, int textSize, bool editMode)
-    : rBounds(bounds, ""), text(text), textSize(textSize), editMode(editMode) {}
+    rTextBox(Rectangle bounds, char *text, int textSize, bool editMode, std::function<void()> on_click = nullptr)
+    : rBounds(bounds, ""), text(text), textSize(textSize), editMode(editMode), on_click(on_click) {}
     
     char *text;
     int textSize;
     bool editMode;
+    std::function<void()> on_click;
     
     int draw() { 
         int result = GuiTextBox(bounds, text, textSize, editMode);
         if (result) {
             editMode = !editMode;
+            if (on_click) {
+                on_click();
+            }
         }
         return result;
     }
@@ -228,41 +262,68 @@ struct rTextBox : public rBounds {
 
 struct rSlider : public rBounds {
     rSlider() = default;
-    rSlider(Rectangle bounds, const char *text, const char *right, float value, float min, float max) 
-    : rBounds(bounds, text), right(right), value(value), min(min), max(max) {}
+    rSlider(Rectangle bounds, const char *text, const char *right, float value, float min, float max, std::function<void()> on_click = nullptr) 
+    : rBounds(bounds, text), right(right), value(value), min(min), max(max), on_click(on_click) {}
     
     const char *right;
     float value;
     float min;
     float max;
+    std::function<void()> on_click;
     
-    int draw() { return GuiSlider(bounds, text, right, &value, min, max); }
+    int draw() { 
+        int result = GuiSlider(bounds, text, right, &value, min, max);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rSliderBar : public rBounds {
     rSliderBar() = default;
-    rSliderBar(Rectangle bounds, const char *text, const char *right, float value, float min, float max) 
-    : rBounds(bounds, text), right(right), value(value), min(min), max(max) {}
+    rSliderBar(Rectangle bounds, const char *text, const char *right, float value, float min, float max, std::function<void()> on_click = nullptr) 
+    : rBounds(bounds, text), right(right), value(value), min(min), max(max), on_click(on_click) {}
     
     const char *right;
     float value;
     float min;
     float max;
+    std::function<void()> on_click;
     
-    int draw() { return GuiSliderBar(bounds, text, right, &value, min, max); }
+    int draw() { 
+        int result = GuiSliderBar(bounds, text, right, &value, min, max);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rProgressBar : public rBounds {
     rProgressBar() = default;
-    rProgressBar(Rectangle bounds, const char *text, const char *right, float value, float min, float max) 
-    : rBounds(bounds, text), right(right), value(value), min(min), max(max) {}
+    rProgressBar(Rectangle bounds, const char *text, const char *right, float value, float min, float max, std::function<void()> on_click = nullptr) 
+    : rBounds(bounds, text), right(right), value(value), min(min), max(max), on_click(on_click) {}
     
     const char *right;
     float value;
     float min;
     float max;
+    std::function<void()> on_click;
     
-    int draw() { return GuiProgressBar(bounds, text, right, &value, min, max); }
+    int draw() { 
+        int result = GuiProgressBar(bounds, text, right, &value, min, max);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rStatusBar : public rBounds {
@@ -279,31 +340,49 @@ struct rDummyRect : public rBounds {
 
 struct rGrid : public rBounds {
     rGrid() = default;
-    rGrid(Rectangle bounds, const char *text, float spacing, int subdivs, Vector2 mouseCell) 
-    : rBounds(bounds, text), spacing(spacing), subdivs(subdivs), mouseCell(mouseCell) {}
+    rGrid(Rectangle bounds, const char *text, float spacing, int subdivs, Vector2 mouseCell, std::function<void()> on_click = nullptr) 
+    : rBounds(bounds, text), spacing(spacing), subdivs(subdivs), mouseCell(mouseCell), on_click(on_click) {}
     
     float spacing;
     int subdivs;
     Vector2 mouseCell;
+    std::function<void()> on_click;
     
-    int draw() { return GuiGrid(bounds, text, spacing, subdivs, &mouseCell); }
+    int draw() { 
+        int result = GuiGrid(bounds, text, spacing, subdivs, &mouseCell);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rListView : public rBounds {
     rListView() = default;
-    rListView(Rectangle bounds, const char *text, int scrollIndex, int active) 
-    : rBounds(bounds, text), scrollIndex(scrollIndex), active(active) {}
+    rListView(Rectangle bounds, const char *text, int scrollIndex, int active, std::function<void()> on_click = nullptr) 
+    : rBounds(bounds, text), scrollIndex(scrollIndex), active(active), on_click(on_click) {}
     
     int scrollIndex;
     int active;
+    std::function<void()> on_click;
     
-    int draw() { return GuiListView(bounds, text, &scrollIndex, &active); }
+    int draw() { 
+        int result = GuiListView(bounds, text, &scrollIndex, &active);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rListViewEx {
     rListViewEx() = default;
-    rListViewEx(Rectangle bounds, const char **text, int count, int scrollIndex, int active, int focus) 
-    : bounds(bounds), text(text), count(count), scrollIndex(scrollIndex), active(active), focus(focus) {}
+    rListViewEx(Rectangle bounds, const char **text, int count, int scrollIndex, int active, int focus, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), text(text), count(count), scrollIndex(scrollIndex), active(active), focus(focus), on_click(on_click) {}
     
     Rectangle bounds;
     const char **text;
@@ -311,27 +390,45 @@ struct rListViewEx {
     int scrollIndex;
     int active;
     int focus;
+    std::function<void()> on_click;
     
-    int draw() { return GuiListViewEx(bounds, text, count, &scrollIndex, &active, &focus); }
+    int draw() { 
+        int result = GuiListViewEx(bounds, text, count, &scrollIndex, &active, &focus);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rMessageBox {
     rMessageBox() = default;
-    rMessageBox(Rectangle bounds, const char *title, const char *message, const char *buttons) 
-    : bounds(bounds), title(title), message(message), buttons(buttons) {}
+    rMessageBox(Rectangle bounds, const char *title, const char *message, const char *buttons, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), title(title), message(message), buttons(buttons), on_click(on_click) {}
     
     Rectangle bounds;
     const char *title;
     const char *message;
     const char *buttons;
+    std::function<void()> on_click;
     
-    int draw() { return GuiMessageBox(bounds, title, message, buttons); }
+    int draw() { 
+        int result = GuiMessageBox(bounds, title, message, buttons);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rTextInputBox {
     rTextInputBox() = default;
-    rTextInputBox(Rectangle bounds, const char *title, const char *message, const char *buttons, char *text, int textMaxSize, bool secretViewActive) 
-    : bounds(bounds), title(title), message(message), buttons(buttons), text(text), textMaxSize(textMaxSize), secretViewActive(secretViewActive) {}
+    rTextInputBox(Rectangle bounds, const char *title, const char *message, const char *buttons, char *text, int textMaxSize, bool secretViewActive, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), title(title), message(message), buttons(buttons), text(text), textMaxSize(textMaxSize), secretViewActive(secretViewActive), on_click(on_click) {}
     
     Rectangle bounds;
     const char *title;
@@ -340,80 +437,143 @@ struct rTextInputBox {
     char *text;
     int textMaxSize;
     bool secretViewActive;
+    std::function<void()> on_click;
     
-    int draw() { return GuiTextInputBox(bounds, title, message, buttons, text, textMaxSize, &secretViewActive); }
+    int draw() { 
+        int result = GuiTextInputBox(bounds, title, message, buttons, text, textMaxSize, &secretViewActive);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rColorPicker {
     rColorPicker() = default;
-    rColorPicker(Rectangle bounds, const char *text, Color color) 
-    : bounds(bounds), text(text), color(color) {}
+    rColorPicker(Rectangle bounds, const char *text, Color color, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), text(text), color(color), on_click(on_click) {}
     
     Rectangle bounds;
     const char *text;
     Color color;
+    std::function<void()> on_click;
 
-    int draw() { return GuiColorPicker(bounds, text, &color); }
+    int draw() { 
+        int result = GuiColorPicker(bounds, text, &color);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rColorPanel {
     rColorPanel() = default;
-    rColorPanel(Rectangle bounds, const char *text, Color color) 
-    : bounds(bounds), text(text), color(color) {}
+    rColorPanel(Rectangle bounds, const char *text, Color color, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), text(text), color(color), on_click(on_click) {}
     
     Rectangle bounds;
     const char *text;
     Color color;
+    std::function<void()> on_click;
 
-    int draw() { return GuiColorPicker(bounds, text, &color); }
+    int draw() { 
+        int result = GuiColorPicker(bounds, text, &color);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rColorBarAlpha {
     rColorBarAlpha() = default;
-    rColorBarAlpha(Rectangle bounds, const char *text, float alpha) 
-    : bounds(bounds), text(text), alpha(alpha) {}
+    rColorBarAlpha(Rectangle bounds, const char *text, float alpha, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), text(text), alpha(alpha), on_click(on_click) {}
     
     Rectangle bounds;
     const char *text;
     float alpha;
+    std::function<void()> on_click;
 
-    int draw() { return GuiColorBarAlpha(bounds, text, &alpha); }
+    int draw() { 
+        int result = GuiColorBarAlpha(bounds, text, &alpha);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rColorBarHue {
     rColorBarHue() = default;
-    rColorBarHue(Rectangle bounds, const char *text, float value) 
-    : bounds(bounds), text(text), value(value) {}
+    rColorBarHue(Rectangle bounds, const char *text, float value, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), text(text), value(value), on_click(on_click) {}
     
     Rectangle bounds;
     const char *text;
     float value;
+    std::function<void()> on_click;
 
-    int draw() { return GuiColorBarHue(bounds, text, &value); }
+    int draw() { 
+        int result = GuiColorBarHue(bounds, text, &value);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rColorPickerHSV {
     rColorPickerHSV() = default;
-    rColorPickerHSV(Rectangle bounds, const char *text, Vector3 colorHsv) 
-    : bounds(bounds), text(text), colorHsv(colorHsv) {}
+    rColorPickerHSV(Rectangle bounds, const char *text, Vector3 colorHsv, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), text(text), colorHsv(colorHsv), on_click(on_click) {}
     
     Rectangle bounds;
     const char *text;
     Vector3 colorHsv;
+    std::function<void()> on_click;
 
-    int draw() { return GuiColorPickerHSV(bounds, text, &colorHsv); }
+    int draw() { 
+        int result = GuiColorPickerHSV(bounds, text, &colorHsv);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 struct rColorPanelHSV {
     rColorPanelHSV() = default;
-    rColorPanelHSV(Rectangle bounds, const char *text, Vector3 colorHsv) 
-    : bounds(bounds), text(text), colorHsv(colorHsv) {}
+    rColorPanelHSV(Rectangle bounds, const char *text, Vector3 colorHsv, std::function<void()> on_click = nullptr) 
+    : bounds(bounds), text(text), colorHsv(colorHsv), on_click(on_click) {}
     
     Rectangle bounds;
     const char *text;
     Vector3 colorHsv;
+    std::function<void()> on_click;
 
-    int draw() { return GuiColorPanelHSV(bounds, text, &colorHsv); }
+    int draw() { 
+        int result = GuiColorPanelHSV(bounds, text, &colorHsv);
+        if (result) {
+            if (on_click) {
+                on_click();
+            }
+        }
+        return result;
+    }
 };
 
 /*#define rWindowBox(b) GuiWindowBox(b.bounds, b.text)

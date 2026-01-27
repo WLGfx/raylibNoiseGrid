@@ -43,6 +43,14 @@ public:
     bool ready = false; // for the render pass
 };
 
+struct NoiseConfig {
+    FastNoise noise;
+    char name[16] = "Default";
+    int operation = 0;
+    float range_min = -1.0f;
+    float range_max = 1.0f;
+    float range_width = 2.0f;
+};
 
 class NoiseGrid
 {
@@ -71,8 +79,9 @@ public:
 
     Vector3 block_size = {1.0f, 1.0f, 1.0f};
 
-    FastNoise noise;
-    Vector2 noise_range = {0.70f, 1.0f};
+    //FastNoise noise;
+    std::vector<NoiseConfig> noise;
+    //Vector2 noise_range = {0.70f, 1.0f};
 
     std::vector<NoiseChunk> chunks;
     std::vector<NoiseChunk *> chunks_free;

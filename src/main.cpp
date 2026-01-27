@@ -17,258 +17,490 @@
 
 // New title for this - FastNoise x3 Playground
 
+#include <string>
+#include <iostream>
+
 NoiseGrid grid;
 
-struct 
+
+// forward function declarations
+void on_grid_size_change();
+void on_chunk_size_change();
+
+struct {
+    rToggle menu_open = { {10, 10, 50, 40}, ">", false};
+
+    rLine menu_line = { {10, 10, 620, 40}, "Dimensions" };
+    rButton menu_close = { {640, 10, 50, 40}, "<" };
+    
+    rSpinner w = { {50, 60, 120, 40}, "w", 3, 0, 100, false, on_grid_size_change};
+    rSpinner h = { {220, 60, 120, 40}, "h", 3, 0, 100, false, on_grid_size_change};
+    rSpinner d = { {390, 60, 120, 40}, "d", 3, 0, 100, false, on_grid_size_change};
+
+    rLabel chunk_size_label = { {520, 60, 120, 40}, "c" };
+    rDropdownBox chunk_size = { {560, 60, 120, 40}, "8;16;32;64;128", 0, false, on_chunk_size_change}; // TODO: move to end of drawing order
+    
+} ui_grid;
+
+// forward function declarations
+void on_index_delete_button_click();
+
+void on_noise_boundary_change_from_box();
+void on_noise_boundary_change_to_box();
+void on_noise_boundary_change_width_box();
+void on_noise_boundary_change_from_slider();
+void on_noise_boundary_change_to_slider();
+void on_noise_boundary_change_width_slider();
+
+void on_type_change();
+void on_interp_change();
+void on_seed_change();
+void on_octaves_change();
+
+void on_gain_change_slider();
+void on_gain_change_box();
+void on_frequency_change_slider();
+void on_frequency_change_box();
+void on_lacunarity_change_slider();
+void on_lacunarity_change_box();
+
+void on_fractal_type_change();
+void on_return_type_change();
+void on_distance_change();
+void on_jitter_change_slider();
+void on_jitter_change_box();
+void on_index0_change();
+void on_index1_change();
+
+struct {
+    rToggle menu_open = { {10, 120, 50, 40}, ">", false};
+
+    rToggle grid = { {10, 120, 120, 40}, "Grid", true};
+    rToggle noise = { {120, 120, 120, 40}, "Noise", false};
+    rToggle cellular = { {240, 120, 120, 40}, "Cellular", false};
+
+    rButton menu_close = { {640, 120, 50, 40}, "<" };
+
+    //
+    std::string index_options = "Default";
+    rDropdownBox index = { {10, 180, 240, 40}, index_options.c_str(), 0, false}; // TODO: fix order
+    rButton index_delete_button = { {260, 180, 50, 40}, "-", on_index_delete_button_click };
+    rDropdownBox op = { {380, 180, 240, 40}, "Add;Subtract;Multiply;Divide", 0, false}; // TODO: fix order
+    rButton add = { {630, 180, 50, 40}, "+" };
+
+    // noise boundary range and max width
+    rSlider from = { {10, 240, 450, 40}, "", "", 0.0f, -2.0f, 2.0f, on_noise_boundary_change_from_slider };
+    rSlider to = { {10, 300, 450, 40}, "", "", 0.1f, -2.0f, 2.0f, on_noise_boundary_change_to_slider };
+    rSlider width = { {10, 360, 450, 40}, "", "", 0.1f, 0.0f, 1.0f, on_noise_boundary_change_width_slider };
+    rValueBoxFloat from_box = { {540, 240, 140, 40}, "from", 0.0f, false, on_noise_boundary_change_from_box };
+    rValueBoxFloat to_box = { {540, 300, 140, 40}, "to", 0.1f, false, on_noise_boundary_change_to_box };
+    rValueBoxFloat width_box = { {540, 360, 140, 40}, "width", 0.1f, false, on_noise_boundary_change_width_box };
+    
+    //
+    rDropdownBox type = { {10, 180, 300, 40}, "Value;ValueFractal;Perlin;PerlinFractal;Simplex;SimplexFractal;Cellular;WhiteNoise;Cubic;CubicFractal", 6, false, on_type_change};
+    rDropdownBox interp = { {10, 230, 300, 40}, "Linear;Hermite;Quintic", 0, false, on_interp_change};
+    rSpinner seed = { {480, 180, 200, 40}, "seed", 0, 0, 999999999, false, on_seed_change };
+    rSpinner octaves = { {480, 230, 200, 40}, "octaves", 3, 0, 100, false, on_octaves_change};
+    
+    rSlider gain = { {10, 290, 450, 40}, "", "", 0.5f, 0.0f, 1.0f, on_gain_change_slider };
+    rValueBoxFloat gain_box = { {540, 290, 140, 40}, "gain", 0.5f, false, on_gain_change_box };
+    rSlider frequency = { {10, 350, 450, 40}, "", "", 0.02f, 0.0f, 0.1f, on_frequency_change_slider };
+    rValueBoxFloat frequency_box = { {540, 350, 140, 40}, "freq", 0.02f, false, on_frequency_change_box };
+    rSlider lacunarity = { {10, 410, 450, 40}, "", "", 2.0f, 0.0f, 10.0f, on_lacunarity_change_slider };
+    rValueBoxFloat lacunarity_box = { {540, 410, 140, 40}, "lacu", 2.0f, false, on_lacunarity_change_box };
+
+    rDropdownBox fractal_type = { {10, 230, 300, 40}, "FBM;RigidMulti;Billow", 0, false, on_fractal_type_change};
+    rDropdownBox return_type = { {10, 280, 300, 40}, "Value;Distance;Distance2;Distance2Add;Distance2Sub;Distance2Mul;Distance2Div", 1, false, on_return_type_change};
+    rDropdownBox distance = { {10, 330, 300, 40}, "Euclidean;Manhattan;Natural", 0, false, on_distance_change};
+    rSlider jitter = { {10, 180, 440, 40}, "", "", 2.0f, 0.0f, 4.0f, on_jitter_change_slider };
+    rValueBoxFloat jitter_box = { {540, 180, 140, 40}, "jitter", 2.0f, false, on_jitter_change_box };
+    rSpinner index0 = { {480, 280, 200, 40}, "0", 0, 0, 4, false, on_index0_change};
+    rSpinner index1 = { {480, 330, 200, 40}, "1", 1, 0, 4, false, on_index1_change};
+} ui_options;
+
+// callbacks
+
+void on_fractal_type_change()
 {
-    // ################ GRID MENU ################
-
-    rToggle grid_menu = {
-        Rectangle{ 10, 10, 60, 60 },
-        "",
-        false
+    const FastNoise::FractalType types[] = { FastNoise::FractalType::FBM, FastNoise::FractalType::RigidMulti, FastNoise::FractalType::Billow };
+    FastNoise::FractalType type = types[ui_options.fractal_type.active];
+    if (type != grid.noise.at(0).noise.GetFractalType())
+    {
+        grid.noise.at(0).noise.SetFractalType(type);
+        grid.update_new_noise();
+    }
+}
+void on_return_type_change()
+{
+    const FastNoise::CellularReturnType types[] = {
+        FastNoise::CellularReturnType::CellValue,
+        FastNoise::CellularReturnType::Distance,
+        FastNoise::CellularReturnType::Distance2,
+        FastNoise::CellularReturnType::Distance2Add,
+        FastNoise::CellularReturnType::Distance2Sub,
+        FastNoise::CellularReturnType::Distance2Mul,
+        FastNoise::CellularReturnType::Distance2Div
     };
+    FastNoise::CellularReturnType type = types[ui_options.return_type.active];
+    if (type != grid.noise.at(0).noise.GetCellularReturnType())
+    {
+        grid.noise.at(0).noise.SetCellularReturnType(type);
+        grid.update_new_noise();
+    }
+}
+void on_distance_change() 
+{
+    const FastNoise::CellularDistanceFunction types[] = { FastNoise::CellularDistanceFunction::Euclidean, FastNoise::CellularDistanceFunction::Manhattan, FastNoise::CellularDistanceFunction::Natural };
+    FastNoise::CellularDistanceFunction type = types[ui_options.distance.active];
+    if (type != grid.noise.at(0).noise.GetCellularDistanceFunction())
+    {
+        grid.noise.at(0).noise.SetCellularDistanceFunction(type);
+        grid.update_new_noise();
+    }
+}
+void on_jitter_change_slider() 
+{
+    if (ui_options.jitter.value != grid.noise.at(0).noise.GetCellularJitter())
+    {
+        grid.noise.at(0).noise.SetCellularJitter(ui_options.jitter.value);
+        grid.update_new_noise();
+    }
+}
+void on_jitter_change_box() 
+{
+    if (ui_options.jitter_box.value != grid.noise.at(0).noise.GetCellularJitter())
+    {
+        grid.noise.at(0).noise.SetCellularJitter(ui_options.jitter_box.value);
+        grid.update_new_noise();
+    }
+}
+void on_index0_change() 
+{
+    int index0, index1;
+    grid.noise.at(0).noise.GetCellularDistance2Indices(index0, index1);
+    if (ui_options.index0.value != index0)
+    {
+        grid.noise.at(0).noise.SetCellularDistance2Indices(ui_options.index0.value, index1);
+        grid.update_new_noise();
+    }
+}
+void on_index1_change() 
+{
+    int index0, index1;
+    grid.noise.at(0).noise.GetCellularDistance2Indices(index0, index1);
+    if (ui_options.index1.value != index1)
+    {
+        grid.noise.at(0).noise.SetCellularDistance2Indices(index0, ui_options.index1.value);
+        grid.update_new_noise();
+    }
+}
 
-    rLabel grid_size_label = {
-        Rectangle{ 10, 80, 200, 50 },
-        "Grid Size"
-    };
+void on_gain_change_slider()
+{
+    if (ui_options.gain.value != grid.noise.at(0).noise.GetFractalGain())
+    {
+        grid.noise.at(0).noise.SetFractalGain(ui_options.gain.value);
+        grid.update_new_noise();
+    }
+}
+void on_gain_change_box()
+{
+    if (ui_options.gain_box.value != grid.noise.at(0).noise.GetFractalGain())
+    {
+        grid.noise.at(0).noise.SetFractalGain(ui_options.gain_box.value);
+        grid.update_new_noise();
+    }
+}
+void on_frequency_change_slider()
+{
+    if (ui_options.frequency.value != grid.noise.at(0).noise.GetFrequency())
+    {
+        grid.noise.at(0).noise.SetFrequency(ui_options.frequency.value);
+        grid.update_new_noise();
+    }
+}
+void on_frequency_change_box()
+{
+    if (ui_options.frequency_box.value != grid.noise.at(0).noise.GetFrequency())
+    {
+        grid.noise.at(0).noise.SetFrequency(ui_options.frequency_box.value);
+        grid.update_new_noise();
+    }
+}
+void on_lacunarity_change_slider()
+{
+    if (ui_options.lacunarity.value != grid.noise.at(0).noise.GetFractalLacunarity())
+    {
+        grid.noise.at(0).noise.SetFractalLacunarity(ui_options.lacunarity.value);
+        grid.update_new_noise();
+    }
+}
+void on_lacunarity_change_box()
+{
+    if (ui_options.lacunarity_box.value != grid.noise.at(0).noise.GetFractalLacunarity())
+    {
+        grid.noise.at(0).noise.SetFractalLacunarity(ui_options.lacunarity_box.value);
+        grid.update_new_noise();
+    }
+}
 
-    rDropdownBox grid_size_defaults = {
-        {270, 80, 120, 50},
-        "3x;5x;7x;9x;11x;13x;15x;17x;19x",
-        0,
-        false
-    };
+void on_type_change()
+{
+    const FastNoise::NoiseType types[] = { FastNoise::NoiseType::Value, FastNoise::NoiseType::ValueFractal, FastNoise::NoiseType::Perlin, FastNoise::NoiseType::PerlinFractal, FastNoise::NoiseType::Simplex, FastNoise::NoiseType::SimplexFractal, FastNoise::NoiseType::Cellular, FastNoise::NoiseType::WhiteNoise, FastNoise::NoiseType::Cubic, FastNoise::NoiseType::CubicFractal };
+    int index = ui_options.type.active;
+    FastNoise::NoiseType type = types[index];
+    grid.noise.at(0).noise.SetNoiseType(type);
 
-    struct {
-        rSpinner w = { {10, 130, 120, 50},
-            "", 9, 3, 128, false};
-        rSpinner h = { {140, 130, 120, 50},
-            "", 3, 3, 128, false};
-        rSpinner d = { {270, 130, 120, 50},
-            "", 9, 3, 128, false};
-    } grid_size;
+    grid.update_new_noise();
+}
 
-    rLabel chunk_size_label = {
-        Rectangle{ 10, 190, 200, 50 },
-        "Chunk Size"
-    };
-
-    rDropdownBox chunk_size_defaults = {
-        {270, 190, 120, 50},
-        "8;16;32;64;128",
-        0,
-        false
-    };
-
-    struct {
-        rSpinner w = { {10, 240, 120, 50},
-            "", 16, 3, 512, false};
-        rSpinner h = { {140, 240, 120, 50},
-            "", 16, 3, 512, false};
-        rSpinner d = { {270, 240, 120, 50},
-            "", 16, 3, 512, false};
-    } chunk_size;
-
-    rLabel noise_label = {
-        Rectangle{ 10, 290, 200, 50 },
-        "Noise"
-    };
-
-    struct {
-        rSlider start = { 
-            {10, 340, 280, 50},
-            "", 
-            "", 
-            0.1f, 
-            -2.0f, 
-            2.0f
-        };
-        rSlider end = { 
-            {10, 400, 280, 50},
-            "", 
-            "", 
-            0.15f, 
-            -2.0f, 
-            2.0f
-        };
-        rValueBoxFloat start_val = {
-            {300, 340, 100, 50},
-            "", 
-            0.1f, 
-            false
-        };
-        rValueBoxFloat end_val = {
-            {300, 400, 100, 50},
-            "",
-            0.15f,
-            false
-        };
-
-        rSlider max_width = { 
-            {10, 500, 280, 50},
-            "", 
-            "", 
-            0.1f, 
-            0.0f, 
-            0.5f
-        };
-        rValueBoxFloat max_width_val = {
-            {300, 500, 100, 50},
-            "",
-            0.1f,
-            false
-        };
-        rLabel max_width_label = {
-            Rectangle{ 10, 450, 280, 50 },
-            "Max Width"
-        };
-    } noise_range;
-
-    // ################ NOISE MENU ################
-
-    rToggle noise_menu = {
-        Rectangle{ 80, 10, 60, 60 },
-        "",
-        false
-    };
+void on_interp_change()
+{
+    const FastNoise::Interp interps[] = { FastNoise::Interp::Linear, FastNoise::Interp::Hermite, FastNoise::Interp::Quintic };
+    int index = ui_options.interp.active;
+    FastNoise::Interp interp = interps[index];
+    grid.noise.at(0).noise.SetInterp(interp);
     
-    // Noise Type
+    grid.update_new_noise();
+}
 
-    rDropdownBox noise_types_box = {
-        {10, 80, 300, 50},
-        "Value;ValueFractal;Perlin;PerlinFractal;Simplex;SimplexFractal;Cellular;WhiteNoise;Cubic;CubicFractal",
-        1,
-        false
-    };
+void on_seed_change()
+{
+    if (ui_options.seed.value != grid.noise.at(0).noise.GetSeed())
+    {
+        grid.noise.at(0).noise.SetSeed(ui_options.seed.value);
+        grid.update_new_noise();
+    }
+}
 
-    // Seed
+void on_octaves_change()
+{
+    if (ui_options.octaves.value != grid.noise.at(0).noise.GetFractalOctaves())
+    {
+        grid.noise.at(0).noise.SetFractalOctaves(ui_options.octaves.value);
+        grid.update_new_noise();
+    }
+}
 
-    rValueBox seed = { 
-        {110, 140, 170, 50},
-        "Seed", 
-        1337, 
-        0,
-        65535,
-        false
-    };
+void on_grid_size_change()
+{
+    // same callback used for all 3 widgets... Yay me...
+    if (ui_grid.w.value != grid.grid_size.x || ui_grid.h.value != grid.grid_size.y || ui_grid.d.value != grid.grid_size.z)
+    {
+        grid.grid_size = { ui_grid.w.value, ui_grid.h.value, ui_grid.d.value };
+        std::cout << "Grid size changed to " << grid.grid_size.x << "x" << grid.grid_size.y << "x" << grid.grid_size.z << std::endl;
+    }
+}
 
-    // Frequency
+void on_chunk_size_change()
+{ // "8;16;32;64;128"
+    const int sizes[] = { 8, 16, 32, 64, 128 };
+    int size = sizes[ui_grid.chunk_size.active];
+    grid.chunk_size = { size, size, size };
+    //std::cout << "Chunk size changed to " << grid.chunk_size.x << "x" << grid.chunk_size.y << "x" << grid.chunk_size.z << std::endl;
+}
 
-    rValueBoxFloat frequency = { 
-        {110, 200, 170, 50},
-        "Freq", 
-        0.03f, 
-        false
-    };
+void on_index_delete_button_click()
+{
+    // remove the selected index from the dropdown
+    // TODO: implement
+}
 
-    // Interpolation
-
-    rDropdownBox interpolation_box = {
-        {10, 260, 300, 50},
-        "Linear;Hermite;Quintic",
-        1,
-        false
-    };
-
-    // Octaves
-
-    rValueBox octaves_box = {
-        {110, 320, 170, 50},
-        "Octa", 
-        3,
-        1,
-        10,
-        false
-    };
-
-    // Lacunarity
-
-    rValueBoxFloat lacunarity_box = {
-        {110, 380, 170, 50},
-        "Lacu", 
-        2.0f, 
-        false
-    };
-
-    // Gain
-
-    rValueBoxFloat gain_box = {
-        {110, 440, 170, 50},
-        "Gain", 
-        0.5f, 
-        false
-    };
+void do_boundary_change()
+{
+    float from = ui_options.from.value;
+    float to = ui_options.to.value;
+    float width = ui_options.width.value;
     
-    // ################ CELLULAR MENU ################
+    // TODO: update when newer noise is working
+    grid.noise.at(0).range_min = from;
+    grid.noise.at(0).range_max = to;
+    grid.noise.at(0).range_width = width;
 
-    rToggle cellular_menu = {
-        Rectangle{ 150, 10, 60, 60 },
-        "",
-        false
-    };
+    grid.update_noise_range();
+}
 
-    rDropdownBox cfractal = {
-        {10, 80, 300, 50},
-        "FBm;Ridge;PingPong",
-        0,
-        false
-    };
+void on_noise_boundary_change_from_slider()
+{
+    //    
+    float from = ui_options.from.value;
+    float to = ui_options.to.value;
+    float width = ui_options.width.value;
 
-    rDropdownBox cdistance = {
-        {10, 140, 300, 50},
-        "Euclidean;Manhattan;Hybrid",
-        0,
-        false
-    };
+    if (from > to) std::swap(from, to);
 
-    rDropdownBox cReturnType = {
-        {10, 200, 300, 50},
-        "Value;Distance;Distance2;Distance2Add;Distance2Sub;Distance2Mul;Distance2Div",
-        1,
-        false
-    };
+    if (to - from > width) to = from + width;
 
-    // jitter
+    ui_options.from.value = from;
+    ui_options.to.value = to;
 
-    rValueBoxFloat jitter = {
-        {110, 260, 170, 50},
-        "Jitt", 
-        1.0f, 
-        false
-    };
+    ui_options.from_box.write(from);
+    ui_options.to_box.write(to);
 
-    rValueBoxFloat jitter_from = {
-        {110, 320, 170, 50},
-        "From", 
-        0.0f, 
-        false
-    };
+    do_boundary_change();
+}
 
-    rValueBoxFloat jitter_to = {
-        {110, 380, 170, 50},
-        "To", 
-        1.0f, 
-        false
-    };
+void on_noise_boundary_change_to_slider() 
+{
+    //
+    float from = ui_options.from.value;
+    float to = ui_options.to.value;
+    float width = ui_options.width.value;
 
-    // ################ CAMERA CONTROLS MENU ################
+    if (from > to) std::swap(from, to);
 
-    rToggle camera_menu = {
-        Rectangle{ 220, 10, 60, 60 },
-        "",
-        false
-    };
+    if (to - from > width) from = to - width;
 
-    rDropdownBox camera_type= {
-        {10, 80, 300, 50},
-        "Manual;Free;Oribital",
-        2,
-        false
-    };
+    ui_options.from.value = from;
+    ui_options.to.value = to;
 
-} ui;
+    ui_options.from_box.write(from);
+    ui_options.to_box.write(to);
+
+    do_boundary_change();
+}
+
+void on_noise_boundary_change_width_slider() 
+{
+    //
+    float from = ui_options.from.value;
+    float to = ui_options.to.value;
+    float width = ui_options.width.value;
+    
+    if (from > to) std::swap(from, to);
+    
+    if (to - from > width) to = from + width;
+
+    ui_options.from.value = from;
+    ui_options.to.value = to;
+    ui_options.width.value = width;
+
+    ui_options.from_box.write(from);
+    ui_options.to_box.write(to);
+    ui_options.width_box.write(width);
+
+    do_boundary_change();
+}
+
+void on_noise_boundary_change_from_box()
+{
+    float from = ui_options.from_box.value;
+    on_noise_boundary_change_from_slider();
+    ui_options.from.value = from;
+    ui_options.from_box.write(from);
+}
+
+void on_noise_boundary_change_to_box()
+{
+    float to = ui_options.to_box.value;
+    on_noise_boundary_change_to_slider();
+    ui_options.to.value = to;
+    ui_options.to_box.write(to);
+}
+
+void on_noise_boundary_change_width_box()
+{
+    float width = ui_options.width_box.value;
+    on_noise_boundary_change_width_slider();
+    ui_options.width.value = width;
+    ui_options.width_box.write(width);
+}
+
+void draw_ui_options() {
+    if (ui_options.menu_open.active) {
+        if (ui_options.menu_close.draw()) {
+            ui_options.menu_open.active = false;
+        }
+
+        //int before = ui_options.grid.active | (ui_options.noise.active << 1 | ui_options.cellular.active << 2);
+
+        ui_options.grid.draw();
+        if (ui_options.grid.active) {
+            ui_options.noise.active = false;
+            ui_options.cellular.active = false;
+        }
+        ui_options.noise.draw();
+        if (ui_options.noise.active) {
+            ui_options.grid.active = false;
+            ui_options.cellular.active = false;
+        }
+        if (ui_options.type.active == 6) {
+            ui_options.cellular.draw() ;
+            if (ui_options.cellular.active) {
+                ui_options.grid.active = false;
+                ui_options.noise.active = false;
+            }
+        }
+
+        int after = ui_options.grid.active | (ui_options.noise.active << 1 | ui_options.cellular.active << 2);
+        
+        if (after == 0) {
+            ui_options.menu_open.active = false;
+            ui_options.grid.active = true;
+            return;
+        }
+       
+        if (ui_options.grid.active) {
+            ui_options.index_delete_button.draw();
+            ui_options.add.draw();
+            if (ui_options.from.draw()) ui_options.from_box.write(ui_options.from.value);
+            if (ui_options.to.draw()) ui_options.to_box.write(ui_options.to.value);
+            if (ui_options.width.draw()) ui_options.width_box.write(ui_options.width.value);
+            ui_options.from_box.draw();
+            ui_options.to_box.draw();
+            ui_options.width_box.draw();
+            ui_options.index.draw();
+            ui_options.op.draw();
+        }
+
+        if (ui_options.noise.active) {
+            ui_options.seed.draw();
+            ui_options.octaves.draw();
+            ui_options.gain_box.draw();
+            ui_options.frequency_box.draw();
+            ui_options.lacunarity_box.draw();
+            if (ui_options.gain.draw()) ui_options.gain_box.write(ui_options.gain.value);
+            if (ui_options.frequency.draw()) ui_options.frequency_box.write(ui_options.frequency.value);
+            if (ui_options.lacunarity.draw()) ui_options.lacunarity_box.write(ui_options.lacunarity.value);
+            
+            ui_options.interp.draw();
+            ui_options.type.draw();
+        }
+
+        if (ui_options.cellular.active) {
+            if (ui_options.jitter.draw()) ui_options.jitter_box.write(ui_options.jitter.value);
+            ui_options.jitter_box.draw();
+            ui_options.index0.draw();
+            ui_options.index1.draw();
+
+            ui_options.distance.draw();
+            ui_options.return_type.draw();
+            ui_options.fractal_type.draw();
+        }
+    } else {
+        ui_options.menu_open.draw();
+    }
+}
+
+void draw_ui_grid() {
+    if (ui_grid.menu_open.active) 
+    {
+        ui_grid.menu_line.draw();
+        if (ui_grid.menu_close.draw()) {
+            ui_grid.menu_open.active = false;
+        }
+        ui_grid.w.draw();
+        ui_grid.h.draw();
+        ui_grid.d.draw();
+        ui_grid.chunk_size_label.draw();
+        draw_ui_options();
+        ui_grid.chunk_size.draw();
+    } else {
+        ui_grid.menu_open.draw();
+    }
+
+    
+}
 
 //std::cout << "Result=" << result 
 //<< "  editMode=" << ui.noise_types_box.editMode 
@@ -303,238 +535,17 @@ void init_ui()
     GuiSetStyle(DEFAULT, BORDER_COLOR_DISABLED, 0x222222ff);
 
     GuiSetStyle(DEFAULT, BORDER_WIDTH, 4);
-
-    write_float_to_char_buffer(ui.noise_range.start_val.textValue, ui.noise_range.start.value);
-    write_float_to_char_buffer(ui.noise_range.end_val.textValue, ui.noise_range.end.value);
-    write_float_to_char_buffer(ui.noise_range.max_width_val.textValue, ui.noise_range.max_width.value);
-    write_float_to_char_buffer(ui.frequency.textValue, ui.frequency.value);
-    write_float_to_char_buffer(ui.lacunarity_box.textValue, ui.lacunarity_box.value);
-    write_float_to_char_buffer(ui.gain_box.textValue, ui.gain_box.value);
-    write_float_to_char_buffer(ui.jitter.textValue, ui.jitter.value);
-    write_float_to_char_buffer(ui.jitter_from.textValue, ui.jitter_from.value);
-    write_float_to_char_buffer(ui.jitter_to.textValue, ui.jitter_to.value);
 }
-
-void draw_ui()
-{
-    // ############################ Grid Menu ############################
-
-    ui.grid_menu.draw();
-    GuiDrawIcon(ICON_RESIZE, ui.grid_menu.bounds.x + 6, ui.grid_menu.bounds.y + 6, 3, RAYWHITE);
-    
-    if (ui.grid_menu.active)
-    {
-        ui.noise_menu.active = false;
-        ui.cellular_menu.active = false;
-        ui.camera_menu.active = false;
-        
-        ui.grid_size_label.draw();
-        ui.grid_size.w.draw();
-        ui.grid_size.h.draw();
-        ui.grid_size.d.draw();
-
-        ui.chunk_size_label.draw();
-        ui.chunk_size.w.draw();
-        ui.chunk_size.h.draw();
-        ui.chunk_size.d.draw();
-
-        ui.noise_label.draw(); // Changing to slider ranges from -2.0 to +2.0 and adding max width
-        if (ui.noise_range.start.draw()) {
-            if (ui.noise_range.start.value > ui.noise_range.end.value) {
-                ui.noise_range.end.value = ui.noise_range.start.value;
-            }
-            float width = ui.noise_range.end.value - ui.noise_range.start.value;
-            if (width > ui.noise_range.max_width.value) {
-                ui.noise_range.end.value = ui.noise_range.start.value + ui.noise_range.max_width.value;
-            }
-            ui.noise_range.start_val.value = ui.noise_range.start.value;
-            ui.noise_range.end_val.value = ui.noise_range.end.value;
-            init_ui();
-            grid.update_noise_range();
-        }
-        ui.noise_range.start_val.draw();
-        ui.noise_range.end_val.draw();
-        if (ui.noise_range.end.draw()){
-            float width = ui.noise_range.end.value - ui.noise_range.start.value;
-            if (width > ui.noise_range.max_width.value) {
-                ui.noise_range.start.value = ui.noise_range.end.value - ui.noise_range.max_width.value;
-            }
-            if (ui.noise_range.end.value < ui.noise_range.start.value) {
-                ui.noise_range.start.value = ui.noise_range.end.value;
-            }
-            ui.noise_range.start_val.value = ui.noise_range.start.value;
-            ui.noise_range.end_val.value = ui.noise_range.end.value;
-            init_ui();
-            grid.update_noise_range();
-        }
-        ui.noise_range.max_width_val.draw();
-        if (ui.noise_range.max_width.draw()) {
-                
-                float width = ui.noise_range.end.value - ui.noise_range.start.value;
-                if (width > ui.noise_range.max_width.value) {
-                    ui.noise_range.end.value = ui.noise_range.start.value + ui.noise_range.max_width.value;
-                }
-                ui.noise_range.max_width_val.value = ui.noise_range.max_width.value;
-                init_ui();
-                grid.update_noise_range();
-        }
-        ui.noise_range.max_width_label.draw();
-        if (ui.chunk_size_defaults.draw()) 
-        {
-            const int sizes[] = {8, 16, 32, 64, 128, 256, 512, 1024};
-            if (!ui.chunk_size_defaults.editMode)
-            {
-                int v = sizes[ui.chunk_size_defaults.active];
-                
-                ui.chunk_size.w.value = v;
-                ui.chunk_size.h.value = v;
-                ui.chunk_size.d.value = v;
-                
-            }
-        }
-        if (ui.grid_size_defaults.draw()) 
-        {
-            const int sizes[] = {3, 5, 7, 9, 11, 13, 15, 17, 19};
-            if (!ui.grid_size_defaults.editMode)
-            {
-                int v = sizes[ui.grid_size_defaults.active];
-                
-                ui.grid_size.w.value = v;
-                ui.grid_size.h.value = v;
-                ui.grid_size.d.value = v;
-                
-            }
-        }
-    }
-
-    // ############################ Noise Menu ############################
-
-    ui.noise_menu.draw();
-    GuiDrawIcon(ICON_WAVE_SINUS, ui.noise_menu.bounds.x + 6, ui.noise_menu.bounds.y + 6, 3, RAYWHITE);
-
-    if (ui.noise_menu.active)
-    {
-        ui.grid_menu.active = false;
-        ui.cellular_menu.active = false;
-        ui.camera_menu.active = false;
-
-        // fractal options
-        if (ui.seed.draw() ||
-            ui.frequency.draw() ||
-            ui.octaves_box.draw() ||
-            ui.lacunarity_box.draw() ||
-            ui.gain_box.draw()) {
-                grid.update_new_noise();
-            }
-
-        if (ui.interpolation_box.draw() ||
-            ui.noise_types_box.draw()) {
-                grid.update_new_noise();
-            }
-    }
-
-    // ############################ Cellular Menu ############################
-
-    if (ui.noise_types_box.active && ui.noise_types_box.active == 6) // CELLULAR
-    {
-        ui.cellular_menu.draw();
-        GuiDrawIcon(ICON_DITHERING, ui.cellular_menu.bounds.x + 6, ui.cellular_menu.bounds.y + 6, 3, RAYWHITE);    
-
-        if (ui.cellular_menu.active)
-        {
-            ui.grid_menu.active = false;
-            ui.noise_menu.active = false;
-            ui.camera_menu.active = false;
-
-            // value boxes drawn first
-            if (ui.jitter.draw() ||
-                ui.jitter_from.draw() ||
-                ui.jitter_to.draw()) {
-                    grid.update_new_noise();
-                }
-
-            if (ui.cReturnType.draw() ||
-                ui.cdistance.draw() ||
-                ui.cfractal.draw()) {
-                    grid.update_new_noise();
-                }
-        }
-    }
-
-    ui.camera_menu.draw();
-    GuiDrawIcon(ICON_CAMERA, ui.camera_menu.bounds.x + 6, ui.camera_menu.bounds.y + 6, 3, RAYWHITE);
-
-    if (ui.camera_menu.active)
-    {
-        ui.grid_menu.active = false;
-        ui.noise_menu.active = false;
-        ui.cellular_menu.active = false;
-
-        ui.camera_type.draw();
-
-    }
-}
-
-
 
 // ####### VARIABLES #######
 
 Camera camera = {
-    .position = {0.0f, 40.0f, -80.0f},
+    .position = {0.0f, 140.0f, -280.0f},
     .target = {0.0f, 0.0f, 0.0f},
     .up = {0.0f, 1.0f, 0.0f},
     .fovy = 45.0f,
     .projection = CAMERA_PERSPECTIVE
 };
-
-
-FastNoise::NoiseType fnNoiseTypes[] = {
-    FastNoise::NoiseType::Value,
-    FastNoise::NoiseType::ValueFractal,
-    FastNoise::NoiseType::Perlin,
-    FastNoise::NoiseType::PerlinFractal,
-    FastNoise::NoiseType::Simplex,
-    FastNoise::NoiseType::SimplexFractal,
-    FastNoise::NoiseType::Cellular,
-    FastNoise::NoiseType::WhiteNoise,
-    FastNoise::NoiseType::Cubic,
-    FastNoise::NoiseType::CubicFractal,
-};
-
-FastNoise::Interp fnInterp[] = {
-    FastNoise::Interp::Linear,
-    FastNoise::Interp::Hermite,
-    FastNoise::Interp::Quintic,
-};
-
-FastNoise::FractalType fnFractalType[] = {
-    FastNoise::FractalType::FBM,
-    FastNoise::FractalType::Billow,
-    FastNoise::FractalType::RigidMulti
-};
-
-FastNoise::CellularDistanceFunction fnCellularDistanceFunction[] = {
-    FastNoise::CellularDistanceFunction::Euclidean,
-    FastNoise::CellularDistanceFunction::Manhattan,
-    FastNoise::CellularDistanceFunction::Natural
-};
-
-FastNoise::CellularReturnType fnCellularReturnType[] = {
-    FastNoise::CellularReturnType::CellValue,
-    FastNoise::CellularReturnType::Distance,
-    FastNoise::CellularReturnType::Distance2,
-    FastNoise::CellularReturnType::Distance2Add,
-    FastNoise::CellularReturnType::Distance2Sub,
-    FastNoise::CellularReturnType::Distance2Mul,
-    FastNoise::CellularReturnType::Distance2Div,
-};
-
-CameraMode fnCameraMode[] = {
-    CAMERA_CUSTOM,
-    CAMERA_FREE,
-    CAMERA_ORBITAL,
-};
-
 
 void init_grid_mesh_and_material() {
     grid.mesh = GenMeshCube(1, 1, 1);
@@ -578,43 +589,9 @@ void init_grid_mesh_and_material() {
 
 }
 
-void set_noise_grid_from_ui() {
-    grid.noise_range = {ui.noise_range.start.value, ui.noise_range.end.value};
-    
-    grid.noise.SetNoiseType(fnNoiseTypes[ui.noise_types_box.active]); // indexed array
-    grid.noise.SetSeed(ui.seed.value);
-    grid.noise.SetFrequency(ui.frequency.value);
-    
-    grid.noise.SetInterp(fnInterp[ui.interpolation_box.active]); // indexed array
-    grid.noise.SetFractalOctaves(ui.octaves_box.value);
-    grid.noise.SetFractalLacunarity(ui.lacunarity_box.value);
-    grid.noise.SetFractalGain(ui.gain_box.value);
-
-    grid.noise.SetFractalType(fnFractalType[ui.cfractal.active]); // indexed array
-    grid.noise.SetCellularDistanceFunction(fnCellularDistanceFunction[ui.cdistance.active]); // indexed array
-    grid.noise.SetCellularReturnType(fnCellularReturnType[ui.cReturnType.active]); // indexed array
-    grid.noise.SetCellularJitter(ui.jitter.value);
-    grid.noise.SetCellularDistance2Indices(ui.jitter_from.value, ui.jitter_to.value);
-
-    // Uh?
-    // grid.noise.SetCellularDistance2Indices(int cellularDistanceIndex0, int cellularDistanceIndex1)
-
-    grid.grid_size = {
-        ui.grid_size.w.value,
-        ui.grid_size.h.value,
-        ui.grid_size.d.value
-    };
-
-    grid.chunk_size = {
-        ui.chunk_size.w.value,
-        ui.chunk_size.h.value,
-        ui.chunk_size.d.value
-    };
-}
-
 void draw_3d()
 {
-    switch (ui.camera_type.active) {
+    /*switch (ui.camera_type.active) {
         case 0:
             break;
         case 1:
@@ -626,21 +603,15 @@ void draw_3d()
         case 2:
             UpdateCamera(&camera, CAMERA_ORBITAL);
             break;
-    }
+    }*/
+
+    UpdateCamera(&camera, CAMERA_ORBITAL);
 
     grid.light_point.position = camera.position;
     UpdateLightValues(grid.material.shader, grid.light_point);
 
-    //if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
-    //    UpdateCamera(&camera, CAMERA_FIRST_PERSON);
-    //}
-    //UpdateCamera(&camera, CAMERA_ORBITAL);
-
     BeginMode3D(camera);
-    DrawGrid(100, 1.0f);
-
-    // No optimisation here, just a test
-    set_noise_grid_from_ui();
+    DrawGrid(100, 8.0f);
 
     Vector3 pos = {0, 0, 0};
     grid.update(pos);
@@ -679,7 +650,8 @@ int main() {
             ClearBackground(DARKBROWN);
             
             draw_3d();
-            draw_ui();
+            //draw_ui();
+            draw_ui_grid();
             
             DrawFPS(10, screenHeight - 30);
         EndDrawing();

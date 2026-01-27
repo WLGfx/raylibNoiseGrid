@@ -15,13 +15,14 @@ NoiseGrid::NoiseGrid() {
         proccess_threads.emplace_back(process_thread, this);
     }
 
-    noise.SetNoiseType(FastNoise::SimplexFractal);
-    noise.SetFrequency(0.015);
+    noise.resize(1);
+    noise.at(0).noise.SetNoiseType(FastNoise::SimplexFractal);
+    noise.at(0).noise.SetFrequency(0.015);
 
-    noise.SetFractalType(FastNoise::RigidMulti);
-    noise.SetFractalOctaves(2);
-    noise.SetFractalLacunarity(0.5);
-    noise.SetFractalGain(0.5);
+    noise.at(0).noise.SetFractalType(FastNoise::RigidMulti);
+    noise.at(0).noise.SetFractalOctaves(2);
+    noise.at(0).noise.SetFractalLacunarity(0.5);
+    noise.at(0).noise.SetFractalGain(0.5);
 }
 
 NoiseGrid::~NoiseGrid()

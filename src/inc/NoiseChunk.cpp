@@ -62,8 +62,8 @@ bool NoiseChunk::is_block(int x, int y, int z)
 
     float noise_value = get_block(x, y, z);
 
-    bool exists = noise_value > grid->noise_range.x &&
-                  noise_value < grid->noise_range.y;
+    bool exists = noise_value > grid->noise.at(0).range_min &&
+                  noise_value < grid->noise.at(0).range_max;
 
     return exists;
 }
@@ -80,7 +80,7 @@ void NoiseChunk::generate_noise_data()
                 double noisey = (double)(position.y * grid->chunk_size.y + y);
                 double noisez = (double)(position.z * grid->chunk_size.z + z);
 
-                float value = grid->noise.GetNoise(noisex, noisey, noisez);
+                float value = grid->noise.at(0).noise.GetNoise(noisex, noisey, noisez);
                 set_block(x, y, z, value);
             }
         }
