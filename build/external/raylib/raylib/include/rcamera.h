@@ -195,9 +195,9 @@ RLAPI Matrix GetCameraProjectionMatrix(Camera *camera, float aspect);
 #include <math.h>           // Required for: fabsf()
 
 //----------------------------------------------------------------------------------
-// Defines and Macros (I changed from 5.4f to 9.4f for faster camera movement)
+// Defines and Macros
 //----------------------------------------------------------------------------------
-#define CAMERA_MOVE_SPEED                           9.4f       // Units per second (default 5.4f)
+#define CAMERA_MOVE_SPEED                           5.4f       // Units per second
 #define CAMERA_ROTATION_SPEED                       0.03f
 #define CAMERA_PAN_SPEED                            0.2f
 

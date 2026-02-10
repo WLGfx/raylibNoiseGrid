@@ -5,7 +5,8 @@
 		"/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/external/raylib/cmake_install.cmake",
 		"/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/external/raylib/raylib/cmake_install.cmake",
 		"/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/external/raylib/raylib/external/glfw/cmake_install.cmake",
-		"/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/external/raylib/raylib/external/glfw/src/cmake_install.cmake"
+		"/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/external/raylib/raylib/external/glfw/src/cmake_install.cmake",
+		"/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

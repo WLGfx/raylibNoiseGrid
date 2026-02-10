@@ -165,9 +165,13 @@ void NoiseGrid::rebuild_chunks()
 {
     std::cout << "Rebuilding NoiseChunks data\n" << std::flush;
 
-    //chunks_process_mutex.lock();
     //chunks_process_queue.clear();
-    //chunks_process_mutex.unlock();
+    
+    chunks_process_mutex.lock();
+    if (chunks_process_queue.size()) abandon_flag = true;
+    chunks_process_mutex.unlock();
+    
+    //while (abandon_flag) { std::this_thread::sleep_for(std::chrono::milliseconds(1)); }
 
     chunks_free.clear();
 
@@ -326,7 +330,13 @@ void NoiseGrid::process_thread(NoiseGrid *grid)
         NoiseChunk *chunk = nullptr;
         grid->chunks_process_mutex.lock();
 
-        if (grid->chunks_process_queue.size())
+        if (grid->abandon_flag)
+        {
+            grid->chunks_process_queue.clear();
+            grid->chunks_process_mutex.unlock();
+            grid->abandon_flag = false;
+        } 
+        else if (grid->chunks_process_queue.size())
         {
             chunk = grid->chunks_process_queue.back();
             grid->chunks_process_queue.pop_back();
@@ -334,10 +344,11 @@ void NoiseGrid::process_thread(NoiseGrid *grid)
             grid->chunks_process_mutex.unlock();
 
             chunk->process();
-        } else
+        }
+        else
         {
             grid->chunks_process_mutex.unlock();
-            std::this_thread::sleep_for(std::chrono::milliseconds(16));
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
 

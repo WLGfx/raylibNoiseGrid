@@ -1,4 +1,3 @@
-/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/rlNoiseGrid.dir
 /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/package.dir
 /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/package_source.dir
 /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/edit_cache.dir
@@ -42,3 +41,12 @@
 /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/external/raylib/raylib/external/glfw/src/CMakeFiles/install.dir
 /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/external/raylib/raylib/external/glfw/src/CMakeFiles/install/local.dir
 /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/external/raylib/raylib/external/glfw/src/CMakeFiles/install/strip.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/package.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/package_source.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/edit_cache.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/rebuild_cache.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/list_install_components.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/install.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/install/local.dir
+/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/install/strip.dir
