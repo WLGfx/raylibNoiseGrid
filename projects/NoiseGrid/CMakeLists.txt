@@ -7,6 +7,7 @@ add_executable(NoiseGrid
     inc/NoiseGrid.cpp
     inc/NoiseChunk.cpp
     inc/raygui+.cpp
+    inc/myui.cpp
 )
 
 # Include directories

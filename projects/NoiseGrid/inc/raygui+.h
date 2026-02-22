@@ -25,7 +25,8 @@ enum rAnchor {
 
 ///////////////////////////////////////////////////////////////////////////
 
-struct rBounds {
+struct rBounds 
+{
     Rectangle bounds;
     //rBounds *parent;
     //rAnchor anchor;
@@ -43,135 +44,43 @@ struct rBounds {
     void set_size(Vector2 size) { bounds.width = size.x; bounds.height = size.y; }
 };
 
-struct rContainer : public rBounds {
+struct rContainer : public rBounds 
+{
+    rContainer() = default;
+
+    rContainer(Rectangle bounds, Rectangle& padding, rAnchor anchor = ANCHOR_NONE, std::vector<rBounds*> *children = nullptr, rContainer *parent = nullptr) 
+    : rBounds(bounds), padding(padding), anchor(anchor), children(children), parent(parent) {}
+
     Rectangle   padding;
     rAnchor anchor;
     std::vector<rBounds*> *children;
     rContainer *parent;
 
-    rContainer() = default;
-
-    rContainer(Rectangle bounds, Rectangle& padding, rAnchor anchor = ANCHOR_NONE, std::vector<rBounds*> *children = nullptr, rContainer *parent = nullptr) 
-    : rBounds(bounds), padding(padding), anchor(anchor), children(children), parent(parent) {}
-    // got the ability to anchor to parent in the contructor but beware, screen
-    // is not initialised so the screen width and height will not work.
-    // unless updated before drawing
-
-    virtual void update() { anchor_to(); }
-
     void add_child(rBounds *child) { children->push_back(child); }
-    void anchor_to() {
-        Rectangle outer;// = {0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()};
-
-        if (!parent) outer = {0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()};
-        else outer = parent->bounds;
-
-        switch (anchor) {
-            case ANCHOR_CENTER: {
-                bounds.x = outer.x + (outer.width - bounds.width) / 2 - padding.x - padding.width;
-                bounds.y = outer.y + (outer.height - bounds.height) / 2 - padding.y - padding.height;
-            } break;
-
-            case ANCHOR_TOP_LEFT: {
-                bounds.x = outer.x + padding.x;
-                bounds.y = outer.y;
-            } break;
-
-            case ANCHOR_TOP_RIGHT: {
-                bounds.x = outer.width - bounds.width - padding.x - padding.width;
-                bounds.y = outer.y;
-            } break;
-
-            case ANCHOR_BOTTOM_LEFT: {
-                bounds.x = outer.x + padding.x;
-                bounds.y = outer.height - bounds.height - padding.y - padding.height;
-            } break;
-
-            case ANCHOR_BOTTOM_RIGHT: {
-                bounds.x = outer.width - bounds.width - padding.x - padding.width;
-                bounds.y = outer.height - bounds.height - padding.y - padding.height;
-            } break;
-
-            case ANCHOR_TOP_CENTER: {
-                bounds.x = outer.x + (outer.width - bounds.width) / 2 - padding.x - padding.width;
-                bounds.y = outer.y;
-            } break;
-
-            case ANCHOR_BOTTOM_CENTER: {
-                bounds.x = outer.x + (outer.width - bounds.width) / 2 - padding.x - padding.width;
-                bounds.y = outer.height - bounds.height;
-            } break;
-
-            case ANCHOR_LEFT_CENTER: {
-                bounds.x = outer.x + padding.x;
-                bounds.y = outer.y + (outer.height - bounds.height) / 2;
-            } break;
-
-            case ANCHOR_RIGHT_CENTER: {
-                bounds.x = outer.width - bounds.width - padding.x - padding.width;
-                bounds.y = outer.y + (outer.height - bounds.height) / 2;
-            } break;
-
-            case ANCHOR_NONE:
-            break;
-        }
-    }
+    void anchor_to();
+    
+    virtual void update() { anchor_to(); }
+    virtual int draw() override; 
 };
 
-struct rHBox : public rContainer {
+struct rHBox : public rContainer 
+{
     rHBox() = default;
 
     rHBox(Rectangle bounds, Rectangle& padding, rAnchor anchor = ANCHOR_NONE, std::vector<rBounds*> *children = nullptr, rContainer *parent = nullptr) 
     : rContainer(bounds, padding, anchor, children, parent) {}
 
-    virtual void update() override {
-        int children_count = children->size();
-        if (children_count == 0) return;
-
-        anchor_to();
-        
-        float spacing = bounds.width / children_count;
-        
-        for (int i = 0; i < children_count; i++) {
-            (*children)[i]->bounds = {
-                bounds.x + i * spacing,
-                bounds.y,
-                spacing,
-                bounds.height - TEXT_PADDING
-            };
-        }
-    }
-    virtual int draw() override {
-        for (auto &child : *children) {
-            child->draw();
-        }
-        return 0;
-    }
+    virtual void update() override;
 };
 
-struct rVBox : public rContainer {
+struct rVBox : public rContainer 
+{
     rVBox() = default;
 
     rVBox(Rectangle bounds, Rectangle& padding, rAnchor anchor = ANCHOR_NONE, std::vector<rBounds*> *children = nullptr, rContainer *parent = nullptr) 
     : rContainer(bounds, padding, anchor, children, parent) {}
 
-    virtual void update() override {
-        int children_count = children->size();
-        if (children_count == 0) return;
-
-        anchor_to();
-        
-        float spacing = bounds.height / children_count;
-        
-        for (int i = 0; i < children_count; i++) {
-            (*children)[i]->bounds = {
-                bounds.x,
-                bounds.y + i * spacing,
-                bounds.width,
-                spacing - TEXT_PADDING
-            };
-        }
-    }
+    virtual void update() override;
 };
 
 
@@ -286,7 +195,7 @@ struct RLabelButton : public rBounds {
 
 struct rToggle : public rBounds {
     rToggle() = default;
-    rToggle(Rectangle bounds, const char *text, bool active, std::function<void()> on_click = nullptr) 
+    rToggle(Rectangle bounds, const char *text, bool active = false, std::function<void()> on_click = nullptr) 
         : rBounds(bounds), text(text), active(active), on_click(on_click) {}
     
     const char *text;
@@ -357,7 +266,7 @@ struct rComboBox : public rBounds {
 struct rDropdownBox : public rBounds {
     rDropdownBox() = default;
     
-    rDropdownBox(Rectangle bounds, const char *text, int active, bool editMode, std::function<void()> on_click = nullptr)
+    rDropdownBox(Rectangle bounds, const char *text, int active, bool editMode = false, std::function<void()> on_click = nullptr)
     : rBounds(bounds), text(text), active(active), editMode(editMode), on_click(on_click) {}
     
     const char *text;
@@ -380,7 +289,7 @@ struct rDropdownBox : public rBounds {
 struct rSpinner : public rBounds {
     rSpinner() = default;
     
-    rSpinner(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode, std::function<void()> on_click = nullptr)
+    rSpinner(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode = false, std::function<void()> on_click = nullptr)
     : rBounds(bounds), text(text), value(value), minValue(minValue), maxValue(maxValue), editMode(editMode), on_click(on_click) {}
     
     const char *text;
@@ -405,7 +314,7 @@ struct rSpinner : public rBounds {
 struct rValueBox : public rBounds {
     rValueBox() = default;
     
-    rValueBox(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode, std::function<void()> on_click = nullptr)
+    rValueBox(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode = false, std::function<void()> on_click = nullptr)
     : rBounds(bounds), text(text), value(value), minValue(minValue), maxValue(maxValue), editMode(editMode), on_click(on_click) {}
     
     const char *text;
@@ -425,12 +334,17 @@ struct rValueBox : public rBounds {
         }
         return result;
     }
+
+    //void write(float value) {
+    //    this->value = value;
+    //    snprintf(textValue, sizeof(textValue), "%.2f", value);
+    //}
 };
 
 struct rValueBoxFloat : public rBounds {
     rValueBoxFloat() = default;
     
-    rValueBoxFloat(Rectangle bounds, const char *text, float value, bool editMode, std::function<void()> on_click = nullptr)
+    rValueBoxFloat(Rectangle bounds, const char *text, float value, bool editMode = false, std::function<void()> on_click = nullptr)
     : rBounds(bounds), text(text), value(value), editMode(editMode), on_click(on_click) { write(); }
 
     const char *text;

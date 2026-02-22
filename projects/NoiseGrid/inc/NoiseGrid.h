@@ -25,15 +25,18 @@ public:
 
     vec3i position; // grid coords
     std::vector<float> data;
-    std::vector<vec3i> blocks;
+    std::vector<unsigned char> blocks;
+    //std::vector<vec3i> blocks;
     std::vector<Matrix> transforms;
 
+    void initialise(NoiseGrid *grid);
     void process();
 
-    void initialise(NoiseGrid *grid);
-    void set_block(int x, int y, int z, float value);
-    float get_block(int x, int y, int z);
+    void set_data(int x, int y, int z, float value);
+    float get_data(int x, int y, int z);
     bool is_block(int x, int y, int z);
+    void set_block(int x, int y, int z, unsigned char value);
+    unsigned char get_block(int x, int y, int z);
 
     void generate_noise_data();
     void generate_block_data();
@@ -62,6 +65,7 @@ public:
     void render();
     void update_noise_range();
     void update_new_noise();
+    void effect_drop();
 
     void stop();
 
@@ -70,7 +74,7 @@ public:
 
     vec3i grid_size = {3, 3, 3};
     vec3i grid_size_old = {0, 0, 0};
-    vec3i chunk_size = {8, 8, 8};
+    vec3i chunk_size = {16, 16, 16}; // MUST BE IN STEPS OF 8
     vec3i chunk_size_old = {0, 0, 0};
     vec3i grid_origin = {0, 0, 0};
     vec3i grid_origin_old = {999, 999, 999};
@@ -228,6 +232,9 @@ private:
     bool check_bounds();
     void rebuild_chunks();
     void fill_bounds();
+    
+    unsigned char get_sblock(std::vector<NoiseChunk*> &chunks, int x, int y, int z);
+    void set_sblock(std::vector<NoiseChunk*> &chunks, int x, int y, int z, unsigned char value);
 };
 
 #endif // NOISEGRID_H

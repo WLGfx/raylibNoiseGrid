@@ -1,5 +1,6 @@
 #include "NoiseGrid.h"
 #include <iostream>
+#include <raymath.h>
 
 NoiseChunk::NoiseChunk() {}
 
@@ -17,10 +18,10 @@ void NoiseChunk::process()
     generate_block_data();
     generate_instance_data();
 
-    std::cout << "Processed: (" << position.x <<
-        ", " << position.y << ", " << position.z << ") - Blocks: " <<
-        blocks.size() << " - Transforms: " <<
-        transforms.size() << "\n" << std::flush;
+    //std::cout << "Processed: (" << position.x <<
+    //    ", " << position.y << ", " << position.z << ") - Blocks: " <<
+    //    blocks.size() << " - Transforms: " <<
+    //    transforms.size() << "\n" << std::flush;
 
     skip_noise = false; // reset noise generation
     ready = true;
@@ -29,13 +30,16 @@ void NoiseChunk::process()
 void NoiseChunk::initialise(NoiseGrid *grid)
 {
     this->grid = grid;
+
     int data_total_size = grid->chunk_size.x *
                           grid->chunk_size.y *
                           grid->chunk_size.z;
+
     data.resize(data_total_size);
+    blocks.resize(data_total_size);
 }
 
-void NoiseChunk::set_block(int x, int y, int z, float value)
+void NoiseChunk::set_data(int x, int y, int z, float value)
 {
     int index = x +
                 y * grid->chunk_size.x +
@@ -43,7 +47,7 @@ void NoiseChunk::set_block(int x, int y, int z, float value)
     data[index] = value;
 }
 
-float NoiseChunk::get_block(int x, int y, int z)
+float NoiseChunk::get_data(int x, int y, int z)
 {
     int index = x +
                 y * grid->chunk_size.x +
@@ -60,12 +64,28 @@ bool NoiseChunk::is_block(int x, int y, int z)
         return false;
     }
 
-    float noise_value = get_block(x, y, z);
+    float noise_value = get_data(x, y, z);
 
     bool exists = noise_value > grid->noise.at(0).range_min &&
                   noise_value < grid->noise.at(0).range_max;
 
     return exists;
+}
+
+void NoiseChunk::set_block(int x, int y, int z, unsigned char value)
+{
+    int index = x +
+                y * grid->chunk_size.x +
+                z * grid->chunk_size.x * grid->chunk_size.y;
+    blocks[index] = value;
+}
+
+unsigned char NoiseChunk::get_block(int x, int y, int z)
+{
+    int index = x +
+                y * grid->chunk_size.x +
+                z * grid->chunk_size.x * grid->chunk_size.y;
+    return blocks[index];
 }
 
 void NoiseChunk::generate_noise_data()
@@ -81,7 +101,7 @@ void NoiseChunk::generate_noise_data()
                 double noisez = (double)(position.z * grid->chunk_size.z + z);
 
                 float value = grid->noise.at(0).noise.GetNoise(noisex, noisey, noisez);
-                set_block(x, y, z, value);
+                set_data(x, y, z, value);
             }
         }
     }
@@ -89,8 +109,6 @@ void NoiseChunk::generate_noise_data()
 
 void NoiseChunk::generate_block_data()
 {
-    blocks.clear();
-
     for (int z = 0; z < grid->chunk_size.z; z++)
     {
         for (int y = 0; y < grid->chunk_size.y; y++)
@@ -105,10 +123,10 @@ void NoiseChunk::generate_block_data()
 
                     bool obscurred = blkx && blky && blkz;
 
-                    if (!obscurred)
-                    {
-                        blocks.push_back({x, y, z});
-                    }
+                    set_block(x, y, z, !obscurred);
+                }
+                else {
+                    set_block(x, y, z, 0);
                 }
             }
         }
@@ -119,13 +137,25 @@ void NoiseChunk::generate_instance_data()
 {
     transforms.clear();
 
-    for (vec3i pos: blocks)
+    for (int z = 0; z < grid->chunk_size.z; z++)
     {
-        transforms.push_back(
-            MatrixTranslate(
-            (float)(position.x * grid->chunk_size.x + pos.x) * grid->block_size.x,
-            (float)(position.y * grid->chunk_size.y + pos.y) * grid->block_size.y,
-            (float)(position.z * grid->chunk_size.z + pos.z) * grid->block_size.z
-        ));
+        for (int y = 0; y < grid->chunk_size.y; y++)
+        {
+            for (int x = 0; x < grid->chunk_size.x; x++)
+            {
+                unsigned char block = get_block(x, y, z);
+
+                if (block)
+                {
+                    transforms.push_back(
+                        MatrixTranslate(
+                            (float)(position.x * grid->chunk_size.x + x) * grid->block_size.x,
+                            (float)(position.y * grid->chunk_size.y + y) * grid->block_size.y,
+                            (float)(position.z * grid->chunk_size.z + z) * grid->block_size.z
+                        )
+                    );
+                }
+            }
+        }
     }
 }

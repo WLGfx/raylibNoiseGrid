@@ -67,7 +67,7 @@ void NoiseGrid::update_noise_range()
 
     for (NoiseChunk *chunk : chunks_free)
     {
-        chunk->skip_noise = true;
+        chunk->skip_noise = true; // set the flag to SKIP the noise generation
         chunk->ready = false;
 
         chunks_process_mutex.lock();
@@ -97,7 +97,7 @@ void NoiseGrid::update_new_noise()
 
     for (NoiseChunk *chunk : chunks_free)
     {
-        chunk->skip_noise = false;
+        chunk->skip_noise = false; // Allows for new noise generation on this chunk
         chunk->ready = false;
 
         chunks_process_mutex.lock();
@@ -105,6 +105,7 @@ void NoiseGrid::update_new_noise()
         chunks_used.push_back(chunk);
         chunks_process_mutex.unlock();
     }
+
     chunks_free.clear();
 }
 
@@ -120,16 +121,12 @@ void NoiseGrid::update(Vector3 &follow)
     };
 
 
-    if (grid_changed())
+    if (grid_changed() || chunks_changed())
     {
-        rebuild_chunks();
-    }
-    else if (chunks_changed())
-    {
-        rebuild_chunks();
+        rebuild_chunks(); // auto sets off the bounds refresh
     }
 
-    if (check_bounds())
+    if (check_bounds()) // sets the new start and end bounds
     {
         fill_bounds();
     }
@@ -161,32 +158,27 @@ bool NoiseGrid::chunks_changed()
     return false;
 }
 
-void NoiseGrid::rebuild_chunks()
+void NoiseGrid::rebuild_chunks() // NB: just have a look and think cos I've blanked
 {
     std::cout << "Rebuilding NoiseChunks data\n" << std::flush;
-
-    //chunks_process_queue.clear();
     
     chunks_process_mutex.lock();
-    if (chunks_process_queue.size()) abandon_flag = true;
-    chunks_process_mutex.unlock();
-    
-    //while (abandon_flag) { std::this_thread::sleep_for(std::chrono::milliseconds(1)); }
-
-    chunks_free.clear();
-
-    while (chunks_used.size()) // wait for old threads to complete
+    if (chunks_process_queue.size() && !abandon_flag)
     {
-        NoiseChunk *chunk = chunks_used.back();
-        if (chunk->ready)
-        {
-            chunks_used.pop_back();
-        }
-        else
-        {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        abandon_flag = true;
+        chunks_process_mutex.unlock();
+        while (abandon_flag) 
+        { 
+            std::this_thread::sleep_for(std::chrono::milliseconds(1)); 
         }
     }
+    else 
+    {
+        chunks_process_mutex.unlock();
+    }
+
+    chunks_free.clear();
+    chunks_used.clear();
 
     int total = grid_size.x * grid_size.y * grid_size.z;
 
@@ -354,4 +346,77 @@ void NoiseGrid::process_thread(NoiseGrid *grid)
     }
 
     grid->chunks_process_queue.clear();
+}
+
+void NoiseGrid::effect_drop()
+{
+    if (chunks_process_queue.size())
+    {
+        return;
+    }
+    
+    for (int z = bounds_start.z; z <= bounds_end.z; z++)
+    {
+        for (int x = bounds_start.x; x <= bounds_end.x; x++)
+        {
+            std::vector<NoiseChunk*> _chunks;
+
+            for (int y = bounds_start.y; y <= bounds_end.y; y++)
+            {
+                for (auto &chunk : chunks_used)
+                {
+                    if (chunk->position.x == x && chunk->position.y == y && chunk->position.z == z)
+                    {
+                        _chunks.push_back(chunk);
+                        break;
+                    }
+                }
+            }
+
+            // now drop blocks
+                
+            for (int cz = 0; cz < chunk_size.z; cz++)
+            {
+                for (int cx = 0; cx < chunk_size.x; cx++)
+                {
+                    int y_index = 0;
+                    int total_size = _chunks.size() * chunk_size.y;
+
+                    std::cout << "Dropping y axis on [" << cx << ", " << cz << "]\n" << std::flush;
+
+                    int block = get_sblock(_chunks, cx, y_index, cz);
+
+                    while (y_index < total_size - 1 && block == 0) // climb over blocks
+                    {
+                        int y_pos = y_index + 1;
+                        block = get_sblock(_chunks, cx, y_pos, cz);
+                        y_index++;
+                    }
+
+                    
+                }
+            }
+
+            for (auto &chunk : _chunks)
+            {
+                chunk->generate_instance_data();
+            }
+        }
+    }
+}
+
+unsigned char NoiseGrid::get_sblock(std::vector<NoiseChunk*> &chunks, int x, int y, int z)
+{
+    int chunk_index = y / chunk_size.y;
+    int block_index = y % chunk_size.y;
+
+    return chunks[chunk_index]->get_block(x, block_index, z);
+}
+
+void NoiseGrid::set_sblock(std::vector<NoiseChunk*> &chunks, int x, int y, int z, unsigned char value)
+{
+    int chunk_index = y / chunk_size.y;
+    int block_index = y % chunk_size.y;
+
+    chunks[chunk_index]->set_block(x, block_index, z, value);
 }

@@ -1,0 +1,30 @@
+#
+# rgl layout text file (v4.0) - raygui layout file generated using rGuiLayout
+#
+# Number of controls:     19
+#
+# Ref. window:    r <x> <y> <width> <height>
+# Anchor info:    a <id> <name> <posx> <posy> <enabled>
+# Control info:   c <id> <type> <name> <rectangle> <anchor_id> <text>
+#
+r 0 40 -1 -1
+a 001 anchor01 48 48 1
+c 000 0 WindowBox000 48 48 240 528 0 #094#Stegano Image
+c 001 4 Label002 8 40 88 24 1 PADDING BYTES
+c 002 15 Spinner019 104 40 128 24 1 
+c 003 4 Label011 8 80 96 16 1 STEGANO BITS
+c 004 7 CheckBox003 104 80 16 16 1 
+c 005 7 CheckBox004 120 80 16 16 1 
+c 006 7 CheckBox005 136 80 16 16 1 
+c 007 7 CheckBox006 152 80 16 16 1 
+c 008 7 CheckBox007 168 80 16 16 1 
+c 009 7 CheckBox008 184 80 16 16 1 
+c 010 7 CheckBox009 200 80 16 16 1 
+c 011 7 CheckBox010 216 80 16 16 1 
+c 012 4 Label012 8 104 91 25 1 CARRIER IMAGE:
+c 013 3 Panel013 8 128 224 168 1 
+c 014 4 Label014 8 304 61 25 1 MESSAGE:
+c 015 12 TextBox015 8 328 224 96 1 Message to be hidden in the image....
+c 016 2 Line017 0 432 240 24 1 
+c 017 5 Button016 8 456 224 32 1 STEGANO!
+c 018 19 StatusBar019 0 504 240 24 1 Status Info

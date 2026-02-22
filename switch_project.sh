@@ -4,7 +4,7 @@
 PROJECT_NAME=$1
 
 if [ -z "$PROJECT_NAME" ]; then
-    echo "Usage: ./switch_project.sh [NoiseGrid|NewProject]"
+    echo "Usage: ./switch_project.sh [NoiseGrid|rguilayout|NewProject]"
     echo "Available projects:"
     ls -1 projects/
     exit 1

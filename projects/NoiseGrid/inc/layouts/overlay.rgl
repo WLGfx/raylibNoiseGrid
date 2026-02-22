@@ -1,0 +1,31 @@
+#
+# rgl layout text file (v4.0) - raygui layout file generated using rGuiLayout
+#
+# Number of controls:     20
+#
+# Ref. window:    r <x> <y> <width> <height>
+# Anchor info:    a <id> <name> <posx> <posy> <enabled>
+# Control info:   c <id> <type> <name> <rectangle> <anchor_id> <text>
+#
+r 0 40 -1 -1
+a 001 anchor01 -8 0 1
+c 000 15 Spinner000 56 40 120 32 0 Width
+c 001 15 Spinner001 232 40 120 32 0 Height
+c 002 15 Spinner002 408 40 120 32 0 Depth
+c 003 1 GroupBox003 8 24 528 64 0 Grid size
+c 004 11 DropdownBox004 568 40 128 32 0 ONE;TWO;THREE
+c 005 1 GroupBox005 552 24 160 64 0 Chunk size
+c 006 17 SliderBar006 48 144 600 32 0 From
+c 007 17 SliderBar007 48 184 600 32 0 To
+c 008 17 SliderBar008 48 224 600 32 0 Gap
+c 009 14 ValueBOx010 672 144 120 32 0 
+c 010 14 ValueBOx011 672 184 120 32 0 
+c 011 14 ValueBOx012 672 224 120 32 0 
+c 012 1 GroupBox012 16 120 800 152 1 Selection range
+c 013 17 SliderBar013 48 432 600 32 0 Gain
+c 014 17 SliderBar014 48 472 600 32 0 Lac
+c 015 17 SliderBar015 48 512 600 32 0 Freq
+c 016 17 SliderBar016 48 552 600 32 0 Seed
+c 017 17 SliderBar017 48 592 600 32 0 Oct's
+c 018 1 GroupBox018 8 296 800 232 1 Selection range
+c 019 23 DummyRec019 848 144 120 24 0 SAMPLE TEXT

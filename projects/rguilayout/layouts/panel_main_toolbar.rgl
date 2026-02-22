@@ -1,0 +1,42 @@
+#
+# rgl layout text file (v4.0) - raygui layout file generated using rGuiLayout
+#
+# Number of controls:     26
+#
+# Ref. window:    r <x> <y> <width> <height>
+# Anchor info:    a <id> <name> <posx> <posy> <enabled>
+# Control info:   c <id> <type> <name> <rectangle> <anchor_id> <text>
+#
+r 0 40 -1 -1
+a 001 anchorFullscreen 1296 48 1
+a 002 anchorZoom 376 48 1
+a 003 anchorBack 768 48 1
+a 004 anchorChannels 928 48 1
+a 005 anchorHelpers 1128 48 1
+a 006 anchorMain 48 48 1
+c 000 3 panelEmpty 0 0 328 40 6 
+c 001 5 btnOpen 16 8 24 24 6 #1#
+c 002 5 btnExport 48 8 24 24 6 #7#
+c 003 8 showInfoWindow 88 8 24 24 6 #100#
+c 004 8 showEditWindow 120 8 24 24 6 #140#
+c 005 5 btnHelp 160 8 72 24 6 HELP
+c 006 5 btnAbout 240 8 72 24 6 #191#ABOUT
+c 007 3 panelBack 0 0 392 40 2 
+c 008 5 center 16 8 24 24 2 #105#
+c 009 17 zoom 88 16 150 12 2 ZOOM:
+c 010 4 lblScaleFilter 264 8 72 24 2 Scale Filter:
+c 011 9 scaleFilter 336 8 24 24 2 #34#;#35#
+c 012 3 panelZoom 0 0 160 40 3 
+c 013 4 lblBack 16 8 32 24 3 Back:
+c 014 9 background 48 8 24 24 3 ;;;
+c 015 3 panelChannels 0 0 200 40 4 
+c 016 4 lblChannels 8 8 56 24 4 Channels:
+c 017 9 channels 64 8 24 24 4 All;R;G;B;A
+c 018 3 panelHelpers 0 0 152 40 5 
+c 019 4 lblHelpers 8 8 56 24 5 Helpers:
+c 020 8 helperGrid 56 8 24 24 5 #97#
+c 021 8 helperCursor 88 8 24 24 5 #65#
+c 024 8 helperBox 120 8 24 24 5 #38#
+c 023 3 panelMain 152 0 16 40 5 
+c 024 3 visualization 0 0 40 40 1 
+c 025 5 fullScreen 8 8 24 24 1 #53#
