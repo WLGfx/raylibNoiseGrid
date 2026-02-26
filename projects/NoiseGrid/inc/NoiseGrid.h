@@ -26,7 +26,6 @@ public:
     vec3i position; // grid coords
     std::vector<float> data;
     std::vector<unsigned char> blocks;
-    //std::vector<vec3i> blocks;
     std::vector<Matrix> transforms;
 
     void initialise(NoiseGrid *grid);
