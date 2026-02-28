@@ -10,6 +10,8 @@ struct MYUI {
     MYUI(Camera3D* cam, NoiseGrid* noise) { camera = cam; noise_grid = noise; }
     
     void draw();
+    void update_grid();
+    void set_noise_from_ui();
 
     Camera3D *camera;
     NoiseGrid* noise_grid;
@@ -36,11 +38,11 @@ struct MYUI {
     void on_chunk_size_changed();
     void on_grid_size_changed();
 
-    rDropdownBox chunk_size = { {0}, "16;24;32;48;64;96", 0, false, std::bind(&MYUI::on_chunk_size_changed, this) };
+    rDropdownBox chunk_size = { {0}, "16;24;32;48;64;96", 1, false, std::bind(&MYUI::on_chunk_size_changed, this) };
     rLine chunk_size_line = { {0}, "Chunk" };
-    rSpinner grid_wid = { {0}, "w", 3, 0, 100, false, std::bind(&MYUI::on_grid_size_changed, this) };
-    rSpinner grid_hgt = { {0}, "h", 3, 0, 100, false, std::bind(&MYUI::on_grid_size_changed, this) };
-    rSpinner grid_dep = { {0}, "d", 3, 0, 100, false, std::bind(&MYUI::on_grid_size_changed, this) };
+    rSpinner grid_wid = { {0}, "w", 3, 1, 100, false, std::bind(&MYUI::on_grid_size_changed, this) };
+    rSpinner grid_hgt = { {0}, "h", 3, 1, 100, false, std::bind(&MYUI::on_grid_size_changed, this) };
+    rSpinner grid_dep = { {0}, "d", 3, 1, 100, false, std::bind(&MYUI::on_grid_size_changed, this) };
     rLine grid_label = { {0}, "Grid" };
     
     Rectangle grid_padding = {10, 10, 100, 10};
@@ -173,6 +175,49 @@ struct MYUI {
     };
     rVBox jitter_slider_vbox = { {0, 0, 820, 1 * 60}, 
     jitter_slider_padding, ANCHOR_BOTTOM_RIGHT, &jitter_slider_widget };
+
+    const FastNoise::NoiseType noise_types[10] = { 
+        FastNoise::NoiseType::Value, 
+        FastNoise::NoiseType::ValueFractal, 
+        FastNoise::NoiseType::Perlin,
+        FastNoise::NoiseType::PerlinFractal,
+        FastNoise::NoiseType::Simplex,
+        FastNoise::NoiseType::SimplexFractal,
+        FastNoise::NoiseType::Cellular,
+        FastNoise::NoiseType::WhiteNoise,
+        FastNoise::NoiseType::Cubic,
+        FastNoise::NoiseType::CubicFractal
+    };
+
+    const FastNoise::Interp interp_types[3] = { 
+        FastNoise::Interp::Linear,
+        FastNoise::Interp::Hermite,
+        FastNoise::Interp::Quintic
+    };
+
+    const FastNoise::FractalType fractal_types[3] = { 
+        FastNoise::FractalType::FBM,
+        FastNoise::FractalType::RigidMulti,
+        FastNoise::FractalType::Billow
+    };
+
+    const FastNoise::CellularDistanceFunction distance_functions[3] = { 
+        FastNoise::CellularDistanceFunction::Euclidean,
+        FastNoise::CellularDistanceFunction::Manhattan,
+        FastNoise::CellularDistanceFunction::Natural
+    };
+
+    const FastNoise::CellularReturnType return_types[7] = { 
+        FastNoise::CellularReturnType::CellValue,
+        FastNoise::CellularReturnType::Distance,
+        FastNoise::CellularReturnType::Distance2,
+        FastNoise::CellularReturnType::Distance2Add,
+        FastNoise::CellularReturnType::Distance2Sub,
+        FastNoise::CellularReturnType::Distance2Mul,
+        FastNoise::CellularReturnType::Distance2Div
+    };
+
+    const int chunk_sizes[6] = {16, 24, 32, 48, 64, 96};
 };
 
 #endif

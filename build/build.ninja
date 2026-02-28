@@ -931,6 +931,16 @@ build projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/myui.cpp.o: CXX_COMPILER__
   OBJECT_FILE_DIR = projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc
   TARGET_SUPPORT_DIR = projects/NoiseGrid/CMakeFiles/NoiseGrid.dir
 
+build projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rlshaders.cpp.o: CXX_COMPILER__NoiseGrid_unscanned_Debug /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/rlshaders.cpp || cmake_object_order_depends_target_NoiseGrid
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP
+  DEP_FILE = projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rlshaders.cpp.o.d
+  FLAGS = -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions
+  INCLUDES = -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid
+  OBJECT_DIR = projects/NoiseGrid/CMakeFiles/NoiseGrid.dir
+  OBJECT_FILE_DIR = projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc
+  TARGET_SUPPORT_DIR = projects/NoiseGrid/CMakeFiles/NoiseGrid.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target NoiseGrid
@@ -939,7 +949,7 @@ build projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/myui.cpp.o: CXX_COMPILER__
 #############################################
 # Link the executable bin/NoiseGrid
 
-build bin/NoiseGrid: CXX_EXECUTABLE_LINKER__NoiseGrid_Debug projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/src/main.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/FastNoise.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/NoiseGrid.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/NoiseChunk.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/raygui+.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/myui.cpp.o | lib/libraylib.a /usr/lib/libOpenGL.so /usr/lib/libGLX.so /usr/lib/libGLU.so /usr/lib/librt.a /usr/lib/libm.so || external/raylib/raylib/external/glfw/src/glfw lib/libraylib.a
+build bin/NoiseGrid: CXX_EXECUTABLE_LINKER__NoiseGrid_Debug projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/src/main.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/FastNoise.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/NoiseGrid.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/NoiseChunk.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/raygui+.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/myui.cpp.o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rlshaders.cpp.o | lib/libraylib.a /usr/lib/libOpenGL.so /usr/lib/libGLX.so /usr/lib/libGLU.so /usr/lib/librt.a /usr/lib/libm.so || external/raylib/raylib/external/glfw/src/glfw lib/libraylib.a
   CONFIG = Debug
   DEP_FILE = projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/link.d
   FLAGS = -g -flto=thin

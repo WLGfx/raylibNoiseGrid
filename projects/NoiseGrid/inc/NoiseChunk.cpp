@@ -1,7 +1,78 @@
 #include "NoiseGrid.h"
-#include <iostream>
-#include <raymath.h>
 
+void NoiseChunk::initialise(NoiseGrid *grid) {
+    this->grid = grid;
+    int data_total_size = grid->chunk.size.x * grid->chunk.size.y * grid->chunk.size.z;
+    blocks.resize(data_total_size);
+}
+
+void NoiseChunk::set_block(int x, int y, int z, unsigned char value) {
+    int index = x + y * grid->chunk.size.x + z * grid->chunk.size.x * grid->chunk.size.y;
+    blocks[index] = value;
+}
+
+unsigned char NoiseChunk::get_block(int x, int y, int z) {
+    int index = x + y * grid->chunk.size.x + z * grid->chunk.size.x * grid->chunk.size.y;
+    return blocks[index];
+}
+
+bool NoiseChunk::is_block(int x, int y, int z) {
+    if (x < 0 || x >= grid->chunk.size.x || y < 0 || y >= grid->chunk.size.y || z < 0 || z >= grid->chunk.size.z) { return false; }
+    int index = x + y * grid->chunk.size.x + z * grid->chunk.size.x * grid->chunk.size.y;
+    return blocks[index] > 0;
+}
+
+void NoiseChunk::generate_noise_block_data() {
+    for (int z = 0; z < grid->chunk.size.z; z++) {
+        for (int y = 0; y < grid->chunk.size.y; y++) {
+            for (int x = 0; x < grid->chunk.size.x; x++) {
+                float noisex = posi.x * grid->chunk.size.x + x;
+                float noisey = posi.y * grid->chunk.size.y + y;
+                float noisez = posi.z * grid->chunk.size.z + z;
+                float value = grid->noise.GetNoise(noisex, noisey, noisez);
+                if (value > grid->range.min && value < grid->range.max) {
+                    set_block(x, y, z, 1);
+                } else {
+                    set_block(x, y, z, 0);
+                }
+            }
+        }
+    }
+}
+
+void NoiseChunk::generate_instance_data() {
+    transforms.clear();
+    block_count = 0;
+    for (int z = 0; z < grid->chunk.size.z; z++) {
+        for (int y = 0; y < grid->chunk.size.y; y++) {
+            for (int x = 0; x < grid->chunk.size.x; x++) {
+                if (is_block(x, y, z)) {
+                    bool obsx = is_block(x - 1, y, z) and is_block(x + 1, y, z);
+                    bool obsy = is_block(x, y - 1, z) and is_block(x, y + 1, z);
+                    bool obsz = is_block(x, y, z - 1) and is_block(x, y, z + 1);
+                    bool obscurred = obsx and obsy and obsz;
+                    if (!obscurred) {
+                        Matrix transform = MatrixTranslate(
+                                (float)(posi.x * grid->chunk.size.x + x) * grid->block_size.x,
+                                (float)(posi.y * grid->chunk.size.y + y) * grid->block_size.y,
+                                (float)(posi.z * grid->chunk.size.z + z) * grid->block_size.z
+                            );
+                        transforms.push_back(transform);
+                        block_count++;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void NoiseChunk::generate() {
+    generate_noise_block_data();
+    generate_instance_data();
+    processed = true;
+}
+
+/*
 NoiseChunk::NoiseChunk() {}
 
 NoiseChunk::~NoiseChunk()
@@ -159,3 +230,4 @@ void NoiseChunk::generate_instance_data()
         }
     }
 }
+*/

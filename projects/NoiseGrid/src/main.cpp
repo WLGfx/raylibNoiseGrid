@@ -61,7 +61,11 @@ void init_ui()
 void init_grid_mesh_and_material() {
     grid.mesh = GenMeshCube(1, 1, 1);
     grid.material = LoadMaterialDefault();
-    grid.material.shader = LoadShaderFromMemory(
+    
+    grid.shader.init();
+    grid.material.shader = grid.shader.shader;
+
+    /*grid.material.shader = LoadShaderFromMemory(
         grid.shader_source_lighting_instancing_vs, 
         grid.shader_source_lighting_instancing_fs);
     
@@ -96,7 +100,7 @@ void init_grid_mesh_and_material() {
     grid.material.shader.locs[SHADER_LOC_MATRIX_MODEL] = 
         GetShaderLocationAttrib(
             grid.material.shader, 
-            "instanceTransform");
+            "instanceTransform");*/
 
 }
 
@@ -107,8 +111,9 @@ void update_noise_grid() {
 
 void draw_3d()
 {
-    grid.light_point.position = camera.position;
-    UpdateLightValues(grid.material.shader, grid.light_point);
+    grid.shader.lights.point.position = camera.position;
+    // grid.light_point.position = camera.position;
+    UpdateLightValues(grid.material.shader, grid.shader.lights.point);
 
     BeginMode3D(camera);
     DrawGrid(100, 8.0f);
@@ -122,6 +127,7 @@ void draw_3d()
 
 int main() {
     MYUI myui(&camera, &grid);
+    myui.set_noise_from_ui();
 
     // Initialization
     int screenWidth = 1280;
@@ -130,11 +136,7 @@ int main() {
     InitWindow(screenWidth, screenHeight, "FastNoise x3 Playground (C)WLGfx Carl S Norwood 2026"); // corrected the year (Wed 27 Jan 26-12:47GMT)
     SetTargetFPS(60);
 
-    SetWindowState(
-        FLAG_WINDOW_RESIZABLE |
-        FLAG_WINDOW_HIGHDPI |
-        FLAG_VSYNC_HINT
-    );
+    SetWindowState( FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI | FLAG_VSYNC_HINT );
 
     init_ui();
     init_grid_mesh_and_material();

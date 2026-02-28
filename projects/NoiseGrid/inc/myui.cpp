@@ -1,6 +1,7 @@
 #include "myui.h"
 #include "inc/FastNoise.h"
 #include "raylib.h"
+#include <iostream>
 
 void MYUI::draw() { 
     // update camera
@@ -59,73 +60,96 @@ void MYUI::draw() {
     }
 }
 
+void MYUI::update_grid() {
+    noise_grid->chunk.old.x -= 1;
+}
+
+void MYUI::set_noise_from_ui() {
+    noise_grid->range.min = from_slider.value;
+    noise_grid->range.max = to_slider.value;
+    noise_grid->grid.size = {grid_wid.value, grid_hgt.value, grid_dep.value};
+    noise_grid->chunk.size = {chunk_sizes[chunk_size.active], chunk_sizes[chunk_size.active], chunk_sizes[chunk_size.active]};
+    noise_grid->noise.SetSeed(seed_slider.value);
+    noise_grid->noise.SetFractalOctaves(octaves_slider.value);
+    noise_grid->noise.SetFrequency(frequency_slider.value);
+    noise_grid->noise.SetFractalGain(gain_slider.value);
+    noise_grid->noise.SetFractalLacunarity(lacunarity_slider.value);
+    noise_grid->noise.SetNoiseType(noise_types[noise_type.active]);
+    noise_grid->noise.SetInterp(interp_types[interp.active]);
+    noise_grid->noise.SetFractalType(fractal_types[fractal_type.active]);
+    noise_grid->noise.SetCellularDistanceFunction(distance_functions[distance.active]);
+    noise_grid->noise.SetCellularReturnType(return_types[return_type.active]);
+    noise_grid->noise.SetCellularDistance2Indices(index0.value, index1.value);
+    noise_grid->noise.SetCellularJitter(jitter.value);
+}
+
 // custom callbacks
 
 void MYUI::on_effect_1_pressed() {
-    noise_grid->effect_drop();
-}
-
-void MYUI::on_chunk_size_changed() {
-    const int sizes[] = {16, 24, 32, 48, 64, 96};
-    int size = sizes[chunk_size.active];
-    noise_grid->chunk_size = {size, size, size};
+    //noise_grid->effect_drop();
 }
 
 void MYUI::on_grid_size_changed() {
-    noise_grid->grid_size = {grid_wid.value, grid_hgt.value, grid_dep.value};
+    vec3i size = {grid_wid.value, grid_hgt.value, grid_dep.value};
+    noise_grid->grid.size = size;
+}
+
+void MYUI::on_chunk_size_changed() {
+    int size = chunk_sizes[chunk_size.active];
+    noise_grid->chunk.size = {size, size, size};
 }
 
 void MYUI::on_seed_changed() {
-    noise_grid->noise[0].noise.SetSeed(seed_slider.value);
+    noise_grid->noise.SetSeed(seed_slider.value);
     seed_value.value = seed_slider.value;
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_octaves_changed() {
-    noise_grid->noise[0].noise.SetFractalOctaves(octaves_slider.value);
+    noise_grid->noise.SetFractalOctaves(octaves_slider.value);
     octaves_value.value = octaves_slider.value;
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_frequency_changed() {
-    noise_grid->noise[0].noise.SetFrequency(frequency_slider.value);
+    noise_grid->noise.SetFrequency(frequency_slider.value);
     frequency_value.value = frequency_slider.value;
     frequency_value.write();
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_gain_changed() {
-    noise_grid->noise[0].noise.SetFractalGain(gain_slider.value);
+    noise_grid->noise.SetFractalGain(gain_slider.value);
     gain_value.value = gain_slider.value;
     gain_value.write();
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_lacunarity_changed() {
-    noise_grid->noise[0].noise.SetFractalLacunarity(lacunarity_slider.value);
+    noise_grid->noise.SetFractalLacunarity(lacunarity_slider.value);
     lacunarity_value.value = lacunarity_slider.value;
     lacunarity_value.write();
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_from_changed() {
-    noise_grid->noise[0].range_min = from_slider.value;
-    if (noise_grid->noise[0].range_min + noise_grid->noise[0].range_max > width_slider.value) {
-        noise_grid->noise[0].range_max = noise_grid->noise[0].range_min + width_slider.value;
+    noise_grid->range.min = from_slider.value;
+    if (noise_grid->range.min + noise_grid->range.max > width_slider.value) {
+        noise_grid->range.max = noise_grid->range.min + width_slider.value;
     }
     from_value.value = from_slider.value;
     from_value.write();
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_to_changed() {
-    noise_grid->noise[0].range_max = to_slider.value;
-    if (noise_grid->noise[0].range_min + noise_grid->noise[0].range_max > width_slider.value) {
-        noise_grid->noise[0].range_min = noise_grid->noise[0].range_max - width_slider.value;
+    noise_grid->range.max = to_slider.value;
+    if (noise_grid->range.min + noise_grid->range.max > width_slider.value) {
+        noise_grid->range.min = noise_grid->range.max - width_slider.value;
     }
     to_value.value = to_slider.value;
     to_value.write();
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_width_changed() {
@@ -134,88 +158,54 @@ void MYUI::on_width_changed() {
     }
     width_value.value = width_slider.value;
     width_value.write();
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_noise_type_changed() {
-    const FastNoise::NoiseType types[] = { 
-        FastNoise::NoiseType::Value, 
-        FastNoise::NoiseType::ValueFractal, 
-        FastNoise::NoiseType::Perlin,
-        FastNoise::NoiseType::PerlinFractal,
-        FastNoise::NoiseType::Simplex,
-        FastNoise::NoiseType::SimplexFractal,
-        FastNoise::NoiseType::Cellular,
-        FastNoise::NoiseType::WhiteNoise,
-        FastNoise::NoiseType::Cubic,
-        FastNoise::NoiseType::CubicFractal
-    };
-    FastNoise::NoiseType type = types[noise_type.active];
-    noise_grid->noise[0].noise.SetNoiseType(type);
-    noise_grid->update_new_noise();
+    FastNoise::NoiseType type = noise_types[noise_type.active];
+    noise_grid->noise.SetNoiseType(type);
+    update_grid();
 }
 
 void MYUI::on_interp_changed() {
-    const FastNoise::Interp types[] = { 
-        FastNoise::Interp::Linear,
-        FastNoise::Interp::Hermite,
-        FastNoise::Interp::Quintic
-    };
-    FastNoise::Interp type = types[interp.active];
-    noise_grid->noise[0].noise.SetInterp(type);
-    noise_grid->update_new_noise();
+    FastNoise::Interp type = interp_types[interp.active];
+    noise_grid->noise.SetInterp(type);
+    update_grid();
 }
 
 void MYUI::on_fractal_type_changed() {
-    const FastNoise::FractalType types[] = { 
-        FastNoise::FractalType::FBM,
-        FastNoise::FractalType::RigidMulti,
-        FastNoise::FractalType::Billow
-    };
-    FastNoise::FractalType type = types[fractal_type.active];
-    noise_grid->noise[0].noise.SetFractalType(type);
-    noise_grid->update_new_noise();
+    FastNoise::FractalType type = fractal_types[fractal_type.active];
+    noise_grid->noise.SetFractalType(type);
+    update_grid();
 }
 
 void MYUI::on_distance_changed() {
-    const FastNoise::CellularDistanceFunction functions[] = { 
-        FastNoise::CellularDistanceFunction::Euclidean,
-        FastNoise::CellularDistanceFunction::Manhattan,
-        FastNoise::CellularDistanceFunction::Natural
-    };
-    FastNoise::CellularDistanceFunction function = functions[distance.active];
-    noise_grid->noise[0].noise.SetCellularDistanceFunction(function);
-    noise_grid->update_new_noise();
+    FastNoise::CellularDistanceFunction function = distance_functions[distance.active];
+    noise_grid->noise.SetCellularDistanceFunction(function);
+    update_grid();
 }
 
 void MYUI::on_return_type_changed() {
-    const FastNoise::CellularReturnType types[] = { 
-        FastNoise::CellularReturnType::CellValue,
-        FastNoise::CellularReturnType::Distance,
-        FastNoise::CellularReturnType::Distance2,
-        FastNoise::CellularReturnType::Distance2Add,
-        FastNoise::CellularReturnType::Distance2Sub,
-        FastNoise::CellularReturnType::Distance2Mul,
-        FastNoise::CellularReturnType::Distance2Div
-    };
-    FastNoise::CellularReturnType type = types[return_type.active];
-    noise_grid->noise[0].noise.SetCellularReturnType(type);
-    noise_grid->update_new_noise();
+    FastNoise::CellularReturnType type = return_types[return_type.active];
+    noise_grid->noise.SetCellularReturnType(type);
+    update_grid();
 }
 
-void MYUI::on_indexes_changed() {
-    noise_grid->noise[0].noise.SetCellularDistance2Indices(index0.value, index1.value);
-    //noise_grid->update_new_noise();
+void MYUI::on_indexes_changed() { // nb. rSpinner
+    if ((index0.editMode || index1.editMode)) {
+        noise_grid->noise.SetCellularDistance2Indices(index0.value, index1.value);
+        update_grid();
+    }
 }
 
 void MYUI::on_jitter_value_changed() {
-    noise_grid->noise[0].noise.SetCellularJitter(jitter.value);
+    noise_grid->noise.SetCellularJitter(jitter.value);
     jitter_slider.value = jitter.value;
-    noise_grid->update_new_noise();
+    update_grid();
 }
 
 void MYUI::on_jitter_slider_changed() {
-    noise_grid->noise[0].noise.SetCellularJitter(jitter_slider.value);
+    noise_grid->noise.SetCellularJitter(jitter_slider.value);
     jitter.write(jitter_slider.value);
-    noise_grid->update_new_noise();
+    update_grid();
 }

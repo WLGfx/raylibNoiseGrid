@@ -9,14 +9,66 @@
 
 #include "FastNoise.h"
 #include "rlights.h"
+#include "rlshaders.h"
 
 struct vec2i { int x, y; };
-
 struct vec3i { int x, y, z; };
-
 class NoiseGrid;    // forward declaration
 
-class NoiseChunk {
+struct NoiseChunk {
+    NoiseGrid *grid;
+    bool processed = false;
+    vec3i posi;
+    std::vector<unsigned char> blocks;
+    std::vector<Matrix> transforms;
+    int block_count;
+
+    void            initialise(NoiseGrid *grid);
+    void            set_block(int x, int y, int z, unsigned char value);
+    unsigned char   get_block(int x, int y, int z);
+    bool            is_block(int x, int y, int z);
+    void            generate_noise_block_data();
+    void            generate_instance_data();
+    void            generate();
+};
+
+struct NoiseGrid {
+    struct { vec3i size  = {5, 5, 5},    old = {0, 0, 0}; } grid;
+    struct { vec3i size  = {16, 16, 16}, old = {0, 0, 0}; } chunk;
+    struct { vec3i pos   = {0, 0, 0},    old = {0, 0, 0}; } origin;
+    struct { vec3i start = {0, 0, 0},    end = {0, 0, 0}; } bounds;
+
+    std::vector<NoiseChunk>  chunks;
+    std::vector<NoiseChunk*> chunks_free;
+    std::vector<NoiseChunk*> chunks_used;
+
+    std::vector<std::thread> thread;
+    std::vector<bool>        thread_busy;
+    std::mutex               thread_mutex;
+    std::vector<NoiseChunk*> thread_queue;
+    bool                     _exit_thread = false;
+
+    Mesh                     mesh;
+    Vector3                  block_size = {1.0f, 1.0f, 1.0f};
+    Material                 material;
+    shader_lighting_instancing shader;
+    Vector3                  source_position;
+    
+    FastNoise                noise;
+    struct { float min = 0.001f, max = 0.100f; } range;
+
+                    NoiseGrid();
+                    ~NoiseGrid();
+    void            update(Vector3 position);
+    void            render();
+    static void     thread_function(NoiseGrid *grid, int index);
+    void            initialise_chunks();
+    void            fill_chunks();
+
+    void            clear_thread_queue();
+};
+
+/*class NoiseChunk {
 public:
     NoiseChunk();
     ~NoiseChunk();
@@ -44,7 +96,9 @@ public:
     bool skip_noise = false;
     bool ready = false; // for the render pass
 };
+*/
 
+/*
 struct NoiseConfig {
     FastNoise noise;
     char name[16] = "Default";
@@ -52,9 +106,9 @@ struct NoiseConfig {
     float range_min = 0.0f;
     float range_max = 0.1f;
     float range_width = 0.1f;
-};
+};*/
 
-class NoiseGrid
+/*class NoiseGrid
 {
 public:
     NoiseGrid();
@@ -235,5 +289,6 @@ private:
     unsigned char get_sblock(std::vector<NoiseChunk*> &chunks, int x, int y, int z);
     void set_sblock(std::vector<NoiseChunk*> &chunks, int x, int y, int z, unsigned char value);
 };
+*/
 
 #endif // NOISEGRID_H

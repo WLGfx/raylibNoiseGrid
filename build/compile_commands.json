@@ -208,5 +208,11 @@
   "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/myui.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/myui.cpp",
   "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/myui.cpp",
   "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/myui.cpp.o"
+},
+{
+  "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
+  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rlshaders.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/rlshaders.cpp",
+  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/rlshaders.cpp",
+  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rlshaders.cpp.o"
 }
 ]
