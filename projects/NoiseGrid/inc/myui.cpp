@@ -7,20 +7,28 @@ void MYUI::draw() {
     // update camera
     UpdateCamera(camera, CAMERA_ORBITAL);
 
+    bool slow_fps = false;
 
     vbox.update(); 
     if (m_grid.draw() || m_grid.active) {
+        slow_fps = true;
         m_noise.active = false;
         m_camera.active = false;
     }
     if (m_noise.draw() || m_noise.active) {
+        slow_fps = true;
         m_grid.active = false;
         m_camera.active = false;
     }
     if (m_camera.draw() || m_camera.active) {
+        slow_fps = true;
         m_grid.active = false;
         m_noise.active = false;
     }
+    int fps = GetFPS();
+    if (slow_fps && fps > 40) SetTargetFPS(30);
+    else if (fps < 40) SetTargetFPS(60);
+    
     GuiDrawIcon(ICON_GRID, m_grid.bounds.x + 10, m_grid.bounds.y + 6, 2, RAYWHITE);
     GuiDrawIcon(ICON_WAVE, m_noise.bounds.x + 10, m_noise.bounds.y + 6, 2, RAYWHITE);
     GuiDrawIcon(ICON_CAMERA, m_camera.bounds.x + 10, m_camera.bounds.y + 6, 2, RAYWHITE);

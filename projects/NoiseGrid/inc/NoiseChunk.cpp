@@ -29,12 +29,64 @@ void NoiseChunk::generate_noise_block_data() {
                 float noisex = posi.x * grid->chunk.size.x + x;
                 float noisey = posi.y * grid->chunk.size.y + y;
                 float noisez = posi.z * grid->chunk.size.z + z;
+                // already got noisey from the grid, now to get the gradient from the total grid height in units
+                float grid_bottom = grid->bounds.start.y * grid->chunk.size.y;
+                float grid_height = grid->chunk.size.y * grid->grid.size.y;
+                float gradient = 1.0f - ((1.1f / grid_height) * (noisey - grid_bottom));
+                gradient = fmaxf(0.0f, fminf(1.0f, gradient));
+                // now to adjust the threshold based on the gradient
                 float value = grid->noise.GetNoise(noisex, noisey, noisez);
-                if (value > grid->range.min && value < grid->range.max) {
+                value = value * gradient;
+                float adjusted_threshold = grid->range.min + (1.0f - gradient) * (grid->range.max - grid->range.min);
+                if (value > adjusted_threshold) {
                     set_block(x, y, z, 1);
                 } else {
                     set_block(x, y, z, 0);
                 }
+                // This bit was deekseep ai's help
+                /*// Get world position
+                float worldX = posi.x * grid->chunk.size.x + x;
+                float worldY = posi.y * grid->chunk.size.y + y;
+                float worldZ = posi.z * grid->chunk.size.z + z;
+                
+                // 1. Calculate gradient value (1 at center, 0 at bounds)
+                float distanceFromCenter = sqrt(
+                    worldX * worldX + 
+                    worldY * worldY + 
+                    worldZ * worldZ
+                );
+                
+                // Linear falloff
+                float worldRadius = grid->chunk.size.x * grid->grid.size.x / 1.95f;
+                float gradient = 1.0f - (distanceFromCenter / worldRadius);
+                gradient = fmaxf(0.0f, fminf(1.0f, gradient));  // Clamp to 0-1
+                
+                // 2. Get noise value
+                float noiseVal = grid->noise.GetNoise(worldX, worldY, worldZ);// / 2.0f + 1.0f;
+                
+                // 3. Adjust the noise threshold based on gradient
+                // This is the key part - make the threshold higher near edges
+                float baseThreshold = grid->range.min;  // Your original threshold
+                float rangeWidth = grid->range.max - grid->range.min;
+                
+                // As gradient decreases (further from center), increase the threshold
+                // This makes caves less likely at the edges
+                float adjustedThreshold = baseThreshold + (1.0f - gradient) * rangeWidth;
+                
+                // Alternative: Scale the noise value instead
+                float scaledNoise = noiseVal * gradient;
+                
+                // Option 1: Using adjusted threshold
+                if (gradient > 0.01f && scaledNoise > grid->range.min && scaledNoise < grid->range.max) {
+                    set_block(x, y, z, 1);
+                } 
+                // Option 2: Using gradient to blend between solid and cave
+                else if (gradient < 0.01f) {
+                    set_block(x, y, z, 1);  // Force solid near edges
+                } 
+                else {
+                    set_block(x, y, z, 0);
+                }*/
             }
         }
     }
@@ -47,18 +99,18 @@ void NoiseChunk::generate_instance_data() {
         for (int y = 0; y < grid->chunk.size.y; y++) {
             for (int x = 0; x < grid->chunk.size.x; x++) {
                 if (is_block(x, y, z)) {
+                    block_count++; // include even if obscurred
                     bool obsx = is_block(x - 1, y, z) and is_block(x + 1, y, z);
                     bool obsy = is_block(x, y - 1, z) and is_block(x, y + 1, z);
                     bool obsz = is_block(x, y, z - 1) and is_block(x, y, z + 1);
                     bool obscurred = obsx and obsy and obsz;
-                    if (!obscurred) {
+                    if (!obscurred) { // only draw blocks that are not obscurred
                         Matrix transform = MatrixTranslate(
                                 (float)(posi.x * grid->chunk.size.x + x) * grid->block_size.x,
                                 (float)(posi.y * grid->chunk.size.y + y) * grid->block_size.y,
                                 (float)(posi.z * grid->chunk.size.z + z) * grid->block_size.z
                             );
                         transforms.push_back(transform);
-                        block_count++;
                     }
                 }
             }

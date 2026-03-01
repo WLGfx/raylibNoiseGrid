@@ -301,9 +301,7 @@ struct rSpinner : public rBounds {
     
     int draw() { 
         int result = GuiSpinner(bounds, text, &value, minValue, maxValue, editMode);
-        if (on_click) {
-            on_click();
-        }
+        if (on_click) on_click();
         if (result) {
             editMode = !editMode;
         }

@@ -33,7 +33,7 @@ struct NoiseChunk {
 };
 
 struct NoiseGrid {
-    struct { vec3i size  = {5, 5, 5},    old = {0, 0, 0}; } grid;
+    struct { vec3i size  = {6, 6, 6},    old = {0, 0, 0}; } grid;
     struct { vec3i size  = {16, 16, 16}, old = {0, 0, 0}; } chunk;
     struct { vec3i pos   = {0, 0, 0},    old = {0, 0, 0}; } origin;
     struct { vec3i start = {0, 0, 0},    end = {0, 0, 0}; } bounds;
