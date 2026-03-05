@@ -15,6 +15,7 @@ void shader_lighting_instancing::init() {
         ambientCol,
         SHADER_UNIFORM_VEC4);
     
-    lights.sun = CreateLight(LIGHT_DIRECTIONAL, Vector3{0, 10, 0}, Vector3{0, -1, 0}, DARKGRAY, shader);
-    lights.point = CreateLight(LIGHT_POINT, Vector3{0, 5, 0}, Vector3{0, 0, 0}, {144, 70, 32,255}, shader);
+    lights.sun =   CreateLight(LIGHT_DIRECTIONAL, Vector3{0, 10, 0}, Vector3{0, -1, 0}, DARKGRAY,          shader);
+    lights.point = CreateLight(LIGHT_POINT,       Vector3{0, 5, 0},  Vector3{0, 0, 0},  {144, 70, 32,255}, shader);
 }
+// MICPO$OP (translated to Bill Gates in English) "mike poop slop"

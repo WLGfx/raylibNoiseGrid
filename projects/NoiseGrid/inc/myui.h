@@ -24,12 +24,7 @@ struct MYUI {
     rButton m_effect_1 = { {0}, "1", std::bind(&MYUI::on_effect_1_pressed, this) };
 
     Rectangle padding = {10, 10, 10, 10};
-    std::vector<rBounds*> widgets = {
-        &m_effect_1,
-        &m_camera,
-        &m_noise,
-        &m_grid
-    };
+    std::vector<rBounds*> widgets = { &m_effect_1, &m_camera, &m_noise, &m_grid };
     rVBox vbox = { {10, 10, 50, 4 * 60}, 
     padding, ANCHOR_BOTTOM_RIGHT, &widgets };
 
@@ -46,14 +41,7 @@ struct MYUI {
     rLine grid_label = { {0}, "Grid" };
     
     Rectangle grid_padding = {10, 10, 100, 10};
-    std::vector<rBounds*> grid_widgets = {
-        &chunk_size, 
-        &chunk_size_line,
-        &grid_wid, 
-        &grid_hgt, 
-        &grid_dep,
-        &grid_label
-    };
+    std::vector<rBounds*> grid_widgets = { &chunk_size, &chunk_size_line, &grid_wid, &grid_hgt, &grid_dep, &grid_label };
     rVBox grid_vbox = { {10, 10, 200, 6 * 60}, 
     grid_padding, ANCHOR_BOTTOM_RIGHT, &grid_widgets };
 
@@ -80,16 +68,7 @@ struct MYUI {
     rSliderBar width_slider =     { {0}, "Width", "", 0.1f, 0.0f, 1.0f, std::bind(&MYUI::on_width_changed, this) };
 
     Rectangle range_padding = {240, 10, 100, 10};
-    std::vector<rBounds*> range_widgets = {
-        &seed_slider,
-        &octaves_slider,
-        &frequency_slider,
-        &gain_slider,
-        &lacunarity_slider,
-        &from_slider,
-        &to_slider,
-        &width_slider,
-    };
+    std::vector<rBounds*> range_widgets = { &seed_slider, &octaves_slider, &frequency_slider, &gain_slider, &lacunarity_slider, &from_slider, &to_slider, &width_slider };
     rVBox range_vbox = { {0, 0, 820, 8 * 60}, 
     range_padding, ANCHOR_BOTTOM_RIGHT, &range_widgets };
 
@@ -103,16 +82,7 @@ struct MYUI {
     rValueBoxFloat width_value =     { {0, 0, 100, 40}, "", 0.1f };
 
     Rectangle range_value_padding = {10, 10, 100, 10};
-    std::vector<rBounds*> range_value_widgets = {
-        &seed_value,
-        &octaves_value,
-        &frequency_value,
-        &gain_value,
-        &lacunarity_value,
-        &from_value,
-        &to_value,
-        &width_value,
-    };
+    std::vector<rBounds*> range_value_widgets = { &seed_value, &octaves_value, &frequency_value, &gain_value, &lacunarity_value, &from_value, &to_value, &width_value };
     rVBox range_value_vbox = { {0, 0, 200, 8 * 60}, 
     range_value_padding, ANCHOR_BOTTOM_RIGHT, &range_value_widgets };
 
@@ -125,10 +95,7 @@ struct MYUI {
     rDropdownBox interp = { {0}, "Linear;Hermite;Quintic", 0,false, std::bind(&MYUI::on_interp_changed, this) };
     
     Rectangle dropdowns_noise_padding = {10, 10, 90, 490};
-    std::vector<rBounds*> dropdowns_noise_widgets = {
-        &noise_type,
-        &interp
-    };
+    std::vector<rBounds*> dropdowns_noise_widgets = { &noise_type, &interp };
     rHBox dropdowns_noise_hbox = { {0, 0, 210 * 2, 60}, 
     dropdowns_noise_padding, ANCHOR_BOTTOM_RIGHT, &dropdowns_noise_widgets };
     
@@ -144,37 +111,35 @@ struct MYUI {
     rSpinner index1 = { {0}, "", 1, 0, 4,false, std::bind(&MYUI::on_indexes_changed, this) };
     
     Rectangle fractal_params_padding = {10, 10, 90, 550};
-    std::vector<rBounds*> fractal_params_widgets = {
-        &fractal_type,
-        &distance,
-        &return_type,
-        &index0,
-        &index1,
-    };
-    rHBox fractal_params_hbox = { {0, 0, 1060, 60}, 
-    fractal_params_padding, ANCHOR_BOTTOM_RIGHT, &fractal_params_widgets };
+    std::vector<rBounds*> fractal_params_widgets = { &fractal_type, &distance, &return_type, &index0, &index1 };
+    rHBox fractal_params_hbox = { {0, 0, 1060, 60}, fractal_params_padding, ANCHOR_BOTTOM_RIGHT, &fractal_params_widgets };
 
     void on_jitter_value_changed();
 
     rValueBoxFloat jitter = { {0}, "", 2.0f };
     
+    std::vector<rBounds*> jitter_widget = { &jitter };
     Rectangle jitter_padding = {10, 10, 100, 610};
-    std::vector<rBounds*> jitter_widget = {
-        &jitter,
-    };
-    rVBox jitter_vbox = { {0, 0, 200, 60}, 
-    jitter_padding, ANCHOR_BOTTOM_RIGHT, &jitter_widget };
+    rVBox jitter_vbox = { {0, 0, 200, 60}, jitter_padding, ANCHOR_BOTTOM_RIGHT, &jitter_widget };
     
     void on_jitter_slider_changed();
 
     rSliderBar jitter_slider = { {0}, "jitter", "", 2.0f, 0.0f, 3.0f, std::bind(&MYUI::on_jitter_slider_changed, this) };
 
+    std::vector<rBounds*> jitter_slider_widget = { &jitter_slider };
     Rectangle jitter_slider_padding = {10, 10, 330, 610};
-    std::vector<rBounds*> jitter_slider_widget = {
-        &jitter_slider
-    };
-    rVBox jitter_slider_vbox = { {0, 0, 820, 1 * 60}, 
-    jitter_slider_padding, ANCHOR_BOTTOM_RIGHT, &jitter_slider_widget };
+    rVBox jitter_slider_vbox = { {0, 0, 820, 1 * 60}, jitter_slider_padding, ANCHOR_BOTTOM_RIGHT, &jitter_slider_widget };
+
+    // camera_vbox plus camera widgets
+    void on_orbital_speed_changed();
+    rSliderBar orbital_speed = { {}, "Orbital Speed", "", 5.0f, -10.0f, 10.0f, std::bind(&MYUI::on_orbital_speed_changed, this) };
+    Rectangle camera_padding = {10, 10, 100, 10};
+    rVBox camera_vbox = { {0, 0, 200, 60}, camera_padding, ANCHOR_BOTTOM_RIGHT, &camera_widgets };
+    std::vector<rBounds*> camera_widgets = { &orbital_speed };
+
+    
+
+    // EOF padding
 
     const FastNoise::NoiseType noise_types[10] = { 
         FastNoise::NoiseType::Value, 

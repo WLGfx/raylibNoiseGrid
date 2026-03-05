@@ -19,30 +19,30 @@ enum rAnchor {
     ANCHOR_RIGHT_CENTER
 };
 
-///////////////////////////////////////////////////////////////////////////
-
-//                                                               CONTAINERS
-
-///////////////////////////////////////////////////////////////////////////
-
 struct rBounds 
 {
     Rectangle bounds;
     //rBounds *parent;
     //rAnchor anchor;
-
+    
     rBounds() = default;
     
     rBounds(Rectangle bounds) 
     : bounds(bounds) {}
-
+    
     virtual int draw() { return 0; }
-
+    
     Vector2 get_position() { return {bounds.x, bounds.y}; }
     Vector2 get_size() { return {bounds.width, bounds.height}; }
     void set_position(Vector2 pos) { bounds.x = pos.x; bounds.y = pos.y; }
     void set_size(Vector2 size) { bounds.width = size.x; bounds.height = size.y; }
 };
+
+///////////////////////////////////////////////////////////////////////////
+
+//                                                               CONTAINERS
+
+///////////////////////////////////////////////////////////////////////////
 
 struct rContainer : public rBounds 
 {
@@ -73,6 +73,12 @@ struct rHBox : public rContainer
     virtual void update() override;
 };
 
+///////////////////////////////////////////////////////////////////////////
+
+//                                                                      NEW
+
+///////////////////////////////////////////////////////////////////////////
+
 struct rVBox : public rContainer 
 {
     rVBox() = default;
@@ -82,6 +88,11 @@ struct rVBox : public rContainer
 
     virtual void update() override;
 };
+
+struct rVLayout {
+
+};
+
 
 
 
@@ -431,9 +442,7 @@ struct rSliderBar : public rBounds {
     int draw() { 
         int result = GuiSliderBar(bounds, text, right, &value, min, max);
         if (result) {
-            if (on_click) {
-                on_click();
-            }
+            if (on_click) on_click();
         }
         return result;
     }

@@ -23,22 +23,26 @@ bool NoiseChunk::is_block(int x, int y, int z) {
 }
 
 void NoiseChunk::generate_noise_block_data() {
+    float grid_min_y = grid->bounds.start.y * grid->chunk.size.y;
+    float grid_height = grid->chunk.size.y * grid->grid.size.y;
     for (int z = 0; z < grid->chunk.size.z; z++) {
         for (int y = 0; y < grid->chunk.size.y; y++) {
-            for (int x = 0; x < grid->chunk.size.x; x++) {
+            for (int x = 0; x < grid->chunk.size.x; x++) 
+            {
                 float noisex = posi.x * grid->chunk.size.x + x;
                 float noisey = posi.y * grid->chunk.size.y + y;
                 float noisez = posi.z * grid->chunk.size.z + z;
-                // already got noisey from the grid, now to get the gradient from the total grid height in units
-                float grid_bottom = grid->bounds.start.y * grid->chunk.size.y;
-                float grid_height = grid->chunk.size.y * grid->grid.size.y;
-                float gradient = 1.0f - ((1.1f / grid_height) * (noisey - grid_bottom));
-                gradient = fmaxf(0.0f, fminf(1.0f, gradient));
-                // now to adjust the threshold based on the gradient
+
                 float value = grid->noise.GetNoise(noisex, noisey, noisez);
+                float gradient = 1.0f - ((0.5f / grid_height) * (noisey - grid_min_y));
+                gradient = fmaxf(0.0f, fminf(1.0f, gradient));
+
                 value = value * gradient;
-                float adjusted_threshold = grid->range.min + (1.0f - gradient) * (grid->range.max - grid->range.min);
-                if (value > adjusted_threshold) {
+
+                float adjusted_threshold_start = grid->range.min + (1.0f - gradient) * (grid->range.max - grid->range.min);
+                float adjusted_threshold_end = grid->range.max - (1.0f - gradient) * (grid->range.max - grid->range.min);
+
+                if (value > adjusted_threshold_start && value < adjusted_threshold_end) {
                     set_block(x, y, z, 1);
                 } else {
                     set_block(x, y, z, 0);

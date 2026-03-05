@@ -1,4 +1,5 @@
 #include "NoiseGrid.h"
+#include "raylib.h"
 #include <iostream>
 
 // 114/63 - 67 (95/68)
@@ -127,24 +128,32 @@ void NoiseGrid::fill_chunks() {
 }
 
 //#define USE_CRAPPY_RENDERERERERER
-//
 void NoiseGrid::render()
 {
-    for (NoiseChunk *chunk : chunks_used)
+    for (NoiseChunk *_chunk : chunks_used)
     {
-        if(chunk->processed && chunk->transforms.size())
+        if(_chunk->processed && _chunk->transforms.size())
         {
 #ifdef USE_CRAPPY_RENDERERERERER
-            for (Matrix &matrix : chunk->transforms)
+            for (Matrix &matrix : _chunk->transforms)
             {
                 DrawMesh(mesh, material, matrix);
             }
 #else
             DrawMeshInstanced(mesh, material,
-                chunk->transforms.data(),
-                chunk->transforms.size());
+                _chunk->transforms.data(),
+                _chunk->transforms.size());
 #endif
         }
+        // TODO draw debug or selection boxes
+        //
+        // ...
+
+        // draw rectangle outline around chunk size and position account for block size
+
+        Vector3 position = { _chunk->posi.x * chunk.size.x * block_size.x, _chunk->posi.y * chunk.size.y * block_size.y, _chunk->posi.z * chunk.size.z * block_size.z};
+        Vector3 size = {chunk.size.x * block_size.x, chunk.size.y * block_size.y, chunk.size.z * block_size.z};
+        DrawCubeWiresV(position, size, GRAY);
     }
 }
 

@@ -623,13 +623,13 @@ int main(int argc, char *argv[])
         //                                                                          ########
         //                                                                          ########
         //                                                                          ########
-        GuiSetStyle(DEFAULT, TEXT_SIZE, 32);
-        GuiSetStyle(DEFAULT, TEXT_PADDING, 8);
-        GuiSetStyle(DEFAULT, BORDER_WIDTH, 1);
+        //GuiSetStyle(DEFAULT, TEXT_SIZE, 32);
+        //GuiSetStyle(DEFAULT, TEXT_PADDING, 8);
+        //GuiSetStyle(DEFAULT, BORDER_WIDTH, 1);
         //GuiSetStyle(DEFAULT, BORDER_WIDTH, 16);
-        GuiSetStyle(VALUEBOX, SPINNER_BUTTON_WIDTH, 80);
-        GuiSetStyle(VALUEBOX, GROUP_PADDING, 16);
-        GuiSetStyle(COMBOBOX, COMBO_BUTTON_WIDTH, 50);
+        //GuiSetStyle(VALUEBOX, SPINNER_BUTTON_WIDTH, 80);
+        //GuiSetStyle(VALUEBOX, GROUP_PADDING, 16);
+        //GuiSetStyle(COMBOBOX, COMBO_BUTTON_WIDTH, 50);
 
         // Basic program flow logic
         //----------------------------------------------------------------------------------

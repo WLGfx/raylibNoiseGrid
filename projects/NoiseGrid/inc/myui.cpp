@@ -25,9 +25,9 @@ void MYUI::draw() {
         m_grid.active = false;
         m_noise.active = false;
     }
-    int fps = GetFPS();
+    /*int fps = GetFPS();
     if (slow_fps && fps > 40) SetTargetFPS(30);
-    else if (fps < 40) SetTargetFPS(60);
+    else if (fps < 40) SetTargetFPS(60);*/
     
     GuiDrawIcon(ICON_GRID, m_grid.bounds.x + 10, m_grid.bounds.y + 6, 2, RAYWHITE);
     GuiDrawIcon(ICON_WAVE, m_noise.bounds.x + 10, m_noise.bounds.y + 6, 2, RAYWHITE);
@@ -65,6 +65,11 @@ void MYUI::draw() {
             jitter_slider_vbox.update();
             jitter_slider_vbox.draw();
         }
+    }
+
+    if (m_camera.active) {
+        camera_vbox.update();
+        camera_vbox.draw();
     }
 }
 
@@ -216,4 +221,9 @@ void MYUI::on_jitter_slider_changed() {
     noise_grid->noise.SetCellularJitter(jitter_slider.value);
     jitter.write(jitter_slider.value);
     update_grid();
+}
+
+void MYUI::on_orbital_speed_changed() {
+    float speed = orbital_speed.value;
+    std::cout << "Orbital speed: " << speed << std::endl;
 }
