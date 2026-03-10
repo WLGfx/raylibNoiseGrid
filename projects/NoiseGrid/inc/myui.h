@@ -122,6 +122,15 @@ struct MYUI {
                           {&jitter_value}, 
                           2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
     rValueBoxFloat jitter_value = {0.2f};
+
+    rVBox indexes = {{0, 8*RUI_HEIGHT, 280, 3*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                      {&index_line, &index0, &index1}, 
+                      2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
+    rLine index_line = {"Indexes"};
+    rSpinner index0 = {0, 0, 4, std::bind(&MYUI::on_index_changed, this)};
+    rSpinner index1 = {1, 0, 4, std::bind(&MYUI::on_index_changed, this)};
+    void on_index_changed();
+    
 /*
     void draw();
     void update_grid();

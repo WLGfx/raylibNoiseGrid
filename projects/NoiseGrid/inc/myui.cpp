@@ -22,6 +22,7 @@ void MYUI::update() {
         cellular.update();
         jitter.update();
         jitter_box.update();
+        indexes.update();
 
         seed_box.value = seed.value;
         octaves_box.value = octaves.value;
@@ -38,14 +39,15 @@ void MYUI::update() {
     if (menu_select.active == 0) grid.draw();
 
     if (menu_select.active == 1) {
-        noise_type.draw();
         noise_sliders.draw();
         GuiDisable(); noise_values.draw(); GuiEnable();
         if (noise_type_dropdown.active == 6) { // cellular
+            indexes.draw();
             cellular.draw();
             jitter.draw();
             GuiDisable(); jitter_box.draw(); GuiEnable();
         }
+        noise_type.draw();
     }
 
 }
@@ -155,6 +157,12 @@ void MYUI::on_jitter_changed() {
     std::cout << "Jitter changed" << std::endl;
     jitter_value.write(jitter_slider.value);
     noise_grid->noise.SetCellularJitter(jitter_slider.value);
+    noise_grid->grid.old.x--;
+}
+
+void MYUI::on_index_changed() {
+    std::cout << "Index changed" << std::endl;
+    noise_grid->noise.SetCellularDistance2Indices(index0.value, index1.value);
     noise_grid->grid.old.x--;
 }
 
