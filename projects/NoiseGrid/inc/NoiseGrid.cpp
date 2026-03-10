@@ -146,14 +146,14 @@ void NoiseGrid::render()
 #endif
         }
         // TODO draw debug or selection boxes
-        //
+        // also add options in the UI
         // ...
 
         // draw rectangle outline around chunk size and position account for block size
 
         Vector3 position = { _chunk->posi.x * chunk.size.x * block_size.x, _chunk->posi.y * chunk.size.y * block_size.y, _chunk->posi.z * chunk.size.z * block_size.z};
         Vector3 size = {chunk.size.x * block_size.x, chunk.size.y * block_size.y, chunk.size.z * block_size.z};
-        DrawCubeWiresV(position, size, GRAY);
+        DrawCubeWiresV(position + (size / 2.0f), size, GREEN);
     }
 }
 

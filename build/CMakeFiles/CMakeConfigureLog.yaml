@@ -49,7 +49,7 @@ events:
       - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
       - "CMakeLists.txt:2 (project)"
     message: |
-      The system is: Linux - 6.18.13-arch1-1 - x86_64
+      The system is: Linux - 6.19.6-arch1-1 - x86_64
   -
     kind: "find-v1"
     backtrace:
@@ -1080,8 +1080,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jJk346"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jJk346"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-ePcFJH"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-ePcFJH"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -1091,10 +1091,10 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jJk346'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-ePcFJH'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_73a18
-        [1/2] /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d822e
+        [1/2] /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
         clang version 21.1.8
         Target: x86_64-pc-linux-gnu
         Thread model: posix
@@ -1106,7 +1106,7 @@ events:
         Candidate multilib: 32;@m32
         Selected multilib: .;@m64
          (in-process)
-         "/usr/bin/clang-21" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jJk346 -v -fcoverage-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jJk346 -resource-dir /usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+         "/usr/bin/clang-21" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-ePcFJH -v -fcoverage-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-ePcFJH -resource-dir /usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c
         clang -cc1 version 21.1.8 based upon LLVM 21.1.8 default target x86_64-pc-linux-gnu
         ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include"
         ignoring nonexistent directory "/include"
@@ -1116,7 +1116,7 @@ events:
          /usr/local/include
          /usr/include
         End of search list.
-        [2/2] : && /usr/bin/clang  -v -Wl,-v CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -o cmTC_73a18   && :
+        [2/2] : && /usr/bin/clang  -v -Wl,-v CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -o cmTC_d822e   && :
         clang version 21.1.8
         Target: x86_64-pc-linux-gnu
         Thread model: posix
@@ -1127,7 +1127,7 @@ events:
         Candidate multilib: .;@m64
         Candidate multilib: 32;@m32
         Selected multilib: .;@m64
-         "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_73a18 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o
+         "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_d822e /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o
         GNU ld (GNU Binutils) 2.46
         
       exitCode: 0
@@ -1161,10 +1161,10 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jJk346']
+        ignore line: [Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-ePcFJH']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_73a18]
-        ignore line: [[1/2] /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_d822e]
+        ignore line: [[1/2] /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [clang version 21.1.8]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Thread model: posix]
@@ -1179,7 +1179,7 @@ events:
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
         ignore line: [ (in-process)]
-        ignore line: [ "/usr/bin/clang-21" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jJk346 -v -fcoverage-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jJk346 -resource-dir /usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [ "/usr/bin/clang-21" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-ePcFJH -v -fcoverage-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-ePcFJH -resource-dir /usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [clang -cc1 version 21.1.8 based upon LLVM 21.1.8 default target x86_64-pc-linux-gnu]
         ignore line: [ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include"]
         ignore line: [ignoring nonexistent directory "/include"]
@@ -1189,7 +1189,7 @@ events:
         ignore line: [ /usr/local/include]
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
-        ignore line: [[2/2] : && /usr/bin/clang  -v -Wl -v CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -o cmTC_73a18   && :]
+        ignore line: [[2/2] : && /usr/bin/clang  -v -Wl -v CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -o cmTC_d822e   && :]
         ignore line: [clang version 21.1.8]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Thread model: posix]
@@ -1203,7 +1203,7 @@ events:
         ignore line: [@m32]
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
-        link line: [ "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_73a18 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o]
+        link line: [ "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_d822e /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o]
           arg [/usr/bin/ld] ==> ignore
           arg [--hash-style=gnu] ==> ignore
           arg [--build-id] ==> ignore
@@ -1214,7 +1214,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_73a18] ==> ignore
+          arg [cmTC_d822e] ==> ignore
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o]
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o]
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o]
@@ -1225,7 +1225,7 @@ events:
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_73a18.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_d822e.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [--as-needed] ==> ignore
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -1274,8 +1274,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-owBJLi"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-owBJLi"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-xvih1z"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-xvih1z"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: ""
@@ -1286,10 +1286,10 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-owBJLi'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-xvih1z'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_ec5f3
-        [1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/ninja -v cmTC_a95fa
+        [1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         clang version 21.1.8
         Target: x86_64-pc-linux-gnu
         Thread model: posix
@@ -1301,7 +1301,7 @@ events:
         Candidate multilib: 32;@m32
         Selected multilib: .;@m64
          (in-process)
-         "/usr/bin/clang++" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-owBJLi -v -fcoverage-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-owBJLi -resource-dir /usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward -internal-isystem /usr/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+         "/usr/bin/clang++" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-xvih1z -v -fcoverage-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-xvih1z -resource-dir /usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward -internal-isystem /usr/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         clang -cc1 version 21.1.8 based upon LLVM 21.1.8 default target x86_64-pc-linux-gnu
         ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include"
         ignoring nonexistent directory "/include"
@@ -1314,7 +1314,7 @@ events:
          /usr/local/include
          /usr/include
         End of search list.
-        [2/2] : && /usr/bin/clang++  -v -Wl,-v CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_ec5f3   && :
+        [2/2] : && /usr/bin/clang++  -v -Wl,-v CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_a95fa   && :
         clang version 21.1.8
         Target: x86_64-pc-linux-gnu
         Thread model: posix
@@ -1325,7 +1325,7 @@ events:
         Candidate multilib: .;@m64
         Candidate multilib: 32;@m32
         Selected multilib: .;@m64
-         "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_ec5f3 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o
+         "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_a95fa /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o
         GNU ld (GNU Binutils) 2.46
         
       exitCode: 0
@@ -1365,10 +1365,10 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-owBJLi']
+        ignore line: [Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-xvih1z']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_ec5f3]
-        ignore line: [[1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_a95fa]
+        ignore line: [[1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [clang version 21.1.8]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Thread model: posix]
@@ -1383,7 +1383,7 @@ events:
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
         ignore line: [ (in-process)]
-        ignore line: [ "/usr/bin/clang++" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-owBJLi -v -fcoverage-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-owBJLi -resource-dir /usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward -internal-isystem /usr/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [ "/usr/bin/clang++" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-xvih1z -v -fcoverage-compilation-dir=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-xvih1z -resource-dir /usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward -internal-isystem /usr/lib/clang/21/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [clang -cc1 version 21.1.8 based upon LLVM 21.1.8 default target x86_64-pc-linux-gnu]
         ignore line: [ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include"]
         ignore line: [ignoring nonexistent directory "/include"]
@@ -1396,7 +1396,7 @@ events:
         ignore line: [ /usr/local/include]
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
-        ignore line: [[2/2] : && /usr/bin/clang++  -v -Wl -v CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_ec5f3   && :]
+        ignore line: [[2/2] : && /usr/bin/clang++  -v -Wl -v CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_a95fa   && :]
         ignore line: [clang version 21.1.8]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Thread model: posix]
@@ -1410,7 +1410,7 @@ events:
         ignore line: [@m32]
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
-        link line: [ "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_ec5f3 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o]
+        link line: [ "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_a95fa /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o]
           arg [/usr/bin/ld] ==> ignore
           arg [--hash-style=gnu] ==> ignore
           arg [--build-id] ==> ignore
@@ -1421,7 +1421,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_ec5f3] ==> ignore
+          arg [cmTC_a95fa] ==> ignore
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o]
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o]
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o]
@@ -1432,7 +1432,7 @@ events:
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_ec5f3.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_a95fa.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -1482,8 +1482,8 @@ events:
     checks:
       - "Performing Test COMPILER_HAS_THOSE_TOGGLES"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-9KQdIl"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-9KQdIl"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-bTTlKD"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-bTTlKD"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -1494,11 +1494,11 @@ events:
       variable: "COMPILER_HAS_THOSE_TOGGLES"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-9KQdIl'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-bTTlKD'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_20f04
-        [1/2] /usr/bin/clang -DCOMPILER_HAS_THOSE_TOGGLES  -Werror=pointer-arith -MD -MT CMakeFiles/cmTC_20f04.dir/src.c.o -MF CMakeFiles/cmTC_20f04.dir/src.c.o.d -o CMakeFiles/cmTC_20f04.dir/src.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-9KQdIl/src.c
-        [2/2] : && /usr/bin/clang   CMakeFiles/cmTC_20f04.dir/src.c.o -o cmTC_20f04   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_e87d9
+        [1/2] /usr/bin/clang -DCOMPILER_HAS_THOSE_TOGGLES  -Werror=pointer-arith -MD -MT CMakeFiles/cmTC_e87d9.dir/src.c.o -MF CMakeFiles/cmTC_e87d9.dir/src.c.o.d -o CMakeFiles/cmTC_e87d9.dir/src.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-bTTlKD/src.c
+        [2/2] : && /usr/bin/clang   CMakeFiles/cmTC_e87d9.dir/src.c.o -o cmTC_e87d9   && :
         
       exitCode: 0
   -
@@ -1512,8 +1512,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-1Bpvea"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-1Bpvea"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-6fG0pJ"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-6fG0pJ"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
@@ -1524,11 +1524,11 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-1Bpvea'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-6fG0pJ'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_7fa02
-        [1/2] /usr/bin/clang -DCMAKE_HAVE_LIBC_PTHREAD  -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith   -std=gnu99 -MD -MT CMakeFiles/cmTC_7fa02.dir/src.c.o -MF CMakeFiles/cmTC_7fa02.dir/src.c.o.d -o CMakeFiles/cmTC_7fa02.dir/src.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-1Bpvea/src.c
-        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  CMakeFiles/cmTC_7fa02.dir/src.c.o -o cmTC_7fa02   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_4390d
+        [1/2] /usr/bin/clang -DCMAKE_HAVE_LIBC_PTHREAD  -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith   -std=gnu99 -MD -MT CMakeFiles/cmTC_4390d.dir/src.c.o -MF CMakeFiles/cmTC_4390d.dir/src.c.o.d -o CMakeFiles/cmTC_4390d.dir/src.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-6fG0pJ/src.c
+        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  CMakeFiles/cmTC_4390d.dir/src.c.o -o cmTC_4390d   && :
         
       exitCode: 0
   -
@@ -13379,8 +13379,8 @@ events:
     checks:
       - "Looking for XOpenDisplay in /usr/lib/libX11.so;/usr/lib/libXext.so"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-m0H2BN"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-m0H2BN"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-oADFK5"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-oADFK5"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
@@ -13391,11 +13391,11 @@ events:
       variable: "X11_LIB_X11_SOLO"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-m0H2BN'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-oADFK5'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_2afd4
-        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=XOpenDisplay -std=gnu99 -MD -MT CMakeFiles/cmTC_2afd4.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_2afd4.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_2afd4.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-m0H2BN/CheckFunctionExists.c
-        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=XOpenDisplay  CMakeFiles/cmTC_2afd4.dir/CheckFunctionExists.c.o -o cmTC_2afd4  /usr/lib/libX11.so  /usr/lib/libXext.so && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_19e31
+        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=XOpenDisplay -std=gnu99 -MD -MT CMakeFiles/cmTC_19e31.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_19e31.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_19e31.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-oADFK5/CheckFunctionExists.c
+        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=XOpenDisplay  CMakeFiles/cmTC_19e31.dir/CheckFunctionExists.c.o -o cmTC_19e31  /usr/lib/libX11.so  /usr/lib/libXext.so && :
         
       exitCode: 0
   -
@@ -13407,8 +13407,8 @@ events:
     checks:
       - "Looking for gethostbyname"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jEypxe"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jEypxe"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-QnL0jY"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-QnL0jY"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
@@ -13419,11 +13419,11 @@ events:
       variable: "CMAKE_HAVE_GETHOSTBYNAME"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jEypxe'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-QnL0jY'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_24bec
-        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=gethostbyname -std=gnu99 -MD -MT CMakeFiles/cmTC_24bec.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_24bec.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_24bec.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-jEypxe/CheckFunctionExists.c
-        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=gethostbyname  CMakeFiles/cmTC_24bec.dir/CheckFunctionExists.c.o -o cmTC_24bec   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_11602
+        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=gethostbyname -std=gnu99 -MD -MT CMakeFiles/cmTC_11602.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_11602.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_11602.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-QnL0jY/CheckFunctionExists.c
+        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=gethostbyname  CMakeFiles/cmTC_11602.dir/CheckFunctionExists.c.o -o cmTC_11602   && :
         
       exitCode: 0
   -
@@ -13435,8 +13435,8 @@ events:
     checks:
       - "Looking for connect"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-TNnGZh"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-TNnGZh"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-HGLQKn"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-HGLQKn"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
@@ -13447,11 +13447,11 @@ events:
       variable: "CMAKE_HAVE_CONNECT"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-TNnGZh'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-HGLQKn'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_9eacc
-        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=connect -std=gnu99 -MD -MT CMakeFiles/cmTC_9eacc.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_9eacc.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_9eacc.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-TNnGZh/CheckFunctionExists.c
-        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=connect  CMakeFiles/cmTC_9eacc.dir/CheckFunctionExists.c.o -o cmTC_9eacc   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_81b83
+        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=connect -std=gnu99 -MD -MT CMakeFiles/cmTC_81b83.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_81b83.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_81b83.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-HGLQKn/CheckFunctionExists.c
+        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=connect  CMakeFiles/cmTC_81b83.dir/CheckFunctionExists.c.o -o cmTC_81b83   && :
         
       exitCode: 0
   -
@@ -13463,8 +13463,8 @@ events:
     checks:
       - "Looking for remove"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-eFgtdh"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-eFgtdh"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-41qwEQ"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-41qwEQ"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
@@ -13475,11 +13475,11 @@ events:
       variable: "CMAKE_HAVE_REMOVE"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-eFgtdh'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-41qwEQ'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_fc226
-        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=remove -std=gnu99 -MD -MT CMakeFiles/cmTC_fc226.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_fc226.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_fc226.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-eFgtdh/CheckFunctionExists.c
-        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=remove  CMakeFiles/cmTC_fc226.dir/CheckFunctionExists.c.o -o cmTC_fc226   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_4349c
+        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=remove -std=gnu99 -MD -MT CMakeFiles/cmTC_4349c.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_4349c.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_4349c.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-41qwEQ/CheckFunctionExists.c
+        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=remove  CMakeFiles/cmTC_4349c.dir/CheckFunctionExists.c.o -o cmTC_4349c   && :
         
       exitCode: 0
   -
@@ -13491,8 +13491,8 @@ events:
     checks:
       - "Looking for shmat"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-cf1LLJ"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-cf1LLJ"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-uL1gHp"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-uL1gHp"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
@@ -13503,11 +13503,11 @@ events:
       variable: "CMAKE_HAVE_SHMAT"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-cf1LLJ'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-uL1gHp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_576cb
-        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=shmat -std=gnu99 -MD -MT CMakeFiles/cmTC_576cb.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_576cb.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_576cb.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-cf1LLJ/CheckFunctionExists.c
-        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=shmat  CMakeFiles/cmTC_576cb.dir/CheckFunctionExists.c.o -o cmTC_576cb   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_12fa7
+        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=shmat -std=gnu99 -MD -MT CMakeFiles/cmTC_12fa7.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_12fa7.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_12fa7.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-uL1gHp/CheckFunctionExists.c
+        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=shmat  CMakeFiles/cmTC_12fa7.dir/CheckFunctionExists.c.o -o cmTC_12fa7   && :
         
       exitCode: 0
   -
@@ -13519,8 +13519,8 @@ events:
     checks:
       - "Looking for IceConnectionNumber in ICE"
     directories:
-      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-mbj8jt"
-      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-mbj8jt"
+      source: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-Cv07Ff"
+      binary: "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-Cv07Ff"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
@@ -13531,11 +13531,11 @@ events:
       variable: "CMAKE_LIB_ICE_HAS_ICECONNECTIONNUMBER"
       cached: true
       stdout: |
-        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-mbj8jt'
+        Change Dir: '/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-Cv07Ff'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_e2aeb
-        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -std=gnu99 -MD -MT CMakeFiles/cmTC_e2aeb.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_e2aeb.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_e2aeb.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-mbj8jt/CheckFunctionExists.c
-        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber  CMakeFiles/cmTC_e2aeb.dir/CheckFunctionExists.c.o -o cmTC_e2aeb  -lICE && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_33556
+        [1/2] /usr/bin/clang   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -std=gnu99 -MD -MT CMakeFiles/cmTC_33556.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_33556.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_33556.dir/CheckFunctionExists.c.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/CMakeFiles/CMakeScratch/TryCompile-Cv07Ff/CheckFunctionExists.c
+        [2/2] : && /usr/bin/clang -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber  CMakeFiles/cmTC_33556.dir/CheckFunctionExists.c.o -o cmTC_33556  -lICE && :
         
       exitCode: 0
   -

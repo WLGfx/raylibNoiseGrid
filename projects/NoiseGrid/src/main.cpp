@@ -1,6 +1,7 @@
 #include "raylib.h"
 
 #include "inc/raygui+.h"
+#include <thread>
 
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
@@ -21,8 +22,6 @@
 
 // New title for this - FastNoise x3 Playground
 
-NoiseGrid grid;
-
 Camera camera = {
     .position = {0.0f, 140.0f, -280.0f},
     .target = {0.0f, 0.0f, 0.0f},
@@ -31,7 +30,7 @@ Camera camera = {
     .projection = CAMERA_PERSPECTIVE
 };
 
-void init_ui()
+void init_ui_style()
 {
     // Setup raygui default style for text size to 12
     GuiLoadStyleDefault();
@@ -41,6 +40,7 @@ void init_ui()
     GuiSetStyle(DEFAULT, TEXT_COLOR_NORMAL, 0xccccccff);
     GuiSetStyle(DEFAULT, TEXT_COLOR_FOCUSED, 0x888888ff);
     GuiSetStyle(DEFAULT, TEXT_COLOR_PRESSED, 0xddddddff);
+    GuiSetStyle(DEFAULT, TEXT_COLOR_DISABLED, 0x666666ff);
 
     GuiSetStyle(DEFAULT, BASE_COLOR_NORMAL, 0x222222ff);
     GuiSetStyle(DEFAULT, BASE_COLOR_FOCUSED, 0x444444ff);
@@ -55,61 +55,26 @@ void init_ui()
     GuiSetStyle(DEFAULT, BORDER_WIDTH, 4);
 
     GuiSetStyle(VALUEBOX, SPINNER_BUTTON_WIDTH, 50);
+
+    GuiSetStyle(DEFAULT, BACKGROUND_COLOR, 0x1a1a1aa0);
     //GuiSetStyle(DEFAULT, SPINNER_BUTTON_SPACING, 20);
 }
 
-void init_grid_mesh_and_material() {
+void init_mesh_and_material(NoiseGrid& grid) {
     grid.mesh = GenMeshCube(1, 1, 1);
     grid.material = LoadMaterialDefault();
     
     grid.shader.init();
     grid.material.shader = grid.shader.shader;
 
-    /*grid.material.shader = LoadShaderFromMemory(
-        grid.shader_source_lighting_instancing_vs, 
-        grid.shader_source_lighting_instancing_fs);
-    
-    grid.material.shader.locs[SHADER_LOC_MATRIX_MVP] = 
-        GetShaderLocation(grid.material.shader, 
-        "mvp");
-    grid.material.shader.locs[SHADER_LOC_VECTOR_VIEW] = 
-        GetShaderLocation(grid.material.shader, 
-        "viewPos");
-
-    int ambientLoc = GetShaderLocation(grid.material.shader, "ambient");
-    float ambientCol[4] = {0.2f, 0.2f, 0.2f, 1.0f};
-    SetShaderValue(
-        grid.material.shader,
-        ambientLoc,
-        ambientCol,
-        SHADER_UNIFORM_VEC4);
-
-    grid.light_sun = CreateLight(LIGHT_DIRECTIONAL,
-                {50, 750, 0},
-                {0, 0, 0},
-                DARKGRAY,
-                grid.material.shader);
-
-    grid.light_point = CreateLight(LIGHT_POINT,
-                {-50, -50, 0},
-                {0, 0, 0},
-                {144, 154, 148,255},
-                grid.material.shader);
-
-    // this is the line missing from the online examples and docs
-    grid.material.shader.locs[SHADER_LOC_MATRIX_MODEL] = 
-        GetShaderLocationAttrib(
-            grid.material.shader, 
-            "instanceTransform");*/
-
 }
 
-void update_noise_grid() {
+void update_noise_grid(NoiseGrid& grid) {
     grid.update(camera.target);
     grid.render();
 }
 
-void draw_3d()
+void draw_3d(NoiseGrid& grid)
 {
     grid.shader.lights.point.position = camera.position;
     // grid.light_point.position = camera.position;
@@ -118,28 +83,31 @@ void draw_3d()
     BeginMode3D(camera);
     DrawGrid(100, 8.0f);
 
-    update_noise_grid();
+    update_noise_grid(grid);
 
     EndMode3D();
+
+    UpdateCamera(&camera, CAMERA_ORBITAL);
 }
 
 // ######################### MAIN #########################
 
 int main() {
-    MYUI myui(&camera, &grid);
-    myui.set_noise_from_ui();
-
+    
     // Initialization
     int screenWidth = 1280;
     int screenHeight = 720;
     
     InitWindow(screenWidth, screenHeight, "FastNoise x3 Playground (C)WLGfx Carl S Norwood 2026"); // corrected the year (Wed 27 Jan 26-12:47GMT)
     SetTargetFPS(60);
-
-    SetWindowState( FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI | FLAG_VSYNC_HINT );
-
-    init_ui();
-    init_grid_mesh_and_material();
+    SetWindowState(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI | FLAG_VSYNC_HINT);
+    
+    init_ui_style();
+    
+    NoiseGrid grid;
+    MYUI myui(&camera, &grid);
+    init_mesh_and_material(grid);
+    //myui.set_noise_from_ui();
 
     // Main game loop
     while (!WindowShouldClose()) {
@@ -151,15 +119,17 @@ int main() {
         BeginDrawing();
             ClearBackground(DARKBROWN);
             
-            draw_3d();
+            draw_3d(grid);
             
             //draw_ui_grid();
             //draw_camera_ui();
 
-            myui.draw();
+            myui.update();
             
             DrawFPS(10, screenHeight - 30);
         EndDrawing();
+
+        //std::this_thread::sleep_for(std::chrono::milliseconds(1)); // it's not this that is holding up a thread when running
     }
 
     CloseWindow();
