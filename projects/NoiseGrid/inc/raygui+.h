@@ -346,17 +346,10 @@ struct rValueBox : public rBounds {
     void draw() override { 
         result = GuiValueBox(bounds, text, &value, minValue, maxValue, editMode);
         if (result) {
+            if (on_click) on_click();
             editMode = !editMode;
-            if (on_click) {
-                on_click();
-            }
         }
     }
-
-    //void write(float value) {
-    //    this->value = value;
-    //    snprintf(textValue, sizeof(textValue), "%.2f", value);
-    //}
 };
 
 struct rValueBoxFloat : public rBounds {
@@ -375,10 +368,8 @@ struct rValueBoxFloat : public rBounds {
     void draw() override { 
         result = GuiValueBoxFloat(bounds, text, textValue, &value, editMode);
         if (result) {
+            if (on_click) on_click();
             editMode = !editMode;
-            if (on_click) {
-                on_click();
-            }
         }
     }
     void write() {

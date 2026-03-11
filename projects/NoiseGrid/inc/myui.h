@@ -130,6 +130,26 @@ struct MYUI {
     rSpinner index0 = {0, 0, 4, std::bind(&MYUI::on_index_changed, this)};
     rSpinner index1 = {1, 0, 4, std::bind(&MYUI::on_index_changed, this)};
     void on_index_changed();
+
+    // Camera
+
+    rVBox camera_type = {{0, 1*RUI_HEIGHT, 280, 2*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                         {&camera_type_line, &camera_type_dropdown}, 
+                         2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
+    rLine camera_type_line = {"Control"};
+    rDropdownBox camera_type_dropdown = {"Pause;Orbital;Pan;Free", 1, std::bind(&MYUI::on_camera_type_changed, this)};
+    void on_camera_type_changed() {}
+
+    rVBox camera_speed = {{550, 1*RUI_HEIGHT, 730, 1*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                         {&camera_speed_slider}, 
+                         2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
+    rSliderBar camera_speed_slider = {0.4f, -5.0f, 5.0f, std::bind(&MYUI::on_camera_speed_changed, this), "Speed"};
+    void on_camera_speed_changed();
+
+    rVBox camera_speed_value = {{280, 1*RUI_HEIGHT, 180, 1*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                                {&camera_speed_value_box}, 
+                                2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
+    rValueBoxFloat camera_speed_value_box = {0.4f};
     
 /*
     void draw();

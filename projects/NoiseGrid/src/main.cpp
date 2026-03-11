@@ -74,6 +74,14 @@ void update_noise_grid(NoiseGrid& grid) {
     grid.render();
 }
 
+void camera_orbit(float speed) {
+    float cameraOrbitalSpeed = speed * GetFrameTime();
+    Matrix rotation = MatrixRotate(camera.up, cameraOrbitalSpeed);
+    Vector3 view = Vector3Subtract(camera.position, camera.target);
+    view = Vector3Transform(view, rotation);
+    camera.position = Vector3Add(camera.target, view);
+}
+
 void draw_3d(NoiseGrid& grid)
 {
     grid.shader.lights.point.position = camera.position;
@@ -87,7 +95,7 @@ void draw_3d(NoiseGrid& grid)
 
     EndMode3D();
 
-    UpdateCamera(&camera, CAMERA_ORBITAL);
+    
 }
 
 // ######################### MAIN #########################
@@ -106,6 +114,7 @@ int main() {
     
     NoiseGrid grid;
     MYUI myui(&camera, &grid);
+
     init_mesh_and_material(grid);
     //myui.set_noise_from_ui();
 
@@ -120,16 +129,12 @@ int main() {
             ClearBackground(DARKBROWN);
             
             draw_3d(grid);
-            
-            //draw_ui_grid();
-            //draw_camera_ui();
-
             myui.update();
             
             DrawFPS(10, screenHeight - 30);
         EndDrawing();
 
-        //std::this_thread::sleep_for(std::chrono::milliseconds(1)); // it's not this that is holding up a thread when running
+        camera_orbit(myui.camera_speed_slider.value);
     }
 
     CloseWindow();

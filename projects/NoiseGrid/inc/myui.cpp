@@ -23,6 +23,9 @@ void MYUI::update() {
         jitter.update();
         jitter_box.update();
         indexes.update();
+        camera_type.update();
+        camera_speed.update();
+        camera_speed_value.update();
 
         seed_box.value = seed.value;
         octaves_box.value = octaves.value;
@@ -48,6 +51,12 @@ void MYUI::update() {
             GuiDisable(); jitter_box.draw(); GuiEnable();
         }
         noise_type.draw();
+    }
+
+    if (menu_select.active == 2) {
+        camera_type.draw();
+        camera_speed.draw();
+        GuiDisable(); camera_speed_value.draw(); GuiEnable();
     }
 
 }
@@ -164,6 +173,12 @@ void MYUI::on_index_changed() {
     std::cout << "Index changed" << std::endl;
     noise_grid->noise.SetCellularDistance2Indices(index0.value, index1.value);
     noise_grid->grid.old.x--;
+}
+
+
+void MYUI::on_camera_speed_changed() {
+    std::cout << "Camera speed changed" << std::endl;
+    camera_speed_value_box.write(camera_speed_slider.value);
 }
 
 /*
