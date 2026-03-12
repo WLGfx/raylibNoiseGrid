@@ -3,15 +3,14 @@
 
 #include "raygui+.h"
 #include "NoiseGrid.h"
-#include "raygui.h"
-#include "raylib.h"
+#include "rCamera.h"
 
 struct MYUI {
     #define RUI_HEIGHT 56
 
-    MYUI(Camera3D* cam, NoiseGrid* noise) : camera(cam), noise_grid(noise) {}
+    MYUI(rlCamera* cam, NoiseGrid* noise) : camera(cam), noise_grid(noise) {}
 
-    Camera3D *camera;
+    rlCamera *camera;
     NoiseGrid* noise_grid;
     struct {float width = 0, height = 0;} window_size;
 
@@ -140,16 +139,23 @@ struct MYUI {
     rDropdownBox camera_type_dropdown = {"Pause;Orbital;Pan;Free", 1, std::bind(&MYUI::on_camera_type_changed, this)};
     void on_camera_type_changed() {}
 
-    rVBox camera_speed = {{550, 1*RUI_HEIGHT, 730, 1*RUI_HEIGHT}, {10, 4, 10, 4}, 
-                         {&camera_speed_slider}, 
+    //
+    rVBox camera_orbit_sliders = {{550, 1*RUI_HEIGHT, 730, 2*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                         {&camera_orbit_speed, &camera_orbit_distance}, 
                          2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
-    rSliderBar camera_speed_slider = {0.4f, -5.0f, 5.0f, std::bind(&MYUI::on_camera_speed_changed, this), "Speed"};
-    void on_camera_speed_changed();
+    rSliderBar camera_orbit_speed = {0.4f, -5.0f, 5.0f, std::bind(&MYUI::on_camera_orbit_speed_changed, this), "Orbit"};
+    rSliderBar camera_orbit_distance = {150.0f, 10.0f, 1000.0f, std::bind(&MYUI::on_camera_orbit_distance_changed, this), "Dist"};
+    void on_camera_orbit_speed_changed();
+    void on_camera_orbit_distance_changed();
 
-    rVBox camera_speed_value = {{280, 1*RUI_HEIGHT, 180, 1*RUI_HEIGHT}, {10, 4, 10, 4}, 
-                                {&camera_speed_value_box}, 
+    //
+    rVBox camera_orbit_speed_value = {{280, 1*RUI_HEIGHT, 180, 2*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                                {&camera_orbit_speed_value_box, &camera_orbit_distance_value_box}, 
                                 2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
-    rValueBoxFloat camera_speed_value_box = {0.4f};
+    rValueBoxFloat camera_orbit_speed_value_box = {0.4f};
+    rValueBox camera_orbit_distance_value_box = {};
+    
+    //
     
 /*
     void draw();

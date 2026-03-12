@@ -48,7 +48,7 @@ void rContainerBase::anchor_to() {
         break;
     }
 
-    std::cout << "Anchor to: " << left << ", " << top;
+    //std::cout << "Anchor to: " << left << ", " << top;
 }
 
 void rContainerBase::draw() {
@@ -70,7 +70,7 @@ void rHBox::update() {
     float max_child_height = 0;
 
     if (children_count > 0) {
-        std::cout << " ... HBox: " << children_count << " children" << std::endl;
+        //std::cout << " ... HBox: " << children_count << " children" << std::endl;
         
         for (rBounds* child : children) 
         {   

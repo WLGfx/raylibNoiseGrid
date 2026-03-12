@@ -9,6 +9,8 @@ add_executable(NoiseGrid
     inc/raygui+.cpp
     inc/myui.cpp
     inc/rlshaders.cpp
+    inc/rCamera.cpp
+    inc/implementations.cpp
 )
 
 # Include directories
