@@ -54,10 +54,10 @@ enum rContainerAdjust {
 
 struct rContainerBase : public rBounds {
     rContainerBase() = default;
-    rContainerBase(Rectangle              bounds, 
-                   Rectangle              padding, 
-                   std::vector<rBounds*>  children, 
+    rContainerBase(std::vector<rBounds*>  children = {}, 
                    rAnchor                anchor = ANCHOR_NONE,
+                   Rectangle              bounds = {0,0,0,0}, 
+                   Rectangle              padding = {0,0,0,0}, 
                    rContainerAdjust       adjust = FIT_NONE) 
         : rBounds(bounds),  padding(padding), children(children), anchor(anchor), adjust(adjust) {}
     std::vector<rBounds*>  children;
@@ -72,30 +72,30 @@ struct rContainerBase : public rBounds {
 };
 
 struct rHBox : public rContainerBase {
-    rHBox() = default;
     rHBox(Rectangle              bounds, 
           Rectangle              padding, 
           std::vector<rBounds*>  children, 
           float                  spacing = 0, 
           rAnchor                anchor = ANCHOR_NONE, 
           rContainerAdjust       adjust = FIT_NONE) 
-        : rContainerBase(bounds, padding, children, anchor, adjust), spacing(spacing) {}
+        : rContainerBase(children, anchor, bounds, padding, adjust), spacing(spacing) {}
     float spacing = 0;
     virtual void update() override;
 };
 
 struct rVBox : public rContainerBase {
-    rVBox() = default;
     rVBox(Rectangle              bounds, 
           Rectangle              padding, 
           std::vector<rBounds*>  children, 
           float                  spacing = 0, 
           rAnchor                anchor = ANCHOR_NONE, 
           rContainerAdjust       adjust = FIT_NONE) 
-        : rContainerBase(bounds, padding, children, anchor, adjust), spacing(spacing) {}
+        : rContainerBase(children, anchor, bounds, padding, adjust), spacing(spacing) {}
     float spacing = 0;
     virtual void update() override;
 };
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 

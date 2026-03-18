@@ -66,3 +66,114 @@ void rlCamera::move_right(float distance, bool world_plane) {
     target = Vector3Add(target, right);
 }
 
+void rlCamera::move_to_target(float delta) {
+    float distance = get_distance();
+    distance += delta;
+    if (distance <= 0) distance = 0.001f;
+    Vector3 forward = get_forward();
+    position = Vector3Add(target, Vector3Scale(forward, -distance));
+}
+
+void rlCamera::yaw(float angle, bool rotate_around_target) {
+    Vector3 target_position = Vector3RotateByAxisAngle(Vector3Subtract(target, position), up, angle);
+    if (rotate_around_target) {
+        position = Vector3Subtract(target, target_position);
+    } else {
+        target = Vector3Add(position, target_position);
+    }
+}
+
+void rlCamera::pitch(float angle, bool lock_view, bool rotate_around_target, bool rotate_up_vector) {
+    
+    Vector3 targetPosition = Vector3Subtract(target, position);
+
+    if (lock_view)
+    {
+        // In these camera modes we clamp the Pitch angle
+        // to allow only viewing straight up or down.
+
+        // Clamp view up
+        float maxAngleUp = Vector3Angle(up, targetPosition);
+        maxAngleUp -= 0.001f; // avoid numerical errors
+        if (angle > maxAngleUp) angle = maxAngleUp;
+
+        // Clamp view down
+        float maxAngleDown = Vector3Angle(Vector3Negate(up), targetPosition);
+        maxAngleDown *= -1.0f; // downwards angle is negative
+        maxAngleDown += 0.001f; // avoid numerical errors
+        if (angle < maxAngleDown) angle = maxAngleDown;
+    }
+
+    targetPosition = Vector3RotateByAxisAngle(targetPosition, get_right(), angle);
+
+    if (rotate_around_target)
+    {
+        // Move position relative to target
+        position = Vector3Subtract(target, targetPosition);
+    }
+    else // Rotate around camera.position
+    {
+        // Move target relative to position
+        target = Vector3Add(position, targetPosition);
+    }
+
+    if (rotate_up_vector)
+    {
+        // Rotate up direction around right axis
+        up = Vector3RotateByAxisAngle(up, get_right(), angle);
+    }
+}
+
+void rlCamera::roll(float angle) {
+    up = Vector3RotateByAxisAngle(up, get_forward(), angle);
+}
+
+Matrix rlCamera::get_matrix() {
+    return MatrixLookAt(position, target, up);
+}
+
+Matrix rlCamera::get_projection_matrix(float aspect) {
+    if (projection == CAMERA_PERSPECTIVE)
+    {
+        return MatrixPerspective(fovy*DEG2RAD, aspect, RLCAMERA_CULL_DISTANCE_NEAR, RLCAMERA_CULL_DISTANCE_FAR);
+    }
+    else if (projection == CAMERA_ORTHOGRAPHIC)
+    {
+        float top = fovy/2.0f;
+        float right = top*aspect;
+
+        return MatrixOrtho(-right, right, -top, top, RLCAMERA_CULL_DISTANCE_NEAR, RLCAMERA_CULL_DISTANCE_FAR);
+    }
+
+    return MatrixIdentity();
+}
+
+void rlCamera::update_pro(Vector3 movement, Vector3 rotation, float zoom) {
+    // Required values
+    // movement.x - Move forward/backward
+    // movement.y - Move right/left
+    // movement.z - Move up/down
+    // rotation.x - yaw
+    // rotation.y - pitch
+    // rotation.z - roll
+    // zoom - Move towards target
+
+    bool lockView = true;
+    bool rotateAroundTarget = false;
+    bool rotateUp = false;
+    bool moveInWorldPlane = true;
+
+    // Camera rotation
+    pitch(rotation.y, lockView, rotateAroundTarget, rotateUp);
+    yaw(rotation.x, rotateAroundTarget);
+    roll(rotation.z);
+
+    // Camera movement
+    move_forward(movement.x, moveInWorldPlane);
+    move_right(movement.y, moveInWorldPlane);
+    move_up(movement.z);
+
+    // Zoom target distance
+    move_to_target(zoom);
+}
+// original source for these functions are in rcamera.h (raylib)

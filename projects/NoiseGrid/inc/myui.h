@@ -50,6 +50,8 @@ struct MYUI {
     void on_noise_type_changed();
     void on_noise_interp_changed();
 
+    rContainerBase grid_container = {{&grid, &noise_type}};
+
     // sliders
 
     rVBox noise_sliders = {{550, 1*RUI_HEIGHT, 730, 7*RUI_HEIGHT}, {10, 4, 10, 4}, 
@@ -65,7 +67,7 @@ struct MYUI {
     rSlider    octaves =      { 1, 1, 10,            std::bind(&MYUI::on_octaves_changed, this),      "Octav" };
     rSliderBar frequency =    { 0.01f, 0.0001f, 0.2f, std::bind(&MYUI::on_frequency_changed, this),    "Frequ" };
     rSliderBar gain =         { 0.5f, 0.0f, 5.0f,    std::bind(&MYUI::on_gain_changed, this),         "Gain" };
-    rSliderBar lacunarity =   { 0.1f, 0.0f, 2.0f,    std::bind(&MYUI::on_lacunarity_changed, this),   "Lacun" };
+    rSliderBar lacunarity =   { 0.1f, 0.0f, 3.0f,    std::bind(&MYUI::on_lacunarity_changed, this),   "Lacun" };
     rSliderBar greater_than = { 0.0f, -2.0f, 2.0f,   std::bind(&MYUI::on_greater_than_changed, this), "Great" };
     rSliderBar less_than =    { 0.1f, -2.0f, 2.0f,   std::bind(&MYUI::on_less_than_changed, this),    "Less" };
     void on_seed_changed();
@@ -140,22 +142,35 @@ struct MYUI {
     void on_camera_type_changed() {}
 
     //
-    rVBox camera_orbit_sliders = {{550, 1*RUI_HEIGHT, 730, 2*RUI_HEIGHT}, {10, 4, 10, 4}, 
-                         {&camera_orbit_speed, &camera_orbit_distance}, 
+    rVBox camera_orbit_sliders = {{550, 1*RUI_HEIGHT, 730, 3*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                         {&camera_orbit_speed, &camera_orbit_distance, &camera_orbit_zoom_speed}, 
                          2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
     rSliderBar camera_orbit_speed = {0.4f, -5.0f, 5.0f, std::bind(&MYUI::on_camera_orbit_speed_changed, this), "Orbit"};
     rSliderBar camera_orbit_distance = {150.0f, 10.0f, 1000.0f, std::bind(&MYUI::on_camera_orbit_distance_changed, this), "Dist"};
+    rSliderBar camera_orbit_zoom_speed = {10.0f, 0.1f, 50.0f, std::bind(&MYUI::on_camera_orbit_zoom_speed_changed, this), "Wheel"};
     void on_camera_orbit_speed_changed();
     void on_camera_orbit_distance_changed();
+    void on_camera_orbit_zoom_speed_changed();
 
     //
-    rVBox camera_orbit_speed_value = {{280, 1*RUI_HEIGHT, 180, 2*RUI_HEIGHT}, {10, 4, 10, 4}, 
-                                {&camera_orbit_speed_value_box, &camera_orbit_distance_value_box}, 
+    rVBox camera_orbit_speed_value = {{280, 1*RUI_HEIGHT, 180, 3*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                                {&camera_orbit_speed_value_box, &camera_orbit_distance_value_box, &camera_orbit_zoom_speed_value_box}, 
                                 2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
     rValueBoxFloat camera_orbit_speed_value_box = {0.4f};
     rValueBox camera_orbit_distance_value_box = {};
+    rValueBox camera_orbit_zoom_speed_value_box = {};
     
-    //
+    // PAN (mouse sensitivity)
+    rVBox pan_mouse_sensitivity = {{550, 1*RUI_HEIGHT, 730, 1*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                         {&pan_mouse_sensitivity_slider}, 
+                         2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
+    rSliderBar pan_mouse_sensitivity_slider = {0.2f, 0.001f, 2.0f, std::bind(&MYUI::on_pan_mouse_sensitivity_changed, this), "Sense"};
+    void on_pan_mouse_sensitivity_changed();
+
+    rVBox pan_mouse_sensitivity_value = {{280, 1*RUI_HEIGHT, 180, 1*RUI_HEIGHT}, {10, 4, 10, 4}, 
+                                {&pan_mouse_sensitivity_value_box}, 
+                                2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
+    rValueBoxFloat pan_mouse_sensitivity_value_box = {0.2f};
     
 /*
     void draw();
@@ -318,6 +333,13 @@ struct MYUI {
     };
 
     const int chunk_sizes[6] = {16, 24, 32, 48, 64, 96};
+
+    enum rCameraMode {
+        PAUSE = 0,
+        ORBITAL = 1,
+        PAN = 2,
+        FREE = 3
+    };
 };
 
 #endif

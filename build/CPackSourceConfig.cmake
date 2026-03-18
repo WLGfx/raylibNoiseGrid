@@ -10,6 +10,8 @@
 # usually begin with CPACK_<GENNAME>_xxxx.
 
 
+set(CPACK_ARCHIVE_GID "-1")
+set(CPACK_ARCHIVE_UID "-1")
 set(CPACK_BUILD_SOURCE_DIRS "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid;/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build")
 set(CPACK_CMAKE_GENERATOR "Ninja")
 set(CPACK_COMPONENT_UNSPECIFIED_HIDDEN "TRUE")

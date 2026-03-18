@@ -2,7 +2,6 @@
 #define RLCAMERA_H
 
 #include "raylib.h"
-#include "raymath.h"
 
 /*typedef struct Camera3D {
     Vector3 position;       // Camera position
@@ -11,6 +10,9 @@
     float fovy;             // Camera field-of-view aperture in Y (degrees) in perspective, used as near plane height in world units in orthographic
     int projection;         // Camera projection: CAMERA_PERSPECTIVE or CAMERA_ORTHOGRAPHIC
 } Camera3D;*/
+
+#define RLCAMERA_CULL_DISTANCE_NEAR 0.01f
+#define RLCAMERA_CULL_DISTANCE_FAR 10000.0f
 
 struct rlCamera : public Camera {
     rlCamera(Vector3 position = {0, 0, 0}, 
@@ -33,6 +35,13 @@ struct rlCamera : public Camera {
     void move_forward(float distance, bool world_plane = false);
     void move_up(float distance);
     void move_right(float distance, bool world_plane);
+    void move_to_target(float delta);
+    void yaw(float angle, bool rotate_around_target = false);
+    void pitch(float angle, bool lock_view, bool rotate_around_target = false, bool rotate_up_vector = false);
+    void roll(float angle);
+    Matrix get_matrix();
+    Matrix get_projection_matrix(float aspect);
+    void update_pro(Vector3 movement, Vector3 rotation, float zoom);
 };
 
 #endif // RLCAMERA_H

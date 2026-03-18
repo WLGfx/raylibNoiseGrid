@@ -111,7 +111,8 @@ int main() {
             DrawFPS(10, screenHeight - 30);
         EndDrawing();
 
-        camera_main.orbit(myui.camera_orbit_speed.value);
+        //camera_main.orbit(myui.camera_orbit_speed.value);
+        // now done in UI update
     }
 
     CloseWindow();
