@@ -18,7 +18,7 @@ struct MYUI {
 
     // Menu
 
-    rToggleGroup menu_select = {{0, 0, 120, RUI_HEIGHT}, "Grid;Noise;Camera", 0};
+    rToggleGroup menu_select = {{0, 0, 120, RUI_HEIGHT}, "Grid;Noise;Camera;. . .", 0};
 
     // Grid and Chunk
 
@@ -340,6 +340,11 @@ struct MYUI {
         PAN = 2,
         FREE = 3
     };
+
+
+    // TESTS
+
+    
 };
 
 #endif
