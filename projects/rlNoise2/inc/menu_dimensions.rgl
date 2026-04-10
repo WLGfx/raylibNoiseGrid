@@ -1,0 +1,25 @@
+#
+# rgl layout text file (v4.0) - raygui layout file generated using rGuiLayout
+#
+# Number of controls:     14
+#
+# Ref. window:    r <x> <y> <width> <height>
+# Anchor info:    a <id> <name> <posx> <posy> <enabled>
+# Control info:   c <id> <type> <name> <rectangle> <anchor_id> <text>
+#
+r 24 64 -1 -1
+a 001 anchor_dimensions 0 0 1
+c 000 1 Dimensions 0 8 832 368 1 Dimensions
+c 001 23 DummyRec001 8 24 816 344 0 
+c 002 11 chunk_size 240 88 152 48 0 8;16;24;32;48;56;64
+c 003 2 Line009 16 144 800 48 0 Map Size
+c 004 17 map_wid_slider 16 200 624 48 0 
+c 005 14 map_wid_value 712 200 104 48 0 Wid
+c 006 17 map_hgt_slider 16 256 624 48 0 
+c 007 17 map_dep_slider 16 312 624 48 0 
+c 008 14 map_hgt_value 712 256 104 48 0 Hgt
+c 009 14 map_dep_value 712 312 104 48 0 Dep
+c 010 11 visible_range 664 88 152 48 0 1;2;3;4;5;6;7;8;12;16;24
+c 011 2 Line013 16 32 800 48 0 Chunk size and visible range
+c 012 4 Label014 16 88 216 48 0 Chunk size
+c 013 4 Label013 416 88 216 48 0 Visible range

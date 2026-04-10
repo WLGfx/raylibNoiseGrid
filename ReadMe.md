@@ -49,3 +49,7 @@ __Done__
 
 - Revamped UI handling (Tue 27 Jan 2026 19:51 GMT - Carl)
 
+## Project rlNoise2 or NoiseMap
+
+(And I think this is now version 6 of this code)
+

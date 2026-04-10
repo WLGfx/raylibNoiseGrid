@@ -1,5 +1,5 @@
-#include "myui.h"
-#include "inc/raygui+.h"
+#include "inc/myui.h"
+#include "inc/r/raygui+/raygui+.h"
 #include "raylib.h"
 //#include <iostream>
 
@@ -39,8 +39,13 @@ void MYUI::update() {
         greater_than_box.write(greater_than.value);
         less_than_box.write(less_than.value);
         jitter_value.write(jitter_slider.value);
-    }
 
+        tests.all.update();
+        //tests.columns.update();
+    }
+}
+
+void MYUI::draw() {
     menu_select.draw();
 
     if (menu_select.active == 0) grid.draw();
@@ -75,6 +80,10 @@ void MYUI::update() {
         if (camera_type_dropdown.active == rCameraMode::FREE) {
             // TODO: Add free controls
         }
+    }
+
+    if (menu_select.active == 3) {
+        tests.all.draw();
     }
 
     switch (camera_type_dropdown.active) {

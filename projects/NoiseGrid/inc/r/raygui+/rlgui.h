@@ -1,5 +1,5 @@
-#ifndef RAYGUI_PLUS_H
-#define RAYGUI_PLUS_H
+#ifndef RLGUI_H
+#define RLGUI_H
 
 // 0800 077 8360 HSBC Finincial support team mon-fri -6pm GMT
 // 5 may 26 expires breathing space
@@ -7,115 +7,270 @@
 #include <cstdio>
 #include <functional>
 #include <vector>
+#include "inc/r/raygui+/raygui+.h"
 #include "raygui.h"
 #include "raylib.h"
 
-enum rAnchor {
-    ANCHOR_NONE,
-    ANCHOR_CENTER,
-    ANCHOR_TOP_LEFT,
-    ANCHOR_TOP_RIGHT,
-    ANCHOR_BOTTOM_LEFT,
-    ANCHOR_BOTTOM_RIGHT,
-    ANCHOR_TOP_CENTER,
-    ANCHOR_BOTTOM_CENTER,
-    ANCHOR_LEFT_CENTER,
-    ANCHOR_RIGHT_CENTER
-};
-
-
-
-struct rBounds 
-{
-    rBounds() = default;
-    rBounds(Rectangle bounds) : bounds(bounds) {}
-    union {
-        Rectangle      bounds;
-        struct { float x = 0, y = 0, width = 0, height = 0; };
-        struct { float left, top, right, bottom; };
+namespace rl {
+    
+    enum Anchor {
+        ANCHOR_NONE,
+        ANCHOR_CENTER,
+        ANCHOR_TOP_LEFT,
+        ANCHOR_TOP_RIGHT,
+        ANCHOR_BOTTOM_LEFT,
+        ANCHOR_BOTTOM_RIGHT,
+        ANCHOR_TOP_CENTER,
+        ANCHOR_BOTTOM_CENTER,
+        ANCHOR_LEFT_CENTER,
+        ANCHOR_RIGHT_CENTER
     };
-    int result = 0;
-    virtual void draw() { result = 0; }
-    virtual void update() {};
-};
 
-///////////////////////////////////////////////////////////////////////////
+    struct Bounds 
+    {
+        Bounds() = default;
+        Bounds(Rectangle bounds = {0}) : bounds(bounds) {}
+        Bounds(float width, float height) : width(width), height(height) {}
 
-//                                                               CONTAINERS
+        union {
+            Rectangle   bounds = {0};
+            struct      { float left, top, width, height; };
+            struct      { float x, y, w, h; };
+        };
+        
+        int result = 0;
 
-///////////////////////////////////////////////////////////////////////////
+        virtual void draw() { result = 0; }
+        virtual void update() {};
+    };
 
-enum rContainerAdjust {
-    FIT_NONE,
-    FIT_WIDTH,
-    FIT_HEIGHT,
-    FIT_BOTH
-};
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //                                                               CONTAINERS
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
-struct rContainerBase : public rBounds {
-    rContainerBase() = default;
-    rContainerBase(std::vector<rBounds*>  children = {}, 
-                   rAnchor                anchor = ANCHOR_NONE,
-                   Rectangle              bounds = {0,0,0,0}, 
-                   Rectangle              padding = {0,0,0,0}, 
-                   rContainerAdjust       adjust = FIT_NONE) 
-        : rBounds(bounds),  padding(padding), children(children), anchor(anchor), adjust(adjust) {}
-    std::vector<rBounds*>  children;
-    rAnchor                anchor;
-    Rectangle              padding;
-    rContainerBase        *parent = nullptr;
-    rContainerAdjust       adjust;
-    float x_offset = 0, y_offset = 0;
-    virtual void  draw() override; 
-    virtual void update() override { anchor_to(); };
-            void anchor_to();
-};
+    enum ContainerAdjust {
+        FIT_NONE,
+        FIT_PARENT_WIDTH,
+        FIT_PARENT_HEIGHT,
+        FIT_BOTH
+    };
 
-struct rHBox : public rContainerBase {
-    rHBox(Rectangle              bounds, 
-          Rectangle              padding, 
-          std::vector<rBounds*>  children, 
-          float                  spacing = 0, 
-          rAnchor                anchor = ANCHOR_NONE, 
-          rContainerAdjust       adjust = FIT_NONE) 
-        : rContainerBase(children, anchor, bounds, padding, adjust), spacing(spacing) {}
-    float spacing = 0;
-    virtual void update() override;
-};
+    struct ContainerBase : public Bounds {
+        ContainerBase(std::vector<Bounds*>  *children, 
+                    Anchor                ranchor  = ANCHOR_NONE,
+                    Rectangle              bounds   = {}, 
+                    Rectangle              padding  = {}, 
+                    ContainerAdjust       adjust   = FIT_NONE,
+                    ContainerBase*        parent   = nullptr,
+                    bool                   enabled  = true
+                    ) 
+            : Bounds(bounds), padding(padding), children(*children), ranchor(ranchor), adjust(adjust), enabled(enabled), parent(parent) 
+            {}
+            
+        Rectangle              padding  = {};
 
-struct rVBox : public rContainerBase {
-    rVBox(Rectangle              bounds, 
-          Rectangle              padding, 
-          std::vector<rBounds*>  children, 
-          float                  spacing = 0, 
-          rAnchor                anchor = ANCHOR_NONE, 
-          rContainerAdjust       adjust = FIT_NONE) 
-        : rContainerBase(children, anchor, bounds, padding, adjust), spacing(spacing) {}
-    float spacing = 0;
-    virtual void update() override;
-};
+        ContainerBase        *parent   = nullptr;
+        std::vector<Bounds*>  children = {};
+        Anchor                ranchor  = ANCHOR_NONE;
+        ContainerAdjust       adjust   = FIT_NONE;
 
+        bool                   enabled  = true; // use GuiDisable before drawing
 
+        virtual void draw()   override; 
+        virtual void update() override { _set_anchor(); };
 
-///////////////////////////////////////////////////////////////////////////
+                void _set_anchor();
+    };
 
-//                                                                      NEW
+    struct HBox : public ContainerBase {
+        HBox(Rectangle           bounds, 
+            Rectangle            padding, 
+            std::vector<Bounds*> children, 
+            float                spacing = 0, 
+            Anchor               anchor = ANCHOR_NONE, 
+            ContainerAdjust      adjust = FIT_NONE,
+            ContainerBase*       parent = nullptr,
+            bool                 enabled = true) 
+            : ContainerBase(&children, anchor, bounds, padding, adjust, parent, enabled), spacing(spacing) 
+            {}
+        HBox(std::vector<Bounds*> children, 
+            float                 spacing = 0, 
+            Anchor                anchor = ANCHOR_NONE, 
+            ContainerAdjust       adjust = FIT_NONE, 
+            Rectangle             bounds = {}, 
+            Rectangle             padding = {},
+            ContainerBase*        parent = nullptr,
+            bool                  enabled = true) 
+            : ContainerBase(&children, anchor, bounds, padding, adjust, parent, enabled), spacing(spacing) 
+            {}
+        float spacing = 0;
+        virtual void update() override;
+    };
 
-///////////////////////////////////////////////////////////////////////////
+    struct VBox : public ContainerBase {
+        VBox(Rectangle              bounds, 
+            Rectangle              padding, 
+            std::vector<Bounds*>  children, 
+            float                  spacing = 0, 
+            Anchor                anchor = ANCHOR_NONE, 
+            ContainerAdjust       adjust = FIT_NONE,
+            ContainerBase*        parent = nullptr,
+            bool                   enabled = true) 
+                : ContainerBase(&children, anchor, bounds, padding, adjust, parent, enabled), spacing(spacing) 
+            {}
+        VBox(std::vector<Bounds*>  children, 
+            float                  spacing = 0, 
+            Anchor                anchor = ANCHOR_NONE, 
+            ContainerAdjust       adjust = FIT_NONE, 
+            Rectangle              bounds = {}, 
+            Rectangle              padding = {},
+            ContainerBase*        parent = nullptr,
+            bool                   enabled = true) 
+                : ContainerBase(&children, anchor, bounds, padding, adjust, parent, enabled), spacing(spacing) 
+            {}
+        float spacing = 0;
+        virtual void update() override;
+    };
 
-struct rVLayout {
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    //                                                                  WIDGETS
+    //
+    ///////////////////////////////////////////////////////////////////////////
 
-};
+    struct Line : public Bounds {
+        Line(Rectangle bounds, const char *text)           : Bounds(bounds), text(text) {}
+        Line(float width, float height, const char *text)  : Bounds({0, 0, width, height}), text(text) {}
+        Line(const char *text)                             : Bounds({0, 0, 0, 0}), text(text) {}
 
+        const char *text;
 
+        void draw() override { result = GuiLine(bounds, text); }
+    };
 
+    struct TabBar : public Bounds {
+        TabBar(Rectangle bounds, const char **tabs, int count, int active)          : Bounds(bounds), tabs(tabs), count(count), active(active) {}
+        TabBar(float width, float height, const char **tabs, int count, int active) : Bounds({0, 0, width, height}), tabs(tabs), count(count), active(active) {}
+        TabBar(const char **tabs, int count, int active)                            : Bounds({0, 0, 0, 0}), tabs(tabs), count(count), active(active) {}
 
-///////////////////////////////////////////////////////////////////////////
+        const char **tabs;
+        int count;
+        int active;
 
-//                                                                  WIDGETS
+        void draw() override { result = GuiTabBar(bounds, tabs, count, &active); }
+    };
 
-///////////////////////////////////////////////////////////////////////////
+    struct Label : public Bounds {
+        Label(Rectangle bounds, const char *text)          : Bounds(bounds), text(text) {}
+        Label(float width, float height, const char *text) : Bounds({0, 0, width, height}), text(text) {}
+        Label(const char *text)                            : Bounds({0, 0, 0, 0}), text(text) {}
 
+        const char *text;
+
+        void draw() override { result = GuiLabel(bounds, text); }
+    };
+
+    struct Toggle : public Bounds {
+        Toggle(Rectangle bounds, const char *text = "", bool active = false, std::function<void()> on_click = nullptr)          : Bounds(bounds), text(text), active(active), on_click(on_click) {}
+        Toggle(float width, float height, const char *text = "", bool active = false, std::function<void()> on_click = nullptr) : Bounds({0, 0, width, height}), text(text), active(active), on_click(on_click) {}
+        Toggle(const char *text = "", bool active = false, std::function<void()> on_click = nullptr)                            : Bounds({0, 0, 0, 0}), text(text), active(active), on_click(on_click) {}
+
+        const char *text = nullptr;
+        bool active = false;
+        std::function<void()> on_click = nullptr;
+
+        void draw() override 
+        { 
+            result = GuiToggle(bounds, text, &active); // MOD made to raygui source for callbacks
+            if (result && on_click) on_click(); 
+        }
+    };
+
+    struct ToggleGroup : public Bounds {
+        ToggleGroup(Rectangle bounds, const char *text, int active = 0)          : Bounds(bounds), text(text), active(active) {}
+        ToggleGroup(float width, float height, const char *text, int active = 0) : Bounds({0, 0, width, height}), text(text), active(active) {}
+        ToggleGroup(const char *text, int active = 0)                            : Bounds({0, 0, 0, 0}), text(text), active(active) {}
+        
+        const char *text;
+        int active;
+
+        void draw() override { result = GuiToggleGroup(bounds, text, &active); }
+    };
+
+    struct ComboBox : public Bounds {
+        ComboBox(Rectangle bounds, const char *text, int active = 0)          : Bounds(bounds), text(text), active(active) {}
+        ComboBox(float width, float height, const char *text, int active = 0) : Bounds({0, 0, width, height}), text(text), active(active) {}
+        ComboBox(const char *text, int active = 0)                            : Bounds({0, 0, 0, 0}), text(text), active(active) {}
+        
+        const char *text;
+        int active;
+        
+        void draw() override { 
+            result = GuiComboBox(bounds, text, &active);
+            if (result) {}
+        }
+    };
+
+    struct DropdownBox : public Bounds {
+        DropdownBox(const char* text, int active = 0, std::function<void()> on_click = nullptr) : Bounds({0, 0, 200, 30}), text(text), active(active), editMode(false), on_click(on_click) {}
+        DropdownBox(Rectangle bounds, const char *text, int active, bool editMode = false, std::function<void()> on_click = nullptr) 
+            : Bounds(bounds), text(text), active(active), editMode(editMode), on_click(on_click) {}
+        DropdownBox(float width, float height, const char* text, int active = 0, std::function<void()> on_click = nullptr)
+            : Bounds({0,0,width, height}),text(text),active(active),on_click(on_click) {}
+
+        const char *text;
+        int active;
+        bool editMode;
+        std::function<void()> on_click;
+        
+        void draw() override { 
+            result = GuiDropdownBox(bounds, text, &active, editMode);
+            if (result) {
+                editMode = !editMode;
+                if (on_click) {
+                    on_click();
+                }
+            }
+        }
+    };
+
+    struct Spinner : public Bounds {
+        Spinner(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode = false, std::function<void()> on_click = nullptr) : Bounds(bounds), text(text), value(value), minValue(minValue), maxValue(maxValue), editMode(editMode), on_click(on_click) {}
+        Spinner(int value, int min, int max, std::function<void()> on_click = nullptr) : Bounds({0}), value(value), minValue(min), maxValue(max), on_click(on_click) {}
+        Spinner(float width, float height,int value, int min, int max, std::function<void()> on_click = nullptr) : Bounds({0, 0, width, height}), value(value), minValue(min), maxValue(max), on_click(on_click) {}
+        
+        const char *text = nullptr;
+        int value;
+        int minValue;
+        int maxValue;
+        bool editMode;
+        std::function<void()> on_click;
+        
+        void draw() override { 
+            result = GuiSpinner(bounds, text, &value, minValue, maxValue, editMode);
+            if (result) {
+                if (on_click) on_click();
+                editMode = !editMode;
+            }
+        }
+    };
+
+}; // end namespace rl
+
+typedef rl::Line        RLine;
+typedef rl::HBox        RHbox;
+typedef rl::VBox        RVbox;
+typedef rl::TabBar      RTabBar;
+typedef rl::Label       RLabel;
+typedef rl::Toggle      RToggle;
+typedef rl::ToggleGroup RToggleGroup;
+typedef rl::ComboBox    RComboBox;
+typedef rl::DropdownBox RDropdownBox;
+typedef rl::Spinner     RSpinner;
+
+/*
 struct rWindowBox : public rBounds {
     const char *title;
 
@@ -136,15 +291,7 @@ struct rGroupBox : public rBounds {
     void draw() override { result = GuiGroupBox(bounds, text); }
 };
 
-struct rLine : public rBounds {
-    rLine() = default;
-    rLine(const char *text) : text(text) {}
-    rLine(Rectangle bounds, const char *text) 
-    : rBounds(bounds), text(text) {}
 
-    const char *text;
-    void draw() override { result = GuiLine(bounds, text); }
-};
 
 struct rPanel : public rBounds {
     rPanel() = default;
@@ -156,16 +303,7 @@ struct rPanel : public rBounds {
     void draw() { result = GuiPanel(bounds, text); }
 };
 
-struct rTabBar : public rBounds {
-    rTabBar() = default;
-    rTabBar(Rectangle bounds, const char **tabs, int count, int active) : rBounds(bounds), tabs(tabs), count(count), active(active) {}
 
-    const char **tabs;
-    int count;
-    int active;
-
-    void draw() override { result = GuiTabBar(bounds, tabs, count, &active); }
-};
 
 struct rScrollPanel : public rBounds {
     rScrollPanel() = default;
@@ -184,15 +322,7 @@ struct rScrollPanel : public rBounds {
 
 ///////////////////////////////////////////////////////////////////////////
 
-struct rLabel : public rBounds {
-    rLabel() = default;
-    
-    rLabel(Rectangle bounds, const char *text) 
-    : rBounds(bounds), text(text) {}
 
-    const char *text;
-    void draw() override { result = GuiLabel(bounds, text); }
-};
 
 struct rButton : public rBounds {
     rButton() = default;
@@ -215,33 +345,7 @@ struct RLabelButton : public rBounds {
     void draw() override { result = GuiLabelButton(bounds, text); }
 };
 
-struct rToggle : public rBounds {
-    rToggle() = default;
-    rToggle(std::function<void()> on_click) : on_click(on_click) {}
-    rToggle(Rectangle bounds, const char *text = "", bool active = false, std::function<void()> on_click = nullptr) : rBounds(bounds), text(text), active(active), on_click(on_click) {}
-    
-    const char *text = nullptr;
-    bool active = false;
-    std::function<void()> on_click = nullptr;
 
-    void draw() override 
-    { 
-        result = GuiToggle(bounds, text, &active); // MOD made to raygui source for callbacks
-        if (result && on_click) on_click(); 
-    }
-};
-
-struct rToggleGroup : public rBounds {
-    rToggleGroup() = default;
-    
-    rToggleGroup(Rectangle bounds, const char *text, int active) 
-    : rBounds(bounds), text(text), active(active) {}
-    
-    const char *text;
-    int active;
-
-    void draw() override { result = GuiToggleGroup(bounds, text, &active); }
-};
 
 struct rToggleSlider : public rBounds {
     rToggleSlider() = default;
@@ -266,68 +370,11 @@ struct rCheckBox : public rBounds {
     void draw() override { result = GuiCheckBox(bounds, text, &checked); }
 };
 
-struct rComboBox : public rBounds {
-    rComboBox() = default;
-    
-    rComboBox(Rectangle bounds, const char *text, int active) 
-    : rBounds(bounds), text(text), active(active) {}
-    
-    const char *text;
-    int active;
-    
-    void draw() override { 
-        result = GuiComboBox(bounds, text, &active);
-        if (result) {
-            // do something when selected
-        }
-    }
-};
 
-struct rDropdownBox : public rBounds {
-    rDropdownBox() = default;
-    rDropdownBox(const char* text, int active = 0, std::function<void()> on_click = nullptr)
-        : rBounds({0, 0, 200, 30}), text(text), active(active), editMode(false), on_click(on_click) {}
-    rDropdownBox(Rectangle bounds, const char *text, int active, bool editMode = false, std::function<void()> on_click = nullptr)
-        : rBounds(bounds), text(text), active(active), editMode(editMode), on_click(on_click) {}
-    
-    const char *text;
-    int active;
-    bool editMode;
-    std::function<void()> on_click;
-    
-    void draw() override { 
-        result = GuiDropdownBox(bounds, text, &active, editMode);
-        if (result) {
-            editMode = !editMode;
-            if (on_click) {
-                on_click();
-            }
-        }
-    }
-};
 
-struct rSpinner : public rBounds {
-    rSpinner() = default;
-    rSpinner(int value, int min, int max, std::function<void()> on_click = nullptr)
-        : rBounds({0, 0, 100, 30}), value(value), minValue(min), maxValue(max), on_click(on_click) {}
-    rSpinner(Rectangle bounds, const char *text, int value, int minValue, int maxValue, bool editMode = false, std::function<void()> on_click = nullptr)
-        : rBounds(bounds), text(text), value(value), minValue(minValue), maxValue(maxValue), editMode(editMode), on_click(on_click) {}
-    
-    const char *text = nullptr;
-    int value;
-    int minValue;
-    int maxValue;
-    bool editMode;
-    std::function<void()> on_click;
-    
-    void draw() override { 
-        result = GuiSpinner(bounds, text, &value, minValue, maxValue, editMode);
-        if (result) {
-            if (on_click) on_click();
-            editMode = !editMode;
-        }
-    }
-};
+
+
+
 
 struct rValueBox : public rBounds {
     rValueBox() = default;
@@ -405,9 +452,11 @@ struct rTextBox : public rBounds {
 struct rSlider : public rBounds {
     rSlider() = default;
     rSlider(float value, float min, float max, std::function<void()> on_click = nullptr, const char *text = nullptr)
-        : value(value), min(min), max(max), on_click(on_click), text(text) {}
+        : value(value), min(min), max(max), on_click(on_click), text(text) 
+        {}
     rSlider(Rectangle bounds, const char *text, const char *right, float value, float min, float max, std::function<void()> on_click = nullptr) 
-        : rBounds(bounds), text(text), right(right), value(value), min(min), max(max), on_click(on_click) {}
+        : rBounds(bounds), text(text), right(right), value(value), min(min), max(max), on_click(on_click) 
+        {}
     
     const char *text = nullptr;
     const char *right = nullptr;
@@ -428,10 +477,15 @@ struct rSlider : public rBounds {
 
 struct rSliderBar : public rBounds {
     rSliderBar() = default;
+    rSliderBar(float width, float height, float value, float min, float max, std::function<void()> on_click = nullptr, const char *text = nullptr)
+        : rBounds({0, 0, width, height}), value(value), min(min), max(max), on_click(on_click), text(text) 
+        {}
     rSliderBar(float value, float min, float max, std::function<void()> on_click = nullptr, const char *text = nullptr)
-        : value(value), min(min), max(max), on_click(on_click), text(text) {}
+        : value(value), min(min), max(max), on_click(on_click), text(text) 
+        {}
     rSliderBar(Rectangle bounds, const char *text, const char *right, float value, float min, float max, std::function<void()> on_click = nullptr) 
-        : rBounds(bounds), text(text), right(right), value(value), min(min), max(max), on_click(on_click) {}
+        : rBounds(bounds), text(text), right(right), value(value), min(min), max(max), on_click(on_click) 
+        {}
     
     const char *text = nullptr;
     const char *right = nullptr;
@@ -448,8 +502,12 @@ struct rSliderBar : public rBounds {
 
 struct rProgressBar : public rBounds {
     rProgressBar() = default;
+    rProgressBar(float value, float min, float max, std::function<void()> on_click = nullptr, const char *text = nullptr)
+        : value(value), min(min), max(max), on_click(on_click), text(text) 
+        {}
     rProgressBar(Rectangle bounds, const char *text, const char *right, float value, float min, float max, std::function<void()> on_click = nullptr) 
-    : rBounds(bounds), text(text), right(right), value(value), min(min), max(max), on_click(on_click) {}
+    : rBounds(bounds), text(text), right(right), value(value), min(min), max(max), on_click(on_click) 
+    {}
     
     const char *text = nullptr;
     const char *right = nullptr;
@@ -460,11 +518,7 @@ struct rProgressBar : public rBounds {
     
     void draw() override { 
         result = GuiProgressBar(bounds, text, right, &value, min, max);
-        if (result) {
-            if (on_click) {
-                on_click();
-            }
-        }
+        if (result && on_click) on_click();
     }
 };
 
@@ -729,6 +783,6 @@ struct rColorPanelHSV : public rBounds {
             }
         }
     }
-};
+};*/
 
 #endif

@@ -29,8 +29,8 @@ CMAKE_AR:FILEPATH=/usr/bin/llvm-ar
 //No help, variable specified on the command line.
 CMAKE_BUILD_TYPE:STRING=Debug
 
-//No help, variable specified on the command line.
-CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++
+//CXX compiler
+CMAKE_CXX_COMPILER:STRING=/usr/bin/clang++
 
 //LLVM archiver
 CMAKE_CXX_COMPILER_AR:FILEPATH=/usr/bin/llvm-ar
@@ -56,8 +56,8 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the CXX compiler during RELWITHDEBINFO builds.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
-//No help, variable specified on the command line.
-CMAKE_C_COMPILER:FILEPATH=/usr/bin/clang
+//C compiler
+CMAKE_C_COMPILER:STRING=/usr/bin/clang
 
 //LLVM archiver
 CMAKE_C_COMPILER_AR:FILEPATH=/usr/bin/llvm-ar
@@ -206,7 +206,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=NoiseGrid
+CMAKE_PROJECT_NAME:STATIC=rlNoise2
 
 //Value Computed by CMake
 CMAKE_PROJECT_SPDX_LICENSE:STATIC=
@@ -374,15 +374,6 @@ INCLUDE_EVERYTHING:BOOL=OFF
 
 //Path to a library.
 MATH_LIBRARY:FILEPATH=/usr/lib/libm.so
-
-//Value Computed by CMake
-NoiseGrid_BINARY_DIR:STATIC=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build
-
-//Value Computed by CMake
-NoiseGrid_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-NoiseGrid_SOURCE_DIR:STATIC=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid
 
 //Path to a file.
 OPENGL_EGL_INCLUDE_DIR:PATH=/usr/include
@@ -870,6 +861,15 @@ raylib_IS_TOP_LEVEL:STATIC=OFF
 //Value Computed by CMake
 raylib_SOURCE_DIR:STATIC=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src
 
+//Value Computed by CMake
+rlNoise2_BINARY_DIR:STATIC=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build
+
+//Value Computed by CMake
+rlNoise2_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+rlNoise2_SOURCE_DIR:STATIC=/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid
+
 
 ########################
 # INTERNAL cache entries
@@ -886,7 +886,7 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=4
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=3
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=0
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=1
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=/usr/bin/cmake
 //Path to cpack program executable.

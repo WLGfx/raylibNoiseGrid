@@ -623,13 +623,41 @@ int main(int argc, char *argv[])
         //                                                                          ########
         //                                                                          ########
         //                                                                          ########
-        //GuiSetStyle(DEFAULT, TEXT_SIZE, 32);
-        //GuiSetStyle(DEFAULT, TEXT_PADDING, 8);
-        //GuiSetStyle(DEFAULT, BORDER_WIDTH, 1);
-        //GuiSetStyle(DEFAULT, BORDER_WIDTH, 16);
-        //GuiSetStyle(VALUEBOX, SPINNER_BUTTON_WIDTH, 80);
-        //GuiSetStyle(VALUEBOX, GROUP_PADDING, 16);
-        //GuiSetStyle(COMBOBOX, COMBO_BUTTON_WIDTH, 50);
+        /*GuiSetStyle(DEFAULT, TEXT_SIZE, 32);
+        GuiSetStyle(DEFAULT, TEXT_PADDING, 8);
+        GuiSetStyle(DEFAULT, BORDER_WIDTH, 1);
+        GuiSetStyle(DEFAULT, BORDER_WIDTH, 4);
+        GuiSetStyle(VALUEBOX, SPINNER_BUTTON_WIDTH, 80);
+        GuiSetStyle(VALUEBOX, GROUP_PADDING, 16);
+        GuiSetStyle(COMBOBOX, COMBO_BUTTON_WIDTH, 50);*/
+
+            GuiSetStyle(DEFAULT, TEXT_SIZE, 32);
+            GuiSetStyle(DEFAULT, TEXT_PADDING, 8);
+            GuiSetStyle(DEFAULT, TEXT_COLOR_NORMAL, 0xccccccff);
+            GuiSetStyle(DEFAULT, TEXT_COLOR_FOCUSED, 0x888888ff);
+            GuiSetStyle(DEFAULT, TEXT_COLOR_PRESSED, 0xddddddff);
+            GuiSetStyle(DEFAULT, TEXT_COLOR_DISABLED, 0x767666ff);
+
+            GuiSetStyle(DEFAULT, BASE_COLOR_NORMAL, 0x222222ff);
+            GuiSetStyle(DEFAULT, BASE_COLOR_FOCUSED, 0x444444ff);
+            GuiSetStyle(DEFAULT, BASE_COLOR_PRESSED, 0x888888ff);
+            GuiSetStyle(DEFAULT, BASE_COLOR_DISABLED, 0x000000ff);
+
+            GuiSetStyle(DEFAULT, BORDER_COLOR_NORMAL, 0x000000ff);
+            GuiSetStyle(DEFAULT, BORDER_COLOR_FOCUSED, 0x444444ff);
+            GuiSetStyle(DEFAULT, BORDER_COLOR_PRESSED, 0x888888ff);
+            GuiSetStyle(DEFAULT, BORDER_COLOR_DISABLED, 0x323222ff);
+
+            GuiSetStyle(DEFAULT, BORDER_WIDTH, 4);
+
+            GuiSetStyle(VALUEBOX, SPINNER_BUTTON_WIDTH, 50);
+            GuiSetStyle(VALUEBOX, SPINNER_BUTTON_SPACING, 2);
+
+            GuiSetStyle(DEFAULT, BACKGROUND_COLOR, 0x101010b0);
+            GuiSetStyle(DROPDOWNBOX, ARROW_PADDING, 20);
+            GuiSetStyle(TOGGLE, GROUP_PADDING, 10);
+            GuiSetStyle(SLIDER, SLIDER_WIDTH, 50);
+            GuiSetStyle(SLIDER, SLIDER_PADDING, 2);
 
         // Basic program flow logic
         //----------------------------------------------------------------------------------

@@ -1,16 +1,20 @@
 # NoiseGrid Project CMakeLists.txt
 
 # Add executable
-add_executable(NoiseGrid 
+add_executable(
+    NoiseGrid 
+    
     src/main.cpp
-    inc/FastNoise.cpp
-    inc/NoiseGrid.cpp
-    inc/NoiseChunk.cpp
-    inc/raygui+.cpp
+    inc/FastNoise/FastNoise.cpp
+    inc/NoiseGrid/NoiseGrid.cpp
+    inc/NoiseGrid/NoiseChunk.cpp
+    inc/r/raygui+/raygui+.cpp
+    inc/r/raygui+/rlgui.cpp
     inc/myui.cpp
-    inc/rlshaders.cpp
-    inc/rCamera.cpp
-    inc/implementations.cpp
+    inc/ui2.cpp
+    inc/r/rlshaders/rlshaders.cpp
+    inc/r/rCamera/rCamera.cpp
+    inc/r/implementations.cpp
 )
 
 # Include directories

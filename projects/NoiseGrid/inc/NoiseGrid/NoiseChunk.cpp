@@ -1,4 +1,4 @@
-#include "NoiseGrid.h"
+#include "inc/NoiseGrid/NoiseGrid.h"
 
 void NoiseChunk::initialise(NoiseGrid *grid) {
     this->grid = grid;

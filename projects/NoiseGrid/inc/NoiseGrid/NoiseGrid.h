@@ -7,9 +7,9 @@
 #include <thread>
 #include <mutex>
 
-#include "FastNoise.h"
-#include "rlights.h"
-#include "rlshaders.h"
+#include "inc/FastNoise/FastNoise.h"
+#include "inc/r/rlights.h"
+#include "inc/r/rlshaders/rlshaders.h"
 
 struct vec2i { int x, y; };
 struct vec3i { int x, y, z; };

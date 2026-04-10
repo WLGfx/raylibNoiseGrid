@@ -6,7 +6,7 @@
 # It is included in the main 'build.ninja'.
 
 # =============================================================================
-# Project: NoiseGrid
+# Project: rlNoise2
 # Configurations: Debug
 # =============================================================================
 # =============================================================================
@@ -51,7 +51,7 @@ rule C_COMPILER__glfw_unscanned_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__NoiseGrid_unscanned_Debug
+rule CXX_COMPILER__rlNoise2_unscanned_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}/usr/bin/clang++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -61,7 +61,7 @@ rule CXX_COMPILER__NoiseGrid_unscanned_Debug
 #############################################
 # Rule for linking CXX executable.
 
-rule CXX_EXECUTABLE_LINKER__NoiseGrid_Debug
+rule CXX_EXECUTABLE_LINKER__rlNoise2_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = $PRE_LINK && /usr/bin/clang++ $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD

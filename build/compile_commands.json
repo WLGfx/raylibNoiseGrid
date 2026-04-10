@@ -175,56 +175,26 @@
 },
 {
   "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/src/main.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/src/main.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/src/main.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/src/main.cpp.o"
+  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/rlNoise2/CMakeFiles/rlNoise2.dir/src/main.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/src/main.cpp",
+  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/src/main.cpp",
+  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/rlNoise2/CMakeFiles/rlNoise2.dir/src/main.cpp.o"
 },
 {
   "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/FastNoise.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/FastNoise.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/FastNoise.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/FastNoise.cpp.o"
+  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/rlNoise2/CMakeFiles/rlNoise2.dir/inc/Game.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc/Game.cpp",
+  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc/Game.cpp",
+  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/rlNoise2/CMakeFiles/rlNoise2.dir/inc/Game.cpp.o"
 },
 {
   "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/NoiseGrid.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/NoiseGrid.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/NoiseGrid.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/NoiseGrid.cpp.o"
+  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/rlNoise2/CMakeFiles/rlNoise2.dir/inc/FastNoise/FastNoise.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc/FastNoise/FastNoise.cpp",
+  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc/FastNoise/FastNoise.cpp",
+  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/rlNoise2/CMakeFiles/rlNoise2.dir/inc/FastNoise/FastNoise.cpp.o"
 },
 {
   "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/NoiseChunk.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/NoiseChunk.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/NoiseChunk.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/NoiseChunk.cpp.o"
-},
-{
-  "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/raygui+.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/raygui+.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/raygui+.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/raygui+.cpp.o"
-},
-{
-  "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/myui.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/myui.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/myui.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/myui.cpp.o"
-},
-{
-  "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rlshaders.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/rlshaders.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/rlshaders.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rlshaders.cpp.o"
-},
-{
-  "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rCamera.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/rCamera.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/rCamera.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/rCamera.cpp.o"
-},
-{
-  "directory": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build",
-  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/implementations.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/implementations.cpp",
-  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/NoiseGrid/inc/implementations.cpp",
-  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/NoiseGrid/CMakeFiles/NoiseGrid.dir/inc/implementations.cpp.o"
+  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DNDEBUG -DPLATFORM_DESKTOP -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raylib/src/external/glfw/include -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/external/raygui/src -I/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc -g -std=gnu++17 -flto=thin -O0 -march=native -flto -fno-exceptions -o projects/rlNoise2/CMakeFiles/rlNoise2.dir/inc/noisemap.cpp.o -c /home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc/noisemap.cpp",
+  "file": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/projects/rlNoise2/inc/noisemap.cpp",
+  "output": "/home/wlgfx/MEGA/WLGfx-2026/vs/raylib/rlNoiseGrid/build/projects/rlNoise2/CMakeFiles/rlNoise2.dir/inc/noisemap.cpp.o"
 }
 ]

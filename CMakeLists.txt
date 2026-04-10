@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(NoiseGrid)
+project(rlNoise2)
 
 # Compiler optimizations
 add_compile_options(-O0 -march=native -flto -fno-exceptions)
@@ -24,7 +24,7 @@ include_directories(${CMAKE_SOURCE_DIR}/external/raylib/src/external/glfw/includ
 include_directories(${CMAKE_SOURCE_DIR}/external/raygui/src)
 
 # Add project
-add_subdirectory(projects/NoiseGrid)
+add_subdirectory(projects/rlNoise2)
 
 # Enable link-time optimization
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)

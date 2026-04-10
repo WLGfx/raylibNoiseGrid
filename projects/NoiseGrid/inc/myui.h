@@ -1,12 +1,16 @@
 #ifndef MYUI_H
 #define MYUI_H
 
-#include "raygui+.h"
-#include "NoiseGrid.h"
-#include "rCamera.h"
+#include "inc/FastNoise/FastNoise.h"
+#include "inc/r/raygui+/raygui+.h"
+#include "inc/NoiseGrid/NoiseGrid.h"
+#include "inc/r/rCamera/rCamera.h"
+//#include <string>
+#include <vector>
+
+#define RUI_HEIGHT 56
 
 struct MYUI {
-    #define RUI_HEIGHT 56
 
     MYUI(rlCamera* cam, NoiseGrid* noise) : camera(cam), noise_grid(noise) {}
 
@@ -15,10 +19,11 @@ struct MYUI {
     struct {float width = 0, height = 0;} window_size;
 
     void update();
+    void draw();
 
     // Menu
 
-    rToggleGroup menu_select = {{0, 0, 120, RUI_HEIGHT}, "Grid;Noise;Camera;. . .", 0};
+    rToggleGroup menu_select = {{0, 0, 120, RUI_HEIGHT}, "Grid;Noise;Camera;. . .", 3};
 
     // Grid and Chunk
 
@@ -50,7 +55,7 @@ struct MYUI {
     void on_noise_type_changed();
     void on_noise_interp_changed();
 
-    rContainerBase grid_container = {{&grid, &noise_type}};
+    //rContainerBase grid_container = {{&grid, &noise_type}};
 
     // sliders
 
@@ -63,13 +68,13 @@ struct MYUI {
                            &greater_than,
                            &less_than}, 
                            2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
-    rSlider    seed =         { 0, 0, 9999,          std::bind(&MYUI::on_seed_changed, this),         "Seed" };
-    rSlider    octaves =      { 1, 1, 10,            std::bind(&MYUI::on_octaves_changed, this),      "Octav" };
+    rSlider    seed =         { 0, 0, 9999,           std::bind(&MYUI::on_seed_changed, this),         "Seed" };
+    rSlider    octaves =      { 1, 1, 10,             std::bind(&MYUI::on_octaves_changed, this),      "Octav" };
     rSliderBar frequency =    { 0.01f, 0.0001f, 0.2f, std::bind(&MYUI::on_frequency_changed, this),    "Frequ" };
-    rSliderBar gain =         { 0.5f, 0.0f, 5.0f,    std::bind(&MYUI::on_gain_changed, this),         "Gain" };
-    rSliderBar lacunarity =   { 0.1f, 0.0f, 3.0f,    std::bind(&MYUI::on_lacunarity_changed, this),   "Lacun" };
-    rSliderBar greater_than = { 0.0f, -2.0f, 2.0f,   std::bind(&MYUI::on_greater_than_changed, this), "Great" };
-    rSliderBar less_than =    { 0.1f, -2.0f, 2.0f,   std::bind(&MYUI::on_less_than_changed, this),    "Less" };
+    rSliderBar gain =         { 0.5f, 0.0f, 5.0f,     std::bind(&MYUI::on_gain_changed, this),         "Gain" };
+    rSliderBar lacunarity =   { 0.1f, 0.0f, 3.0f,     std::bind(&MYUI::on_lacunarity_changed, this),   "Lacun" };
+    rSliderBar greater_than = { 0.0f, -2.0f, 2.0f,    std::bind(&MYUI::on_greater_than_changed, this), "Great" };
+    rSliderBar less_than =    { 0.1f, -2.0f, 2.0f,    std::bind(&MYUI::on_less_than_changed, this),    "Less" };
     void on_seed_changed();
     void on_octaves_changed();
     void on_frequency_changed();
@@ -108,7 +113,7 @@ struct MYUI {
     rLine cellular_line = {"Cellular"};
     rDropdownBox fractal = {"Fbm;RigidMulti;Billow", 0, std::bind(&MYUI::on_fractal_changed, this)};
     rDropdownBox distance_function = {"Euclidean;Manhattan;Natural", 0, std::bind(&MYUI::on_distance_function_changed, this)};
-    rDropdownBox return_type = {"CellValue;Distance;Distance2;Distance2Add;Distance2Sub;Distance2Mul;Distance2Div", 0, std::bind(&MYUI::on_return_type_changed, this)};
+    rDropdownBox return_type = {"CellValue;NoiseLookup;Distance;Distance2;Distance2Add;Distance2Sub;Distance2Mul;Distance2Div", 0, std::bind(&MYUI::on_return_type_changed, this)};
     void on_fractal_changed();
     void on_distance_function_changed();
     void on_return_type_changed();
@@ -116,7 +121,7 @@ struct MYUI {
     rVBox jitter = {{550, 8*RUI_HEIGHT, 730, 1*RUI_HEIGHT}, {10, 4, 10, 4}, 
                            {&jitter_slider}, 
                            2.0f, ANCHOR_TOP_LEFT, FIT_BOTH};
-    rSliderBar jitter_slider = {0.2f, 0.0f, 2.0f, std::bind(&MYUI::on_jitter_changed, this), "Jitter"};
+    rSliderBar jitter_slider = {1.0f, 0.0f, 4.0f, std::bind(&MYUI::on_jitter_changed, this), "Jitter"};
     void on_jitter_changed();
 
     rVBox jitter_box = {{280, 8*RUI_HEIGHT, 180, 1*RUI_HEIGHT}, {10, 4, 10, 4}, 
@@ -322,8 +327,9 @@ struct MYUI {
         FastNoise::CellularDistanceFunction::Manhattan,
         FastNoise::CellularDistanceFunction::Natural
     };
-    const FastNoise::CellularReturnType return_types[7] = { 
+    const FastNoise::CellularReturnType return_types[8] = { 
         FastNoise::CellularReturnType::CellValue,
+        FastNoise::CellularReturnType::Distance, // should be NoiseLookup
         FastNoise::CellularReturnType::Distance,
         FastNoise::CellularReturnType::Distance2,
         FastNoise::CellularReturnType::Distance2Add,
@@ -334,17 +340,58 @@ struct MYUI {
 
     const int chunk_sizes[6] = {16, 24, 32, 48, 64, 96};
 
-    enum rCameraMode {
-        PAUSE = 0,
-        ORBITAL = 1,
-        PAN = 2,
-        FREE = 3
-    };
-
+    enum rCameraMode {PAUSE = 0, ORBITAL = 1, PAN = 2, FREE = 3};
 
     // TESTS
 
+    struct camera_free {
+        /*
+            From forward axis.
+                - Pitch (up/down)
+                - Yaw (left/right)
+                - Roll (tilt)
+                - Rotate about Z is pitch (mouse y)
+                - Rotate about X is roll (mouse x)
+                - Rotate about Y is yaw (mouse x)
+            Move left/right:
+                - Strafe left/right A/D
+                - Move forward/backward W/S
+                - Move up/down Q/E (optional)
+        */
+    } camera_free;
+
+    struct tests {
+        Rectangle      padding = {10, 4, 10, 4};
+
+        rLine          axis_hdr  = {"Axis"};
+
+        rLabel         l_x_axis  = {"X:"};
+        rLabel         l_y_axis  = {"Y:"};
+        rLabel         l_z_axis  = {"Z:"};
+        
+        rValueBoxFloat v_x_axis  = {0.0f};
+        rValueBoxFloat v_y_axis  = {0.0f};
+        rValueBoxFloat v_z_axis  = {0.0f};
+
+        rSliderBar     s_x_axis  = {0,-10,10, std::bind(&tests::on_x_axis_changed, this)};
+        rSliderBar     s_y_axis  = {0,-10,10, std::bind(&tests::on_y_axis_changed, this)};
+        rSliderBar     s_z_axis  = {0,-10,10, std::bind(&tests::on_z_axis_changed, this)};
+        
+        void on_x_axis_changed() { v_x_axis.write(s_x_axis.value); }
+        void on_y_axis_changed() { v_y_axis.write(s_y_axis.value); }
+        void on_z_axis_changed() { v_z_axis.write(s_z_axis.value); }
+
+        rVBox all     = {{&header, &columns}, 0,ANCHOR_TOP_LEFT,FIT_NONE,{},{0,RUI_HEIGHT,0,0}};
+        
+        rHBox header  = {{&axis_hdr},                            0,ANCHOR_TOP_LEFT,FIT_NONE,{0,0,640,1*RUI_HEIGHT},padding,&all};
+        rHBox columns = {{&labels,  &values,  &sliders}, 0,ANCHOR_TOP_LEFT,FIT_BOTH,{0,0,640,3*RUI_HEIGHT},{},&all};
+        
+        rVBox labels  = {{&l_x_axis,&l_y_axis,&l_z_axis},4,ANCHOR_TOP_LEFT,FIT_BOTH,{0,0,80, 3*RUI_HEIGHT},padding,&columns};
+        rVBox values  = {{&v_x_axis,&v_y_axis,&v_z_axis},4,ANCHOR_TOP_LEFT,FIT_BOTH,{0,0,160,3*RUI_HEIGHT},padding,&columns,false};
+        rVBox sliders = {{&s_x_axis,&s_y_axis,&s_z_axis},4,ANCHOR_TOP_LEFT,FIT_BOTH,{0,0,350,3*RUI_HEIGHT},padding,&columns};
     
+    } tests;
 };
+
 
 #endif

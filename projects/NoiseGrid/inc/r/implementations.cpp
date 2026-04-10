@@ -4,7 +4,7 @@
 
 
 #define RLIGHTS_IMPLEMENTATION
-#include "inc/rlights.h"
+#include "inc/r/rlights.h"
 #undef RLIGHTS_IMPLEMENTATION
 
 /* Notes:

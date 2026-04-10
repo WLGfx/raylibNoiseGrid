@@ -1,0 +1,26 @@
+#
+# rgl layout text file (v4.0) - raygui layout file generated using rGuiLayout
+#
+# Number of controls:     15
+#
+# Ref. window:    r <x> <y> <width> <height>
+# Anchor info:    a <id> <name> <posx> <posy> <enabled>
+# Control info:   c <id> <type> <name> <rectangle> <anchor_id> <text>
+#
+r 0 40 -1 -1
+a 001 anchor01 8 24 1
+c 000 1 View 0 0 1096 312 1 View
+c 001 16 target_slider_x 16 80 408 48 1 
+c 002 16 target_slider_y 16 136 408 48 1 
+c 003 16 target_slider_z 16 192 408 48 1 
+c 004 5 target_reset_button 16 248 120 48 1 Reset
+c 005 2 target_line 16 24 408 48 1 Target
+c 006 7 range_check 864 192 48 48 1 View range
+c 007 2 position_line 440 24 400 48 1 Position
+c 008 16 position_slider_x 440 80 400 48 1 
+c 009 16 position_slider_y 440 136 400 48 1 
+c 010 16 position_slider_z 440 192 400 48 1 
+c 011 7 debug_grid_check 864 80 48 48 1 View grid
+c 012 2 debug_line 856 24 216 48 1 Debug
+c 013 7 map_bounds_check 864 136 48 48 1 Map bounds
+c 014 7 orbit_check 864 248 48 48 1 Orbit

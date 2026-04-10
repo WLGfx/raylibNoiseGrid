@@ -2,7 +2,7 @@
 #define RLSHADERS_H
 
 #include "raylib.h"
-#include "rlights.h"
+#include "../rlights.h"
 
 struct shader_lighting_instancing {
     void init();

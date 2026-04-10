@@ -1,0 +1,48 @@
+#
+# rgl layout text file (v4.0) - raygui layout file generated using rGuiLayout
+#
+# Number of controls:     38
+#
+# Ref. window:    r <x> <y> <width> <height>
+# Anchor info:    a <id> <name> <posx> <posy> <enabled>
+# Control info:   c <id> <type> <name> <rectangle> <anchor_id> <text>
+#
+r 0 40 -1 -1
+c 000 1 Noise -2147483648 0 0 0 0 
+c 001 23 layout_panel 24 40 1192 680 0 
+c 002 11 noise_type 256 104 240 48 0 Value;ValueFractal;Perlin;PerlinFractal;Simplex;SimplexFractal;Cellular;WhiteNoise;Cubic;CubicFractal
+c 003 11 noise_interp 512 104 192 48 0 Linear;Hermite;Quintic
+c 004 11 noise_fractal 720 104 192 48 0 FBM;Billow;RigidMulti
+c 005 14 noise_seed 112 104 128 48 0 Seed
+c 006 14 noise_frequency_value 184 160 176 48 0 Frequency
+c 007 15 noise_octaves 1048 104 160 48 0 Octaves
+c 008 14 noise_lacunarity_value 184 216 176 48 0 Lacunarity
+c 009 14 noise_gain_value 184 272 176 48 0 Gain
+c 010 11 cell_distance_function 504 328 192 48 0 Euclidean;Manhattan;Natural
+c 011 11 cell_return_type 296 328 192 48 0 CellValue;NoiseLookup;Distance;Distance2;Distance2Add;Distance2Sub;Distance2Mul;Distance2Div
+c 012 15 cell_indice0 840 328 176 48 0 Indice0-1
+c 013 15 cell_indice1 1032 328 176 48 0 
+c 014 14 cell_jitter_value 184 384 176 48 0 Jitter
+c 015 2 line_cell 32 328 256 48 0 Cellular
+c 016 2 look_line 32 440 256 48 0 NoiseLookup
+c 017 14 look_seed 112 496 128 48 0 Seed
+c 018 11 look_noise_type 256 496 240 48 0 Value;ValueFractal;Perlin;PerlinFractal;Simplex;SimplexFractal;WhiteNoise;Cubic;CubicFractal
+c 019 11 look_interp 512 496 192 48 0 Linear;Hermite;Quintic
+c 020 11 look_fractal 720 496 192 48 0 FBM;Billow;RigidMulti
+c 021 15 look_octaves 1048 496 160 48 0 Octaves
+c 022 14 look_frequency_value 184 552 176 48 0 Frequency
+c 023 14 look_lacunarity_value 184 608 176 48 0 Lacunarity
+c 024 14 look_gain_value 184 664 176 48 0 Gain
+c 025 17 look_frequency 368 552 840 48 0 
+c 026 17 look_lacunarity 368 608 840 48 0 
+c 027 17 look_gain 368 664 840 48 0 
+c 028 17 noise_frequency_slider 368 160 840 48 0 
+c 029 17 noise_lacunarity_slider 368 216 840 48 0 
+c 030 17 noise_gain_slider 368 272 840 48 0 
+c 031 17 cell_jitter 368 384 840 48 0 
+c 032 2 line_noise 32 48 256 48 0 Noise range
+c 033 1 layout_noise 16 32 1208 696 0 Noise
+c 034 14 noise_to_value 768 48 96 48 0 <
+c 035 16 noise_from 296 48 336 48 0 
+c 036 16 noise_to 872 48 336 48 0 
+c 037 14 noise_from_value 640 48 96 48 0 

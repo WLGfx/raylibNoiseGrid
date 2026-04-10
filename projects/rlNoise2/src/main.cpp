@@ -1,29 +1,19 @@
-#include "raylib.h"
-#define RAYGUI_IMPLEMENTATION
-#include "raygui.h"
+#include "Game.h"
 
 int main() {
-    const int screenWidth = 800;
-    const int screenHeight = 600;
+    const int screenWidth = 1280;
+    const int screenHeight = 800;
 
-    InitWindow(screenWidth, screenHeight, "New Raylib Project");
+    InitWindow(screenWidth, screenHeight, "WLGfx's new Super Dooper Project");
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
 
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-            ClearBackground(RAYWHITE);
-            
-            DrawText("New Raylib Project", 190, 200, 20, LIGHTGRAY);
-            DrawText("This is your new project workspace!", 160, 240, 20, LIGHTGRAY);
-            
-            // Example GUI element
-            if (GuiButton((Rectangle){ 350, 300, 100, 50 }, "Click Me")) {
-                // Button clicked
-            }
-            
-        EndDrawing();
-    }
+    Game game;
+    game.run();
 
     CloseWindow();
     return 0;
 }
+
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
